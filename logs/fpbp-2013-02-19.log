@@ -1,0 +1,25 @@
+INFO 01:12:58.444 Main->main:57 Configuring project constants...
+INFO 01:12:58.446 Main->main:212 ...configured, now loading CodeIgniter.
+INFO 01:12:58.447 Main->main:19 Including CodeIgniter required files
+DEBUG 01:12:58.461 Main->main:219 [Starting] Loading CodeIgniter base controller class
+DEBUG 01:12:58.461 Main->main:228 [Starting] Loading user defined base controller class
+DEBUG 01:12:58.461 Main->main:233 [Starting] Loading local base controller class
+DEBUG 01:12:58.462 Main->main:258 [Starting] Checking requested class and requested method... 
+DEBUG 01:12:58.462 Main->main:277 [Starting] ...found
+DEBUG 01:12:58.465 Main->main:337 [Starting] calling user class and method
+INFO 01:14:42.519 Main->main:57 Configuring project constants...
+INFO 01:14:42.520 Main->main:212 ...configured, now loading CodeIgniter.
+INFO 01:14:42.522 Main->main:19 Including CodeIgniter required files
+DEBUG 01:14:42.535 Main->main:219 [Starting] Loading CodeIgniter base controller class
+DEBUG 01:14:42.536 Main->main:228 [Starting] Loading user defined base controller class
+DEBUG 01:14:42.536 Main->main:233 [Starting] Loading local base controller class
+DEBUG 01:14:42.537 Main->main:258 [Starting] Checking requested class and requested method... 
+DEBUG 01:14:42.537 Main->main:277 [Starting] ...found
+INFO 01:18:07.706 Main->main:57 Configuring project constants...
+INFO 01:18:07.708 Main->main:212 ...configured, now loading CodeIgniter.
+INFO 01:18:07.709 Main->main:19 Including CodeIgniter required files
+DEBUG 01:18:07.724 Main->main:219 [Starting] Loading CodeIgniter base controller class
+DEBUG 01:18:07.724 Main->main:228 [Starting] Loading user defined base controller class
+DEBUG 01:18:07.725 Main->main:233 [Starting] Loading local base controller class
+DEBUG 01:18:07.725 Main->main:258 [Starting] Checking requested class and requested method... 
+INFO 02:31:30.846 MysqlConnection->connect:92 Connecting to host [localhost] database [hardwarehouse] 
