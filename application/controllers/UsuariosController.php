@@ -37,7 +37,7 @@ class UsuariosController extends MY_Controller{
         $usuario->setId($_POST['id']);
         $usuario->setNome($_POST['nome']);
         $this->servico->inserir($usuario);
-        echo 'usuario registrado id:'.$usuario->getId();
+        echo 'usuario registrado id: '.$usuario->getId();
     }
 }
 
