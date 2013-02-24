@@ -30,6 +30,11 @@
 class CI_Controller {
 
 	private static $instance;
+        /**
+         *
+         * @var CI_Loader
+         */
+        protected $load;
 
 	/**
 	 * Constructor

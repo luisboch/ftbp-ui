@@ -31,7 +31,7 @@ define('ENVIRONMENT', 'development');
 if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
         case 'development':
-            error_reporting(E_ALL);
+            //error_reporting(E_ALL);
 
             // Add new include path of local folder only on development mode
             set_include_path(get_include_path() . ';C:\xampp\htdocs\includes');
