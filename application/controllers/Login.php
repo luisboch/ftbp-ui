@@ -27,6 +27,7 @@ class Login extends MY_Controller {
         $email = $_POST['email'];
         $senha = $_POST['senha'];
         echo 'logou com: '.$this->service->login($email, $senha);
+        exit;
     }
 
 }
