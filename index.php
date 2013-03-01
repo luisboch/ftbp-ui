@@ -32,10 +32,16 @@ if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
         case 'development':
             //error_reporting(E_ALL);
-
+            
             // Add new include path of local folder only on development mode
-            set_include_path(get_include_path() . ';C:\xampp\htdocs\includes');
-                break;
+            if (PHP_OS == 'Linux') {
+                set_include_path(get_include_path() . ':/var/www/includes');
+            } else {
+              
+                set_include_path(get_include_path() . ';C:\xampp\htdocs\includes');
+            }
+            
+            break;
 
         case 'testing':
         case 'production':
