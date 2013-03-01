@@ -27,15 +27,27 @@ class UsuariosController extends MY_Controller{
     }
     
     public function registro(){
-        $this->load->view('basic/usuario_form.php');
+        $id = $this->uri->segment(3);
+        if($id != null){
+            $usuario = $this->servico->getById($id);
+            echo 'usuario encontrado id: '.$usuario->getId();
+            $usuario->getDepartamento();
+            $usuario->getDepartamento();
+            exit;
+        }else{
+            $this->load->view('basic/usuario_form.php');    
+        }
+        
     }
     
     public function salvar(){
-        $usuario = new Aluno();
+        $usuario = new Usuario();
         $usuario->setEmail($_POST['email']);
         $usuario->setSenha($_POST['senha']);
         $usuario->setId($_POST['id']);
         $usuario->setNome($_POST['nome']);
+        $usuario->setTipoUsuario(TipoUsuario::FUNCIONARIO);
+        
         $this->servico->inserir($usuario);
         echo 'usuario registrado id: '.$usuario->getId();
     }
