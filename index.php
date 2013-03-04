@@ -37,7 +37,6 @@ if (defined('ENVIRONMENT')) {
             if (PHP_OS == 'Linux') {
                 set_include_path(get_include_path() . ':/var/www/includes');
             } else {
-              
                 set_include_path(get_include_path() . ';C:\xampp\htdocs\includes');
             }
             

@@ -17,3 +17,24 @@ create table usuarios(
         references departamento(id)
         
 );
+
+
+create table pesquisa(
+	id serial primary key,
+	tipo character varying (60) not null,
+	entidade_id integer not null,
+	titulo character varying (300) not null,
+	descricao character varying (500) not null,
+	link character varying (500) not null
+);
+
+create table palavras_chave(
+	pesquisa_id integer not null,
+	palavra character varying(100) not null,
+	constraint fk_palavra_pesquisa foreign key (pesquisa_id) 
+		references pesquisa(id)
+);
+
+create index idx_pesquisa_tipo_entidade on pesquisa (tipo, entidade_id);
+create index idx_pesquisa_palavra on palavras_chave (palavra);
+
