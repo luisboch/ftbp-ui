@@ -17,3 +17,9 @@ create table usuarios(
         references departamento(id)
         
 );
+
+create table nivel_curso(
+	id serial primary key,
+	nome character varying(200),
+        data_criacao timestamp not null default now()
+);
