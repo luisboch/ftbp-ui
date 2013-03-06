@@ -38,3 +38,16 @@ create table palavras_chave(
 create index idx_pesquisa_tipo_entidade on pesquisa (tipo, entidade_id);
 create index idx_pesquisa_palavra on palavras_chave (palavra);
 
+create table notificacoes(
+	id serial primary key,
+	usuario_id integer not null,
+	descricao character varying (1000) not null,
+	excluida boolean not null default false,
+	visualizada boolean not null default false,
+	data timestamp not null, 
+	data_expiracao timestamp not null,
+	data_criacao timestamp not null default now(),
+        link character varying (1000) not null,
+	constraint fk_notificacao_usuario foreign key (usuario_id)
+	references usuarios(id)
+);
