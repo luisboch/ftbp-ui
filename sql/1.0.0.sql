@@ -18,7 +18,6 @@ create table usuarios(
         
 );
 
-
 create table pesquisa(
 	id serial primary key,
 	tipo character varying (60) not null,
@@ -50,4 +49,11 @@ create table notificacoes(
         link character varying (1000) not null,
 	constraint fk_notificacao_usuario foreign key (usuario_id)
 	references usuarios(id)
+);
+
+
+create table nivel_curso(
+	id serial primary key,
+	nome character varying(200),
+        data_criacao timestamp not null default now()
 );
