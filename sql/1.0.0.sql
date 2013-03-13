@@ -57,3 +57,4 @@ create table nivel_curso(
 	nome character varying(200),
         data_criacao timestamp not null default now()
 );
+
