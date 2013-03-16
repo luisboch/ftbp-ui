@@ -6,7 +6,7 @@
         <li><a href="#">Cadastrar</a> 
             <ul> 
                 <li><a href="#" onclick="cadastro('cadastrarCurso', '.html');">Cursos</a></li>
-                <li><a href="#" onclick="cadastro('cadastrarSetor', '.html');">Setores</a></li> 
+                <li><a href="<?= site_url('DepartamentoController/index') ?>" onclick="return carregar('DepartamentoController/index');">Setores</a></li> 
                 <li><a href="#" onclick="cadastro('cadastrarFuncionario', '.html');">Funcionários</a></li>
             </ul> 
         </li>
@@ -44,4 +44,4 @@
                 
             }
 </script>
-<div id="conteudo">
+<div id="conteudo" align="center"> 
