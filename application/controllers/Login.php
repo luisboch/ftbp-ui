@@ -1,4 +1,5 @@
 <?php
+
 require_once 'ftbp-src/servicos/impl/ServicoUsuario.php';
 /*
  * LoginService.php
@@ -23,11 +24,27 @@ class Login extends MY_Controller {
         $this->service = new ServicoUsuario();
     }
 
+    public function index() {
+        $this->login();
+    }
+
     public function logar() {
         $email = $_POST['email'];
         $senha = $_POST['senha'];
-        echo 'logou com: '.$this->service->login($email, $senha);
-        exit;
+
+        $usuario = $this->service->login($email, $senha);
+        $this->session->setUsuario($usuario);
+        $this->redirect('/');
+    }
+
+    public function logout() {
+        $this->session->close();
+        $this->redirect('/');
+        
+    }
+
+    public function checkLogin() {
+        return false;
     }
 
 }

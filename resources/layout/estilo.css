@@ -2,7 +2,7 @@
     background: #fff;
 }
 
-#cabecalho, #login, #rodape, #barra_menu, #conteudo{
+#cabecalho, #rodape, #barra_menu, #conteudo{
     background: #fff url('../imagens/fundo.jpg');
     margin: 10px;
     width: 1000px ;
@@ -23,12 +23,12 @@
     background: #000;
     height: 25px;
 }
-#cabecalho, #login{    
+#cabecalho{    
     height: 120px ;
     color: #fff;
 }
 
-#login,#rodape{
+#rodape{
     color: #fff;
 }
 
@@ -53,14 +53,29 @@ caption {
 	padding-right: 0.3em;
 }
 
-tr td, tr th{
-	padding: 1px 5px;
-	text-align: left;
-	font-size: 0.9em;
-	border: 1px dotted #333;
-}
-
 a:link {text-decoration:none;color:#696969;}
 a:visited {text-decoration:none;color:#696969;}
 a:active {text-decoration:none;color:#696969;}
-a:hover {text-decoration:underline;color:#999999;} 
+a:hover {text-decoration:underline;color:#999999;}
+
+#usuario-info{
+    text-align: right;
+}
+
+#corpo{
+    margin: auto; 
+    width: 1000px;
+}
+
+#login {
+    width: 368px;
+    margin:auto;
+}
+
+#login table{
+    width: 368px;
+}
+
+#login table tr td:first-child{
+    text-align: right;
+}

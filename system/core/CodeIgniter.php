@@ -336,10 +336,6 @@ if (method_exists($CI, '_remap')) {
     try {
         $_logger->debug('[Starting] calling user class and method');
         call_user_func_array(array(&$CI, $method), array_slice($URI->rsegments, 2));
-    } catch (NoResultException $e) {
-        $_logger->error($e->getMessage());
-        $_logger->error($e->getTraceAsString(), $e);
-        show_404();
     } catch (Exception $e) {
         $_logger->error($e->getMessage());
         $_logger->error($e->getTraceAsString(), $e);
