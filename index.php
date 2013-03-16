@@ -28,6 +28,13 @@ define('ENVIRONMENT', 'development');
  * By default development will show errors but testing and live will hide them.
  */
 
+//Load configurations
+$ini = parse_ini_file('config.ini');
+foreach ($ini as $key => $value){
+    define($key, $value);
+}
+
+
 if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
         case 'development':
