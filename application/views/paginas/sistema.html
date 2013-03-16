@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	
+	<link rel="stylesheet" type="text/css" href="../layout/estilo.css">
+        <link rel="stylesheet" type="text/css" href="../layout/menu.css">
+        <script type="text/javascript" src="../scripts/jquery.js"></script>
+	<title>Gerenciador de Informações</title>
+        <script>
+            function cadastro(opcao,extensao){
+                function clearDivs(){
+                    $("#conteudo").empty();
+                    $("#BBIT_DP_CONTAINER").empty();
+                    $("#conteudo").hide();
+                    
+                }
+			
+		$(function(){
+                    clearDivs();    
+                    $('#conteudo').load(opcao+extensao,{parametro: opcao});
+                    $('#conteudo').show();	
+                    
+		});
+            }
+            
+            $(function(){
+                $('#conteudo').load('notificacoes.html');
+                $('#conteudo').show();	
+            });
+        </script>
+    </head>
+    <body>
+        <div id="corpo" align="center">
+            <div id="cabecalho"> 
+                <a href="sistema.html"><img src="../imagens/logo.JPG" align="middle"/> </a>
+                            
+            </div>
+            
+            <div id="barra_menu">
+                <ul class="menu"> 
+                    <li><a href="#">Cadastrar</a> 
+                        <ul> 
+                            <li><a href="#" onclick="cadastro('cadastrarCurso','.html');">Cursos</a>
+                            <li><a href="#" onclick="cadastro('cadastrarSetor','.html');">Setores</a></li> 
+                            <li><a href="#" onclick="cadastro('cadastrarFuncionario','.html');">Funcionários</a></li> 
+                        </ul> 
+                    </li> 
+                    <li><a href="#">Geral</a></li> 
+                    <li><a href="#">Atualizações</a></li> 
+                    <li><a href="#" onclick="cadastro('../wdCalendar/sample','.php')">Calendário de Atividades</a></li> 
+                    <li><a href="#">Chat</a>
+                        
+                </ul>
+                <div id="pesquisar">
+                        Pesquisar: <input type="text" id="pesquisa" name="pesquisa" />
+                        <input type="submit" value="Ok"/>
+                </div>
+            </div>
+            
+            <div id="conteudo" align="center"></div>
+            
+            <div id="rodape" align="left">
+                © Faculdade Teológica Batista do Paraná. Todos os direitos reservados. Fone: (41) 3024-8142
+            </div>
+        </div>
+    </body>

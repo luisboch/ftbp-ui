@@ -1,0 +1,66 @@
+#corpo {
+    background: #fff;
+}
+
+#cabecalho, #login, #rodape, #barra_menu, #conteudo{
+    background: #fff url('../imagens/fundo.jpg');
+    margin: 10px;
+    width: 1000px ;
+    padding: 10px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+}
+
+#conteudo{
+    background: #fff;
+    height: auto;
+    border:1px solid #c0c0c0;
+    overflow: hidden;
+}
+
+#barra_menu{
+    background: #000;
+    height: 25px;
+}
+#cabecalho, #login{    
+    height: 120px ;
+    color: #fff;
+}
+
+#login,#rodape{
+    color: #fff;
+}
+
+#pesquisar{
+    float: right;
+    color: #fff;
+}
+
+#rodape{
+    height: 30px ;
+    text-align: center;
+}
+
+thead tr th{
+	text-align: center;
+	border-bottom: 2px solid #999;
+}
+caption {
+	text-align: right;
+	margin-bottom: 0.3em;
+	border-bottom: 1px solid #333;
+	padding-right: 0.3em;
+}
+
+tr td, tr th{
+	padding: 1px 5px;
+	text-align: left;
+	font-size: 0.9em;
+	border: 1px dotted #333;
+}
+
+a:link {text-decoration:none;color:#696969;}
+a:visited {text-decoration:none;color:#696969;}
+a:active {text-decoration:none;color:#696969;}
+a:hover {text-decoration:underline;color:#999999;} 
