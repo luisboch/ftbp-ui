@@ -1,9 +1,5 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+require_once 'ftbp-src/servicos/impl/ServicoDepartamento.php';
 
 /**
  * Description of DepartamentoController
@@ -31,7 +27,7 @@ class DepartamentoController extends MY_Controller {
         
         $n = new Departamento();
         $n->setNome($_POST['nome']);
-        $this->servico->salvar($n);
+        $this->servico->inserir($n);
         
     }
 }

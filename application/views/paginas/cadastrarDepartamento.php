@@ -1,4 +1,4 @@
-<form action="<?=site_url('DepartamentoController/salvar')?>">
+<form method="post" action="<?=site_url('DepartamentoController/salvar')?>">
     <table>
         <caption>Cadastro de Setores</caption>
         <tbody>
