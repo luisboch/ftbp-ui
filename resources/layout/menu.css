@@ -25,10 +25,16 @@ body {
     text-decoration:none; 
     padding:5px 10px; 
     display:block;
+    text-align: left;
+    background:#4682B4; 
+    border-radius: 3px;
 }
 
+.menu li ul li a{
+    border-radius: 0px;
+}
 .menu li a:hover{
-    background:#4682B4; 
+    background:#68a4d6; 
     color:#fff; 
     -moz-box-shadow:0 3px 10px 0 #CCC; 
     -webkit-box-shadow:0 3px 10px 0 #ccc; 

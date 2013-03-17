@@ -22,7 +22,7 @@
 }
 
 #barra_menu{
-    background: #000;
+    background:#4682B4;
     height: 25px;
 }
 #cabecalho{    
@@ -45,20 +45,20 @@
 }
 
 thead tr th{
-    text-align: center;
-    border-bottom: 2px solid #999;
+	text-align: center;
+	border-bottom: 2px solid #999;
 }
 caption {
-    text-align: right;
-    margin-bottom: 0.3em;
-    border-bottom: 1px solid #333;
-    padding-right: 0.3em;
+	text-align: right;
+	margin-bottom: 0.3em;
+	border-bottom: 1px solid #333;
+	padding-right: 0.3em;
 }
 
 a:link {text-decoration:none;color:#696969;}
 a:visited {text-decoration:none;color:#696969;}
 a:active {text-decoration:none;color:#696969;}
-a:hover {text-decoration:underline;color:#999999;}
+a:hover {text-decoration:underline;color:#999999;} 
 
 #usuario-info{
     text-align: right;
