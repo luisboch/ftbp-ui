@@ -1,5 +1,7 @@
 #corpo {
     background: #fff;
+    margin: auto; 
+    width: 1040px;
 }
 
 #cabecalho, #rodape, #barra_menu, #conteudo{
@@ -43,14 +45,14 @@
 }
 
 thead tr th{
-	text-align: center;
-	border-bottom: 2px solid #999;
+    text-align: center;
+    border-bottom: 2px solid #999;
 }
 caption {
-	text-align: right;
-	margin-bottom: 0.3em;
-	border-bottom: 1px solid #333;
-	padding-right: 0.3em;
+    text-align: right;
+    margin-bottom: 0.3em;
+    border-bottom: 1px solid #333;
+    padding-right: 0.3em;
 }
 
 a:link {text-decoration:none;color:#696969;}
@@ -60,11 +62,6 @@ a:hover {text-decoration:underline;color:#999999;}
 
 #usuario-info{
     text-align: right;
-}
-
-#corpo{
-    margin: auto; 
-    width: 1000px;
 }
 
 #login {
@@ -78,4 +75,49 @@ a:hover {text-decoration:underline;color:#999999;}
 
 #login table tr td:first-child{
     text-align: right;
+}
+
+#bloco-mensagems{
+    width: 500px;
+    margin: auto;
+    height: 200px;
+    position: absolute;
+    z-index: 9999;
+    border: #FDA 2px solid;
+    background: #FFF;
+    margin-top:15%;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 5px 5px 10px #555555;
+}
+
+#msg-titulo span {
+    float: right;
+    color: #cb8;
+    cursor: pointer;
+}
+
+#msg-titulo {
+    background: none repeat scroll 0 0 #FFDDAA;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    cursor: move;
+}
+
+#msg-titulo span:hover {
+    color: #AA9966;
+}
+
+.msg-item {
+    font-size: 15px;
+    margin: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#msg-location{
+    padding: 10px 30px;
+    overflow: auto;
+    height: 150px;
 }

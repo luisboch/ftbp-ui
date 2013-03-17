@@ -13,6 +13,8 @@ require_once 'ftbp-src/session/SessionManager.php';
  */
 class MY_Controller extends CI_Controller {
 
+    private $messages = array();
+
     /**
      * @var SessionManager
      */
@@ -40,20 +42,32 @@ class MY_Controller extends CI_Controller {
 
     public function view($view, $params = array()) {
 
+        $params['messages'] = $this->messages;
         $params['session'] = $this->session;
         $params['logado'] = $this->session->getUsuario() != null;
 
         if ($_GET['ajax'] == 'true') {
             $return = '<?xml version="1.0" encoding="UTF-8"?>
-                        <root>
-                            <document><![CDATA[';
-            $return .= $this->load->view($view, $params, true);
-            $return .= ']]></document>
-                        </root>';
+                        <root>';
+            // add document.
+            $return .= '<document><![CDATA[' . $this->load->view($view, $params, true) . ']]></document>';
+
+            // add all messages
+            if (!empty($this->messages)) {
+
+                $return .= '<messages>';
+
+                foreach ($this->messages as $v) {
+                    $return .= '<item>' . $v . '</item>';
+                }
+
+                $return .= '</messages>';
+            }
+            $return .= '</root>';
             header('Content-Type: text/xml; charset=utf-8');
         } else {
             header('Content-Type: text/html; charset=utf-8');
-            
+
             $return = $this->load->view('cabecalho.php', $params, true);
             $return .= $this->load->view('menu.php', $params, true);
             $return .= $this->load->view($view, $params, true);
@@ -78,8 +92,29 @@ class MY_Controller extends CI_Controller {
     }
 
     public function redirect($action) {
-        redirect($action, 'location', 303);
+
+        if ($_GET['ajax'] == 'true') {
+
+            $return = '<?xml version="1.0" encoding="UTF-8"?>
+                        <root>';
+            if (!preg_match('#^https?://#i', $action)) {
+                $return .= '<action>' . $action . '</action>';
+            } else{
+                $return .= '<redirect>' . $action . '</redirect>';
+            }
+            $return .= '</root>';
+
+            header('Content-Type: text/xml; charset=utf-8');
+            echo $return;
+        } else {
+            redirect($action, 'location', 303);
+        }
+
         exit;
+    }
+
+    protected function addMessage($message, $var = '') {
+        $this->messages[] = $message;
     }
 
 }
