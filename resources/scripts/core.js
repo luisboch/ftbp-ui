@@ -4,7 +4,11 @@ function carregar(data, param) {
     }
     $.ajax({
         url: URL_HOME + data + '?ajax=true',
+        beforeSend:function(){
+            $('body').css('cursor','wait');
+        },
         complete: function() {
+            $('body').css('cursor','');
         },
         type:'post',
         data: param,
@@ -28,8 +32,8 @@ function process(data) {
 
     Messages.clear();
 
-    $(messages).find('item').each(function() {
-        Messages.add($(this).text());
+    $(messages).find('message').each(function() {
+        Messages.add($(this).find('text').text(), $(this).find('type').text());
     })
 
     Messages.show();
@@ -52,8 +56,32 @@ Messages.clear = function() {
     $('#msg-location').html('');
 }
 
-Messages.add = function(v) {
-    $('#msg-location').append('<div class="msg-item">' + v + '</div>');
+Messages.add = function(v, t) {
+    
+    var c;
+    
+    switch (t){
+        case 'INFO':
+            c = 'info';
+            break;
+        case 'WARN':
+            c = 'notice';
+            break;
+        case 'ERROR':
+            c = 'alert';
+            break;
+        case 'SYS_ERROR':
+            c = 'alert';
+            break;
+        default:
+            c = 'info';
+            break;  
+            
+    }
+    $('#msg-location').append(
+            '<div class="msg-item">\
+            <span class="ui-icon-'+c+' ui-icon" style="float: left;margin-top:3px;"></span>\
+'+ v + '</div>');  
 }
 
 

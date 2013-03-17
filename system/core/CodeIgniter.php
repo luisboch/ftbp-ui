@@ -69,6 +69,24 @@ if (defined('ENVIRONMENT') AND file_exists(APPPATH . 'config/' . ENVIRONMENT . '
  */
 set_error_handler('_exception_handler');
 
+register_shutdown_function(function() use($_logger) {
+        $e = error_get_last();
+        if ($e) {
+            
+            $_logger->error($e['message'] . " in " . $e['file'] . ' line ' . $e['line']);
+            
+            if($_GET['ajax'] === 'true'){
+                Mensagens::getInstance()->addMsg($e['message'] . " in " . $e['file'] . ' line ' . $e['line'], Mensagens::SYS_ERROR);
+                echo Mensagens::getInstance()->criarXml(true);
+            }else{
+                echo ($e['message'] . " in " . $e['file'] . ' line ' . $e['line']);
+            }
+            
+            exit;
+        }
+
+});
+
 if (!is_php('5.3')) {
     @set_magic_quotes_runtime(0); // Kill magic quotes
 }

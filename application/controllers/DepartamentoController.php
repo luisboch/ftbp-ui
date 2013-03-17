@@ -49,13 +49,13 @@ class DepartamentoController extends MY_Controller {
             }
             
             // direciona para a view correta, e adiciona uma mensagem de feed back.
-            $this->addMessage("Departamento ".($id == ''?'cadastrado':'atualizado')." com sucesso");
+            $this->info("Departamento ".($id == ''?'cadastrado':'atualizado')." com sucesso");
             $this->view('paginas/cadastrarDepartamento.php',array('departamento' => $n));
             
         } catch (ValidacaoExecao $e) {
 
             foreach ($e->getErrors() as $v) {
-                $this->addMessage($v->getMensagem(), $v->getCampo());
+                $this->warn($v->getMensagem(), $v->getCampo());
             }
 
             $this->view('paginas/cadastrarDepartamento.php');

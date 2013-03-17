@@ -1,10 +1,7 @@
 <?php
 
 require_once 'ftbp-src/session/SessionManager.php';
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+require_once 'ftbp-src/servicos/util/Mensagens.php';
 
 /**
  * Description of MY_Controller
@@ -12,8 +9,6 @@ require_once 'ftbp-src/session/SessionManager.php';
  * @author Luis
  */
 class MY_Controller extends CI_Controller {
-
-    private $messages = array();
 
     /**
      * @var SessionManager
@@ -36,10 +31,6 @@ class MY_Controller extends CI_Controller {
         $this->view('login.php');
     }
 
-    public function error() {
-        throw new Exception("testing error");
-    }
-
     public function view($view, $params = array()) {
 
         $params['messages'] = $this->messages;
@@ -52,17 +43,8 @@ class MY_Controller extends CI_Controller {
             // add document.
             $return .= '<document><![CDATA[' . $this->load->view($view, $params, true) . ']]></document>';
 
-            // add all messages
-            if (!empty($this->messages)) {
-
-                $return .= '<messages>';
-
-                foreach ($this->messages as $v) {
-                    $return .= '<item>' . $v . '</item>';
-                }
-
-                $return .= '</messages>';
-            }
+            $return .= Mensagens::getInstance()->criarXml();
+            
             $return .= '</root>';
             header('Content-Type: text/xml; charset=utf-8');
         } else {
@@ -102,6 +84,9 @@ class MY_Controller extends CI_Controller {
             } else{
                 $return .= '<redirect>' . $action . '</redirect>';
             }
+            
+            $return .= Mensagens::getInstance()->criarXml();
+            
             $return .= '</root>';
 
             header('Content-Type: text/xml; charset=utf-8');
@@ -113,8 +98,20 @@ class MY_Controller extends CI_Controller {
         exit;
     }
 
-    protected function addMessage($message, $var = '') {
-        $this->messages[] = $message;
+    protected function addMsg($msg, $var = '', $tipo = null) {
+        Mensagens::getInstance()->addMsg($msg, $tipo);
+    }
+    
+    protected function warn($msg, $var = null) {
+        $this->addMsg($msg, $var, Mensagens::WARN);
+    }
+    
+    protected function error($msg, $var = null) {
+        $this->addMsg($msg, $var, Mensagens::ERROR);
+    }
+    
+    protected function info($msg, $var = null) {
+        $this->addMsg($msg, $var, Mensagens::INFO);
     }
 
 }

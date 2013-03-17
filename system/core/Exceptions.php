@@ -137,8 +137,15 @@ class CI_Exceptions {
         global $_logger;
         $_logger->error($message);
 
-        set_status_header($status_code);
 
+        if ($_GET['ajax'] === 'true') {
+            Mensagens::getInstance()->addMsg($message, Mensagens::SYS_ERROR);
+            echo Mensagens::getInstance()->criarXml(true);
+            die;
+        }
+        
+        set_status_header($status_code);
+        
         $message = '<p>' . implode('</p><p>', (!is_array($message)) ? array($message) : $message) . '</p>';
 
         if (ob_get_level() > $this->ob_level + 1) {
@@ -177,11 +184,21 @@ class CI_Exceptions {
         if (ob_get_level() > $this->ob_level + 1) {
             ob_end_flush();
         }
-        ob_start();
-        include(APPPATH . 'errors/error_php.php');
-        $buffer = ob_get_contents();
-        ob_end_clean();
-        echo $buffer;
+        
+        // we are in Ajax request
+        if($_GET['ajax'] == 'true'){
+            
+            require_once 'ftbp-src/servicos/util/Mensagens.php';
+            Mensagens::getInstance()->addMsg($message.'\nFile:'.$filepath.':'.$line, Mensagens::SYS_ERROR);
+            echo Mensagens::getInstance()->criarXml(true);
+            die;
+        } else {
+            ob_start();
+            include(APPPATH . 'errors/error_php.php');
+            $buffer = ob_get_contents();
+            ob_end_clean();
+            echo $buffer;
+        }
     }
 
 }

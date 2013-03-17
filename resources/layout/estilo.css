@@ -121,3 +121,16 @@ a:hover {text-decoration:underline;color:#999999;}
     overflow: auto;
     height: 150px;
 }
+
+.pesquisa-titulo {
+    font-weight: bold;
+    text-align: left;
+}
+.pesquisa-desc {
+    text-align: left;
+}
+.resultado-pesquisa {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #888;
+}
