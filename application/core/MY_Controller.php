@@ -27,8 +27,8 @@ class MY_Controller extends CI_Controller {
         }
     }
 
-    public function login() {
-        $this->view('login.php');
+    public function login($error = false) {
+        $this->view('login.php' , array('error' => $error));
     }
 
     public function view($view, $params = array()) {

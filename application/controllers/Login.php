@@ -31,10 +31,16 @@ class Login extends MY_Controller {
     public function logar() {
         $email = $_POST['email'];
         $senha = $_POST['senha'];
-
-        $usuario = $this->service->login($email, $senha);
-        $this->session->setUsuario($usuario);
-        $this->redirect('/');
+        try{
+            $usuario = $this->service->login($email, $senha);
+            $this->session->setUsuario($usuario);
+            $this->redirect('/');
+            
+        } catch (ValidacaoExecao $e){
+            $this->login(true);
+        } catch (NoResultException $e){
+            $this->login(true);
+        }
     }
 
     public function logout() {
