@@ -38,7 +38,7 @@ foreach ($ini as $key => $value){
 if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
         case 'development':
-            error_reporting(0);
+            //error_reporting(0);
             
             // Add new include path of local folder only on development mode
             if (PHP_OS == 'Linux') {
