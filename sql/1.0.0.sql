@@ -51,10 +51,16 @@ create table notificacoes(
 	references usuarios(id)
 );
 
-
 create table nivel_curso(
 	id serial primary key,
 	nome character varying(200),
         data_criacao timestamp not null default now()
 );
 
+
+create table area_curso
+(
+  id serial primary key,
+  nome character varying(200),
+  data_criacao timestamp not null default now()
+);
