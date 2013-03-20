@@ -8,20 +8,27 @@
                 <td>Tipo:</td>
                 <td>
                     <select name="tipo_usuario" id="tipo_usuario">
-                        <option value="2">Aluno</option>
-                        <option value="3">Funcionário</option>
-                        <option value="4">Professor</option>
+                        <option <?=!empty($usuario)&&$usuario->getTipoUsuario() == 2?'selected="selected"':'';?> value="2">Aluno</option>
+                        <option <?=!empty($usuario)&&$usuario->getTipoUsuario() == 3?'selected="selected"':'';?>value="3">Funcionário</option>
+                        <option <?=!empty($usuario)&&$usuario->getTipoUsuario() == 4?'selected="selected"':'';?>value="4">Professor</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>Departamento:</td>
                 <td>
-                    <select name="departamento" id="departamento">
+                    <select name="departamento" id="departamento" title="Obrigatório se o tipo do usuário for Funcionário">
+                        <option value="">selecione</option>
                         <? foreach ($deptos as $v){ ?>
-                        <option value="<?=$v->getId();?>"><?=$v->getNome();?></option>
+                            <option <?=empty($usuario)?'':($usuario->getDepartamento()==null?'':($usuario->getDepartamento()->getId()==$v->getId()?'selected="selected"':''))?> value="<?=$v->getId();?>"><?=$v->getNome();?></option>
                         <?} ?>
                     </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Responsável:</td>
+                <td>
+                    <input type="checkbox" <?=empty($usuario)?'':($usuario->getResponsavel()===true?'checked="checked"':'')?> name="responsavel" />
                 </td>
             </tr>
             <tr>

@@ -73,7 +73,11 @@ class UsuariosController extends MY_Controller {
             if($_POST['departamento'] != ''){
                 $usuario->setDepartamento(
                         $this->servicoDepartamento->getById($_POST['departamento']));
+            } else {
+                $usuario->setDepartamento(null);
             }
+            
+            $usuario->setResponsavel($_POST['responsavel']=='on');
             
             // Chama o salvar, (atualiza ou insere)
             if ($id == '') {
