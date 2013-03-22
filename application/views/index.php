@@ -3,7 +3,7 @@
      float: left;
      ">
     <span style="text-align: left; font-weight: bold">
-        Últimas Notificações <a class="simple-link" href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais');">ver mais</a>
+        Últimas Notificações <a class="simple-link" href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais', null, true);">ver mais</a>
     </span>
     <hr>
     <? if (is_array($notfs)) { ?>

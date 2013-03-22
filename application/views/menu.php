@@ -1,16 +1,16 @@
 <div id="barra_menu">
     <? if ($logado) { ?>
         <ul class="menu"> 
-            <li><a href="<?= site_url('welcome/index') ?>" onclick="return carregar('welcome/index')">Home</a></li>
+            <li><a href="<?= site_url('welcome/index') ?>" onclick="return carregar('welcome/index', null, true)">Home</a></li>
             <li><a href="#" onclick="return false;">Cadastrar</a> 
                 <ul> 
                     <!--<li><a href="#" onclick="cadastro('cadastrarCurso', '.html');">Cursos</a></li>-->
-                    <li><a href="<?= site_url('DepartamentoController/index') ?>" onclick="return carregar('DepartamentoController/index');">Setores</a></li> 
-                    <li><a href="<?= site_url('AreaController/index') ?>" onclick="return carregar('AreaController/index');">Cursos Areas</a></li> 
-                    <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index');">Funcionários</a></li>
+                    <li><a href="<?= site_url('DepartamentoController/index') ?>" onclick="return carregar('DepartamentoController/index', null, true);">Setores</a></li> 
+                    <li><a href="<?= site_url('AreaController/index') ?>" onclick="return carregar('AreaController/index', null, true);">Cursos Areas</a></li> 
+                    <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index', null, true);">Funcionários</a></li>
                 </ul> 
             </li>
-            <li><a href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais');">Atualizações</a></li> 
+            <li><a href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais', null, true);">Atualizações</a></li> 
             <!--<li><a href="#">Chat</a></li>-->
         </ul>
     <? } ?>

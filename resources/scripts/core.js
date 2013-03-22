@@ -1,7 +1,12 @@
-function carregar(data, param) {
-    if (param === undefined) {
+function carregar(data, param, changeUrl) {
+    if (!param) {
         param = {};
     }
+    
+    if(changeUrl){
+       window.location = '#!'+data;
+    }
+    
     $.ajax({
         url: URL_HOME + data + '?ajax=true',
         beforeSend:function(){
@@ -26,8 +31,9 @@ function process(data) {
 
     documento = $(data.documentElement).find('document').text();
 
-    $('#conteudo').html(documento);
-
+    if(documento != ''){
+        $('#conteudo').html(documento);
+    }
     messages = $(data.documentElement).find('messages');
 
     Messages.clear();
@@ -120,5 +126,15 @@ $(function() {
             $('#bloco-mensagems').draggable();
         }
     })
+    
+    
+    
+    var loc = window.location.href;
+    
+    var p = loc.indexOf('#!') ;
+    if( p != -1){
+        var action = loc.substr(p+2);
+        carregar(action);
+    }
 
 })
