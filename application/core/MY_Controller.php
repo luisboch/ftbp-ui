@@ -21,6 +21,9 @@ class MY_Controller extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        
+        self::$logger = Logger::getLogger(__CLASS__);
+        
         $this->session = SessionManager::getInstance();
 
         if ($this->checkLogin()) {
@@ -30,7 +33,6 @@ class MY_Controller extends CI_Controller {
             }
         }
         
-        self::$logger = Logger::getLogger(__CLASS__);
     }
 
     public function login($error = false) {
