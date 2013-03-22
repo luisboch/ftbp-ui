@@ -1,5 +1,5 @@
 <?php
-
+require_once 'ftbp-src/servicos/util/Mensagens.php';
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 /**

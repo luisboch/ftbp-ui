@@ -9,7 +9,11 @@ require_once 'ftbp-src/servicos/util/Mensagens.php';
  * @author Luis
  */
 class MY_Controller extends CI_Controller {
-
+    
+    /**
+     * @var Logger
+     */
+    private static $logger;
     /**
      * @var SessionManager
      */
@@ -25,6 +29,8 @@ class MY_Controller extends CI_Controller {
                 exit;
             }
         }
+        
+        self::$logger = Logger::getLogger(__CLASS__);
     }
 
     public function login($error = false) {
@@ -32,12 +38,13 @@ class MY_Controller extends CI_Controller {
     }
 
     public function view($view, $params = array()) {
-
+        
         $params['messages'] = $this->messages;
         $params['session'] = $this->session;
         $params['logado'] = $this->session->getUsuario() != null;
 
         if ($_GET['ajax'] == 'true') {
+            self::$logger->debug("[Finishing] closing ajax request, showing view \"$view\"");
             $return = '<?xml version="1.0" encoding="UTF-8"?>
                         <root>';
             // add document.
@@ -48,6 +55,7 @@ class MY_Controller extends CI_Controller {
             $return .= '</root>';
             header('Content-Type: text/xml; charset=utf-8');
         } else {
+            self::$logger->debug("[Finishing] closing request, showing view \"$view\"");
             header('Content-Type: text/html; charset=utf-8');
 
             $return = $this->load->view('cabecalho.php', $params, true);
