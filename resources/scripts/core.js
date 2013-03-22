@@ -116,7 +116,7 @@ $(function() {
     });
 
     $('#msg-location').mouseenter(function() {
-        if (!dragging) {
+        if (dragging) {
             $('#bloco-mensagems').draggable('destroy');
         }
     })

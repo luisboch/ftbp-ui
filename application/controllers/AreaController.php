@@ -26,18 +26,26 @@ class AreaController extends MY_Controller {
 
     public function salvar() {
         
+        // Recupera o id que veio do form.
+        $id = $_POST['id'];
+        
         // Inicia bloco de controle
         try {
             
-            // Recupera o id que veio do form.
-            $id = $_POST['id'];
-
             // Se estiver vazio é novo.
             if ($id == '') {
                 $n = new AreaCurso();
             } else {
                 $n = $this->servico->getById($id);
             }
+            
+        } catch (NoResultException $e) {
+            // Se não encontrar exibe 404
+            show_404();
+            exit;
+        }
+        // Inicia bloco de controle
+        try {
             
             // Seta os novos valores
             $n->setNome($_POST['nome']);
@@ -51,7 +59,7 @@ class AreaController extends MY_Controller {
             
             // direciona para a view correta, e adiciona uma mensagem de feed back.
             $this->info("Area ".($id == ''?'cadastrada':'atualizada')." com sucesso");
-            $this->view('paginas/cadastrarArea.php',array('area' => $n));
+            $this->view('paginas/cadastrarArea.php', array('area' => $n));
             
         } catch (ValidacaoExecao $e) {
 
@@ -59,9 +67,7 @@ class AreaController extends MY_Controller {
                 $this->warn($v->getMensagem(), $v->getCampo());
             }
 
-            $this->view('paginas/cadastrarArea.php');
-        } catch (NoResultException $e){
-            show_404();
+            $this->view('paginas/cadastrarArea.php', array('area' => $n));
         }
     }
 

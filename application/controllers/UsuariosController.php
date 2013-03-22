@@ -18,18 +18,17 @@ class UsuariosController extends MY_Controller {
      * @var ServicoUsuario
      */
     private $servico;
-    
+
     /**
      * @var ServicoDepartamento
      */
     private $servicoDepartamento;
 
     function __construct() {
-        
+
         parent::__construct();
         $this->servico = new ServicoUsuario();
         $this->servicoDepartamento = new ServicoDepartamento();
-        
     }
 
     public function index() {
@@ -40,28 +39,31 @@ class UsuariosController extends MY_Controller {
         $id = $this->uri->segment(3);
         if ($id != null) {
             $usuario = $this->servico->getById($id);
-            $this->view('paginas/cadastroUsuario.php',
-                    array('usuario' => $usuario,
-                        'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
+            $this->view('paginas/cadastroUsuario.php', array('usuario' => $usuario,
+                'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
         } else {
-            $this->view('paginas/cadastroUsuario.php',array( 'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
+            $this->view('paginas/cadastroUsuario.php', array('deptos' => $this->servicoDepartamento->carregarDepartamentos()));
         }
     }
 
     public function salvar() {
 
-        // Inicia bloco de controle
+        // Recupera o id que veio do form.
+        $id = $_POST['id'];
         try {
-
-            // Recupera o id que veio do form.
-            $id = $_POST['id'];
-
             // Se estiver vazio é novo.
             if ($id == '') {
                 $usuario = new Usuario();
             } else {
                 $usuario = $this->servico->getById($id);
             }
+        } catch (NoResultException $e) {
+            show_404();
+            exit;
+        }
+
+        // Inicia bloco de controle
+        try {
 
             // Seta os novos valores
             $usuario->setEmail($_POST['email']);
@@ -69,16 +71,16 @@ class UsuariosController extends MY_Controller {
             $usuario->setNome($_POST['nome']);
             $usuario->setTipoUsuario(
                     TipoUsuario::valueOf($_POST['tipo_usuario']));
-            
-            if($_POST['departamento'] != ''){
+
+            if ($_POST['departamento'] != '') {
                 $usuario->setDepartamento(
                         $this->servicoDepartamento->getById($_POST['departamento']));
             } else {
                 $usuario->setDepartamento(null);
             }
-            
-            $usuario->setResponsavel($_POST['responsavel']=='on');
-            
+
+            $usuario->setResponsavel($_POST['responsavel'] == 'on');
+
             // Chama o salvar, (atualiza ou insere)
             if ($id == '') {
                 $this->servico->inserir($usuario);
@@ -88,9 +90,8 @@ class UsuariosController extends MY_Controller {
 
             // direciona para a view correta, e adiciona uma mensagem de feed back.
             $this->info("Usuário " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
-            $this->view('paginas/cadastroUsuario.php', 
-                    array('usuario' => $usuario,
-                        'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
+            $this->view('paginas/cadastroUsuario.php', array('usuario' => $usuario,
+                'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
         } catch (ValidacaoExecao $e) {
 
             foreach ($e->getErrors() as $v) {
@@ -98,9 +99,7 @@ class UsuariosController extends MY_Controller {
             }
 
             $this->view('paginas/cadastroUsuario.php', array('usuario' => $usuario,
-                        'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
-        } catch (NoResultException $e) {
-            show_404();
+                'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
         }
     }
 
