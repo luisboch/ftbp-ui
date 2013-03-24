@@ -1,5 +1,4 @@
 <?php
-
 /*
  * ---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -34,6 +33,7 @@ foreach ($ini as $key => $value){
     define($key, $value);
 }
 
+define('APP_PATH', dirname(__FILE__).'/');
 
 if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {

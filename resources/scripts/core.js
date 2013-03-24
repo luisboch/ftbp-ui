@@ -138,3 +138,9 @@ $(function() {
     }
 
 })
+
+
+function popup(url, title, width, height){
+   p = window.open(url, title,'width='+width+',height='+height+', location=no, menubar=no, resizable=no', false);
+   p.focus();
+}

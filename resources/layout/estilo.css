@@ -150,3 +150,43 @@ a:hover {text-decoration:underline;color:#999999;}
     text-align: right;
     font-weight: bold;
 }
+
+#chat {
+    border: 1px solid #123747;
+    position: fixed;
+    bottom: 0px;
+    right: 10px;
+    background: #123747
+}
+#chat .titulo {
+    background: #345969;
+    padding: 5px;
+    font-weight: bold;
+    color: #FFF;
+    width: 150px;
+    cursor:pointer;
+}
+
+#chat ul{
+    margin:0px;
+    background: #fff;
+    padding: 0px;
+}
+#chat ul li:first-child{
+    padding-top:4px;
+}
+#chat ul li{
+    list-style: none;
+    padding:2px 0px;
+    padding-left:5px;
+    cursor: pointer;
+}
+#chat ul li:hover{
+    background: #DDD;
+}
+
+#chat .departamento-nome{
+    color:#888;
+}
+
+

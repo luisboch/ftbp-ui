@@ -9,11 +9,12 @@ require_once 'ftbp-src/servicos/util/Mensagens.php';
  * @author Luis
  */
 class MY_Controller extends CI_Controller {
-    
+
     /**
      * @var Logger
      */
     private static $logger;
+
     /**
      * @var SessionManager
      */
@@ -21,9 +22,9 @@ class MY_Controller extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        
+
         self::$logger = Logger::getLogger(__CLASS__);
-        
+
         $this->session = SessionManager::getInstance();
 
         if ($this->checkLogin()) {
@@ -32,15 +33,14 @@ class MY_Controller extends CI_Controller {
                 exit;
             }
         }
-        
     }
 
     public function login($error = false) {
-        $this->view('login.php' , array('error' => $error));
+        $this->view('login.php', array('error' => $error));
     }
 
     public function view($view, $params = array()) {
-        
+
         $params['messages'] = $this->messages;
         $params['session'] = $this->session;
         $params['logado'] = $this->session->getUsuario() != null;
@@ -53,14 +53,30 @@ class MY_Controller extends CI_Controller {
             $return .= '<document><![CDATA[' . $this->load->view($view, $params, true) . ']]></document>';
 
             $return .= Mensagens::getInstance()->criarXml();
-            
+
             $return .= '</root>';
             header('Content-Type: text/xml; charset=utf-8');
         } else {
+            
             self::$logger->debug("[Finishing] closing request, showing view \"$view\"");
+            
+            // Adicionando cabeçalhos
             header('Content-Type: text/html; charset=utf-8');
+            header('Expires: Mon, 20 Dec 1998 01:00:00 GMT');
+            header('Last-Modified: '.gmdate('D, d M Y H:i:s').'GMT');
+            header('Cache-Control: no-cache, must-revalidate');
+            header('Pragma: no-cache');
+            
+            // Inclui os usuários ativos no chat (apenas no modo de carregamento full)
+            if ($this->session->getUsuario() !== null) {
+                require_once 'ftbp-src/servicos/impl/ServicoChat.php';
 
+                $chat = new Chat();
+                $params['usuarios_ativos'] = $chat->carregarUsuariosAtivos();
+            }
+            
             $return = $this->load->view('cabecalho.php', $params, true);
+            $return .= $this->load->view('chat.php', $params, true);
             $return .= $this->load->view('menu.php', $params, true);
             $return .= $this->load->view($view, $params, true);
             $return .= $this->load->view('rodape.php', $params, true);
@@ -91,12 +107,12 @@ class MY_Controller extends CI_Controller {
                         <root>';
             if (!preg_match('#^https?://#i', $action)) {
                 $return .= '<action>' . $action . '</action>';
-            } else{
+            } else {
                 $return .= '<redirect>' . $action . '</redirect>';
             }
-            
+
             $return .= Mensagens::getInstance()->criarXml();
-            
+
             $return .= '</root>';
 
             header('Content-Type: text/xml; charset=utf-8');
@@ -111,15 +127,15 @@ class MY_Controller extends CI_Controller {
     protected function addMsg($msg, $var = '', $tipo = null) {
         Mensagens::getInstance()->addMsg($msg, $tipo);
     }
-    
+
     protected function warn($msg, $var = null) {
         $this->addMsg($msg, $var, Mensagens::WARN);
     }
-    
+
     protected function error($msg, $var = null) {
         $this->addMsg($msg, $var, Mensagens::ERROR);
     }
-    
+
     protected function info($msg, $var = null) {
         $this->addMsg($msg, $var, Mensagens::INFO);
     }
