@@ -9,7 +9,7 @@ require_once 'ftbp-src/servicos/util/Mensagens.php';
  * @author Luis
  */
 class MY_Controller extends CI_Controller {
-
+    
     /**
      * @var Logger
      */
@@ -84,6 +84,51 @@ class MY_Controller extends CI_Controller {
 
         echo $return;
         exit;
+    }
+    
+    public function finalizarRequisicao() {
+        $params['session'] = $this->session;
+        $params['logado'] = $this->session->getUsuario() != null;
+
+        if ($_GET['ajax'] == 'true') {
+            self::$logger->debug("[Finishing] closing ajax request.");
+            $return = '<?xml version="1.0" encoding="UTF-8"?>
+                        <root>';
+            // add empty document.
+            $return .= '<document></document>';
+
+            $return .= Mensagens::getInstance()->criarXml();
+
+            $return .= '</root>';
+            header('Content-Type: text/xml; charset=utf-8');
+        } else {
+            
+            self::$logger->debug("[Finishing] closing request, showing view index page.");
+            
+            // Adicionando cabeçalhos
+            header('Content-Type: text/html; charset=utf-8');
+            header('Expires: Mon, 20 Dec 1998 01:00:00 GMT');
+            header('Last-Modified: '.gmdate('D, d M Y H:i:s').'GMT');
+            header('Cache-Control: no-cache, must-revalidate');
+            header('Pragma: no-cache');
+            
+            // Inclui os usuários ativos no chat (apenas no modo de carregamento full)
+            if ($this->session->getUsuario() !== null) {
+                require_once 'ftbp-src/servicos/impl/ServicoChat.php';
+
+                $chat = new Chat();
+                $params['usuarios_ativos'] = $chat->carregarUsuariosAtivos();
+            }
+            
+            $return = $this->load->view('cabecalho.php', $params, true);
+            $return .= $this->load->view('chat.php', $params, true);
+            $return .= $this->load->view('menu.php', $params, true);
+            $return .= $this->load->view('index.php', $params, true);
+            $return .= $this->load->view('rodape.php', $params, true);
+        }
+
+        echo $return;
+        die;
     }
 
     public function crypt() {

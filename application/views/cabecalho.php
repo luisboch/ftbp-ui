@@ -17,6 +17,7 @@
 
         <script type="text/javascript" >
             var URL_HOME = '<?= URL_HOME ?>';
+            var logado = <?=$logado?'true':'false'?>;
         </script>
 
         <title>Gerenciador de Informações</title>

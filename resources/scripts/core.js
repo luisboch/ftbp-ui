@@ -1,27 +1,32 @@
-function carregar(data, param, changeUrl) {
+function carregar(data, param, changeUrl, __callback) {
     if (!param) {
         param = {};
     }
-    
-    if(changeUrl){
-       window.location = '#!'+data;
+
+    if (changeUrl) {
+        window.location = '#!' + data;
     }
-    
+
     $.ajax({
         url: URL_HOME + data + '?ajax=true',
-        beforeSend:function(){
-            $('body').css('cursor','wait');
+        beforeSend: function() {
+            $('body').css('cursor', 'wait');
         },
         complete: function() {
-            $('body').css('cursor','');
+            $('body').css('cursor', '');
         },
-        type:'post',
+        type: 'post',
         data: param,
         dataType: 'xml'
     }).fail(function(a, b) {
         alert(a);
         alert(b);
-    }).done(process);
+    }).done(function(d) {
+        process(d);
+        if (__callback) {
+            __callback(d);
+        }
+    });
 
     return false;
 
@@ -31,7 +36,7 @@ function process(data) {
 
     documento = $(data.documentElement).find('document').text();
 
-    if(documento != ''){
+    if (documento != '') {
         $('#conteudo').html(documento);
     }
     messages = $(data.documentElement).find('messages');
@@ -63,10 +68,10 @@ Messages.clear = function() {
 }
 
 Messages.add = function(v, t) {
-    
+
     var c;
-    
-    switch (t){
+
+    switch (t) {
         case 'INFO':
             c = 'info';
             break;
@@ -81,13 +86,13 @@ Messages.add = function(v, t) {
             break;
         default:
             c = 'info';
-            break;  
-            
+            break;
+
     }
     $('#msg-location').append(
             '<div class="msg-item">\
-            <span class="ui-icon-'+c+' ui-icon" style="float: left;margin-top:3px;"></span>\
-'+ v + '</div>');  
+            <span class="ui-icon-' + c + ' ui-icon" style="float: left;margin-top:3px;"></span>\
+' + v + '</div>');
 }
 
 
@@ -126,21 +131,54 @@ $(function() {
             $('#bloco-mensagems').draggable();
         }
     })
-    
-    
-    
+
+    // Se verfica se é um link ajax, se sim recarrega o conteudo
     var loc = window.location.href;
-    
-    var p = loc.indexOf('#!') ;
-    if( p != -1){
-        var action = loc.substr(p+2);
+
+    var p = loc.indexOf('#!');
+
+    if (p != -1) {
+        var action = loc.substr(p + 2);
+        // Carrega a ação que estava na url
         carregar(action);
     }
 
+    // Coloca evento no chat para ocultar o exibir
+    $('#chat .titulo').click(function() {
+        carregar('ChatController/toogleChat', {'chat': 'true'});
+        if ($('#chat .usuarios').is(':visible')) {
+            $('#chat .usuarios').slideUp();
+        } else {
+            $('#chat .usuarios').slideDown();
+        }
+    });
+
+    // somente se estiver logado 
+    if (logado) {
+        // Coloca timer para atualizar a lista de usuários ativos de 5 em 5 segundos.
+        var chatAtualizador = window.setInterval(function() {
+            carregar('ChatController/atualizarChat', {}, false, function(data) {
+                var usr = $(data.documentElement).find('usuarios');
+
+                var ul = $('#chat .usuarios ul').html('');
+
+                $(usr).children().each(function() {
+                    var nome = $(this).find('nome').text();
+                    var id = $(this).find('id').text();
+                    var departamento = $(this).find('departamento').text();
+                    var html = '<li>\n' +
+                            '<span class="usuario-nome" onclick="popup(\'ChatController/u/' + id + ', ' + nome + ', 300, 400)">' + nome + '</span>\n' +
+                            '<span class="departamento-nome">' + departamento + '</span>\n' +
+                            '</li>\n';
+                    ul.append(html);
+                })
+            })
+        }, 5000);
+    }
 })
 
 
-function popup(url, title, width, height){
-   p = window.open(url, title,'width='+width+',height='+height+', location=no, menubar=no, resizable=no', false);
-   p.focus();
+function popup(url, title, width, height) {
+    p = window.open(url, title, 'width=' + width + ',height=' + height + ', location=no, menubar=no, resizable=no', false);
+    p.focus();
 }
