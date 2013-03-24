@@ -167,7 +167,7 @@ $(function() {
                     var id = $(this).find('id').text();
                     var departamento = $(this).find('departamento').text();
                     var html = '<li>\n' +
-                            '<span class="usuario-nome" onclick="popup(\'ChatController/u/' + id + ', ' + nome + ', 300, 400)">' + nome + '</span>\n' +
+                            '<span class="usuario-nome" onclick="popup(URL_HOME+\'ChatController/u/' + id + '\', \'' + nome + '\', 300, 400)">' + nome + '</span>\n' +
                             '<span class="departamento-nome">' + departamento + '</span>\n' +
                             '</li>\n';
                     ul.append(html);
