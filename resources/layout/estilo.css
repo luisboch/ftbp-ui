@@ -151,6 +151,11 @@ a:hover {text-decoration:underline;color:#999999;}
     font-weight: bold;
 }
 
+.form-table tr td:last-child{
+    text-align: left;
+    font-weight: bold;
+}
+
 #chat {
     border: 1px solid #123747;
     position: fixed;
