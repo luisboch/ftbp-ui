@@ -41,13 +41,15 @@ function process(data) {
     }
     messages = $(data.documentElement).find('messages');
 
-    Messages.clear();
+    if ($(messages).length > 0) {
+        Messages.clear();
 
-    $(messages).find('message').each(function() {
-        Messages.add($(this).find('text').text(), $(this).find('type').text());
-    })
+        $(messages).find('message').each(function() {
+            Messages.add($(this).find('text').text(), $(this).find('type').text());
+        })
 
-    Messages.show();
+        Messages.show();
+    }
 
     redirect = $(data.documentElement).find('redirect').text();
     if (redirect != '') {
