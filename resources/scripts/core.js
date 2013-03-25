@@ -158,27 +158,29 @@ $(function() {
     // somente se estiver logado 
     if (logado) {
         // Coloca timer para atualizar a lista de usuários ativos de 5 em 5 segundos.
-        var chatAtualizador = window.setInterval(function() {
+        chatAtualizador = window.setInterval(function() {
             carregar('ChatController/atualizarChat', {}, false, function(data) {
                 var usr = $(data.documentElement).find('usuarios');
 
                 var ul = $('#chat .usuarios ul').html('');
-
+                var qtd = 0;
                 $(usr).children().each(function() {
                     var nome = $(this).find('nome').text();
                     var id = $(this).find('id').text();
                     var departamento = $(this).find('departamento').text();
-                    var html = '<li>\n' +
-                            '<span class="usuario-nome" onclick="popup(URL_HOME+\'ChatController/u/' + id + '\', \'' + nome + '\', 300, 400)">' + nome + '</span>\n' +
+                    var html = '<li onclick="popup(URL_HOME+\'ChatController/u/' + id + '\', \'' + nome + '\', 300, 400)">\n' +
+                            '<span class="usuario-nome">' + nome + '</span>\n' +
                             '<span class="departamento-nome">' + departamento + '</span>\n' +
                             '</li>\n';
                     ul.append(html);
+                    qtd++;
                 })
+                $('#chat .titulo span').html(qtd+'');
             })
         }, 5000);
     }
 })
-
+var chatAtualizador;
 
 function popup(url, title, width, height) {
     p = window.open(url, title, 'width=' + width + ',height=' + height + ', location=no, menubar=no, resizable=no', false);
