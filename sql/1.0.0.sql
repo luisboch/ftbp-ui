@@ -64,3 +64,38 @@ create table area_curso
   nome character varying(200),
   data_criacao timestamp not null default now()
 );
+
+CREATE TABLE aviso
+(
+  id serial NOT NULL,
+  titulo character varying(200) NOT NULL,
+  descricao character varying (1000) not null,
+  data_criacao timestamp without time zone NOT NULL DEFAULT now(),  
+  usuario_id integer NOT NULL,
+  CONSTRAINT avisos_pkey PRIMARY KEY (id),  
+  CONSTRAINT fk_usuario FOREIGN KEY (usuario_id)
+      REFERENCES usuarios (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE tipo_destinatario
+(
+  id serial NOT NULL,
+  nome character varying(200) NOT NULL,
+  CONSTRAINT tipo_destinatario_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE aviso_destinatario
+(
+  id serial NOT NULL,
+  aviso_id integer NOT NULL,
+  tipo_destinatario_id integer NOT NULL,
+  data_criacao timestamp without time zone NOT NULL DEFAULT now(),  
+  CONSTRAINT aviso_destinatario_pkey PRIMARY KEY (id),  
+  CONSTRAINT fk_aviso FOREIGN KEY (aviso_id)
+      REFERENCES usuarios (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk_tipo_dest FOREIGN KEY (tipo_destinatario_id)
+      REFERENCES tipo_destinatario (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+);
