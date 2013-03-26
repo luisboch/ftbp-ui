@@ -50,7 +50,6 @@ class AvisoController extends MY_Controller {
             // Seta os novos valores
             $n->setTitulo($_POST['titulo']);
             $n->setDescricao($_POST['descricao']);
-            $n->se
             
 
             // Chama o salvar, (atualiza ou insere)
