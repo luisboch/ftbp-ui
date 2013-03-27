@@ -27,7 +27,7 @@
                 </td>
             </tr>
             <tr>
-                <td><input type="submit" Value="Enviar" /></td>
+                <td><input type="submit"value="<?=empty($aviso)?'Cadastrar':'Salvar';?>" /></td>
             </tr>   
         </tbody>
     </table>

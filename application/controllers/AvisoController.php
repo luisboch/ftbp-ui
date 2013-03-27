@@ -1,6 +1,7 @@
 <?php
 
 require_once 'ftbp-src/servicos/impl/ServicoAviso.php';
+require_once 'ftbp-src/entidades/basico/Aviso.php';
 
 /**
  * Description of AvisoController
@@ -28,7 +29,7 @@ class AvisoController extends MY_Controller {
         // Recupera o id que veio do form.
         $id = $_POST['id'];
         
-        echo $_POST['id'];
+       
        
         // Inicia bloco de controle
         try {
@@ -48,9 +49,9 @@ class AvisoController extends MY_Controller {
         try {
             
             // Seta os novos valores
+                
             $n->setTitulo($_POST['titulo']);
             $n->setDescricao($_POST['descricao']);
-            
 
             // Chama o salvar, (atualiza ou insere)
             if ($id == '') {
