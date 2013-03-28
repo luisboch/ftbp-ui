@@ -51,8 +51,11 @@ class AvisoController extends MY_Controller {
             // Seta os novos valores
                 
             $n->setNome($_POST['nome']);
+            
+            //$n->setNome('biscate');
+            
             $n->setDescricao($_POST['descricao']);
-
+            
             // Chama o salvar, (atualiza ou insere)
             if ($id == '') {
                 $this->servico->inserir($n);
