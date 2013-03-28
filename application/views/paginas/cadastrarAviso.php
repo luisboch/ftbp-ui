@@ -9,13 +9,13 @@
             <tr>
                 <td>Titulo</td>
                 <td>
-                    <input type="text" id="titulo" />
+                    <input type="text" id="nome" />
                 </td>
             </tr>
             <tr>
                 <td>Descrição: </td>
                 <td>
-                    <textarea rows="4" cols="50" ></textarea>
+                    <textarea rows="4" cols="50" id="descricao" ></textarea>
                 </td>
             </tr>
             <tr>
