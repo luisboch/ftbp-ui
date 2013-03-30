@@ -52,7 +52,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <select id="setor_check" style="display: none;">
+                    <select id="setor_check" multiple="multiple" name="setor_check" style="display: none;">
                         <option>T.I</option>
                         <option>R.H</option>
                         <option>Financeiro</option>
