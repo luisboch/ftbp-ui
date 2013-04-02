@@ -10,7 +10,7 @@
         <? foreach ($notfs as $v) {
             ?>
             <p style="color: #FF6347">
-                <a href="<?= $v->getLink() ?>" onclick="return carregar('<?= $v->getLink() ?>');"><?= $v->getDescricao() ?></a>
+                <a href="<?= site_url($v->getLink()) ?>" onclick="return carregar('<?= $v->getLink() ?>');"><?= $v->getDescricao() ?></a>
                 <br>
                 <div style="text-align: right;color: #666;"><span>em <?= $v->getData()->format('d/M/y') ?></span></div>
             </p>

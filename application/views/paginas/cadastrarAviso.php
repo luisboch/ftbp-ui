@@ -1,6 +1,6 @@
 <script>
    
-   $("#setor").click(function(){
+    $("#setor").click(function(){
         if($(this).is(':checked')){
             $("#setor_check").css('display','block');
         }
@@ -22,7 +22,7 @@
 <form id="form-cadastro" action="<?= site_url('AvisoController/salvar'); ?>" 
       onsubmit="return carregar('AvisoController/salvar', $('#form-cadastro').serialize())" 
       method="post">
-    <input type="hidden" name="id" id="id" value="<?= empty($aviso)?'':$aviso->getId();?>" />
+    <input type="hidden" name="id" id="id" value="<?= empty($aviso) ? '' : $aviso->getId(); ?>" />
     <table border="0" class="form-table">
 
         <caption><span>Cadastrar Aviso</span></caption>
@@ -30,13 +30,13 @@
             <tr>
                 <td>Titulo</td>
                 <td>
-                    <input type="text" id="nome" name="nome" value="<?=empty($aviso)?'':$aviso->getNome();?>"/>
+                    <input type="text" id="nome" name="nome" value="<?= empty($aviso) ? '' : $aviso->getNome(); ?>"/>
                 </td>
             </tr>
             <tr>
                 <td>Descrição: </td>
                 <td>
-                    <textarea rows="4" cols="50" id="descricao" name="descricao" value="<?=empty($aviso)?'':$aviso->getDescricao();?>"></textarea>
+                    <textarea rows="4" cols="50" id="descricao" name="descricao" value="<?= empty($aviso) ? '' : $aviso->getDescricao(); ?>"></textarea>
                 </td>
             </tr>
             <tr>
@@ -46,16 +46,46 @@
             <tr>
                 <td></td>
                 <td>
-                    <input type="checkbox" name="setor"  id="setor"/>Setor
+                    <input type="checkbox" name="setor_resp"  id="setor_resp"/>Responsaveis por Setor
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <select id="setor_check" multiple="multiple" name="setor_check" style="display: none;">
-                        <option>T.I</option>
-                        <option>R.H</option>
-                        <option>Financeiro</option>
+                    <select id="setor_check" multiple="multiple" name="setor_resp_check[]" style="">
+                        <?
+                        foreach ($dptos as $v) {
+                            
+                            ?>
+                            <option value ="<?= $v->getId(); ?>"><?= $v->getNome(); ?></option>
+
+                            <?
+                        }
+                        ?>
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="checkbox" name="setor_usuarios"  id="setor_usuarios"/>Usuarios por Setor
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <select id="setor_usu_check" multiple="multiple" name="setor_usu_check[]" style="">
+                        
+                        <?
+                        foreach ($dptos as $v) {
+                            
+                            ?>
+                            <option value ="<?= $v->getId(); ?>"><?= $v->getNome(); ?></option>
+
+                            <?
+                        }
+                        ?>
                     </select>
                 </td>
             </tr>
@@ -68,16 +98,22 @@
             <tr>
                 <td></td>
                 <td>
-                    <select id="usuario_check" style="display: none;">
-                        <option>Zezinho</option>
-                        <option>Mariazinha</option>
-                        <option>Joãozinho</option>
-                   </select>
+                    <select id="usuario_check" name="usuario_check[]" multiple="multiple" style="">
+                        <?
+                        foreach ($usuarios as $v) {
+                            
+                            ?>
+                            <option value ="<?= $v->getId(); ?>"><?= $v->getNome(); ?></option>
+
+                            <?
+                        }
+                        ?>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit"value="<?=empty($aviso)?'Cadastrar':'Salvar';?>" /></td>
+                <td><input type="submit"value="<?= empty($aviso) ? 'Cadastrar' : 'Salvar'; ?>" /></td>
             </tr>   
         </tbody>
     </table>

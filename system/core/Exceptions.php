@@ -186,7 +186,7 @@ class CI_Exceptions {
         }
         
         // we are in Ajax request
-        if($_GET['ajax'] == 'true'){
+        if(isset($_GET['ajax']) && $_GET['ajax'] == 'true'){
             
             require_once 'ftbp-src/servicos/util/Mensagens.php';
             Mensagens::getInstance()->addMsg($message.'\nFile:'.$filepath.':'.$line, Mensagens::SYS_ERROR);
