@@ -32,6 +32,7 @@
             ?>
             <p style="color: #FF6347">
                 <a href="<?=site_url('AvisoController/verAviso/'.$v->getId())?>" onclick=""><?= $v->getTitulo() ?></a>
+                (<?= $v->getCriadoPor()->getNome() ?>)
                 <br>
             </p>
         <?

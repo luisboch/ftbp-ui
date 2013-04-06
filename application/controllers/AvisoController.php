@@ -132,7 +132,16 @@ class AvisoController extends MY_Controller {
     
     public function verAviso(){
         $id = $this->uri->segment(3);
+        
+        $at = new Aviso();
+        
+        $at->setId($id);
+        
+        //$av = $this->servico->avisoLido($at, $this->session->getUsuario());
+        
+        
         $av = $this->servico->getById($id);
+        
         $this->view('paginas/lerAviso.php', array('aviso' => $av));
     }
 
