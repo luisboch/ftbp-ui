@@ -6,13 +6,13 @@
             <tr>
                 <td>Titulo</td>
                 <td>
-                    <?= $aviso->getNome()?>
+                    <?= $aviso->getTitulo()?>
                 </td>
             </tr>
             <tr>
                 <td>Descrição: </td>
                 <td>
-                    
+                     <?= $aviso->getDescricao()?>
                 </td>
             </tr>
         </tbody>

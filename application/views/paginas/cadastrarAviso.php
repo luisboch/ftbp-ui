@@ -43,7 +43,7 @@
             <tr>
                 <td>Titulo</td>
                 <td>
-                    <input type="text" id="nome" name="nome" value=""/>
+                    <input type="text" id="titulo" name="titulo" value=""/>
                 </td>
             </tr>
             <tr>

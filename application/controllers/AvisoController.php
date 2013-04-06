@@ -97,7 +97,7 @@ class AvisoController extends MY_Controller {
 
             // Seta os novos valores
 
-            $n->setNome($_POST['nome']);
+            $n->setTitulo($_POST['titulo']);
 
             $n->setDescricao($_POST['descricao']);
 
@@ -134,12 +134,6 @@ class AvisoController extends MY_Controller {
         $id = $this->uri->segment(3);
         $av = $this->servico->getById($id);
         $this->view('paginas/lerAviso.php', array('aviso' => $av));
-    }
-
-    public function item() {
-        $id = $this->uri->segment(3);
-        $d = $this->servico->getById($id);
-        $this->view('paginas/cadastrarDepartamento.php', array('departamento' => $d));
     }
 
 }
