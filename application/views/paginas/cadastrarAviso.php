@@ -22,7 +22,7 @@
 <form id="form-cadastro" action="<?= site_url('AvisoController/salvar'); ?>" 
       onsubmit="return carregar('AvisoController/salvar', $('#form-cadastro').serialize())" 
       method="post">
-    <input type="hidden" name="id" id="id" value="<?= empty($aviso) ? '' : $aviso->getId(); ?>" />
+    <!--<input type="hidden" name="id" id="id" value="<?= empty($aviso) ? '' : $aviso->getId(); ?>" /> -->
     <table border="0" class="form-table">
 
         <caption><span>Cadastrar Aviso</span></caption>
@@ -30,7 +30,7 @@
             <tr>
                 <td>Titulo</td>
                 <td>
-                    <input type="text" id="nome" name="nome" value="<?= empty($aviso) ? '' : $aviso->getNome(); ?>"/>
+                    <input type="text" id="nome" name="nome" value=""/>
                 </td>
             </tr>
             <tr>
@@ -52,7 +52,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <select id="setor_check" multiple="multiple" name="setor_resp_check[]" style="">
+                    <select id="setor_check" multiple="multiple" name="setor_resp_check[]" style="display: none">
                         <?
                         foreach ($dptos as $v) {
                             
@@ -75,7 +75,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <select id="setor_usu_check" multiple="multiple" name="setor_usu_check[]" style="">
+                    <select id="setor_usu_check" multiple="multiple" name="setor_usu_check[]" style="display: none">
                         
                         <?
                         foreach ($dptos as $v) {
@@ -98,7 +98,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <select id="usuario_check" name="usuario_check[]" multiple="multiple" style="">
+                    <select id="usuario_check" name="usuario_check[]" multiple="multiple" style="display: none">
                         <?
                         foreach ($usuarios as $v) {
                             
@@ -113,7 +113,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit"value="<?= empty($aviso) ? 'Cadastrar' : 'Salvar'; ?>" /></td>
+                <td><input type="submit"value="Salvar" /></td>
             </tr>   
         </tbody>
     </table>
