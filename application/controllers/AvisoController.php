@@ -129,6 +129,12 @@ class AvisoController extends MY_Controller {
             $this->view('paginas/cadastrarAviso.php', array('aviso' => $n, 'dptos' => $dptos, 'usuarios' => $usuarios));
         }
     }
+    
+    public function verAviso(){
+        $id = $this->uri->segment(3);
+        $av = $this->servico->getById($id);
+        $this->view('paginas/lerAviso.php', array('aviso' => $av));
+    }
 
     public function item() {
         $id = $this->uri->segment(3);

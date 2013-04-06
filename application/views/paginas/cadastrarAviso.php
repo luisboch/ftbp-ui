@@ -1,11 +1,20 @@
 <script>
    
-    $("#setor").click(function(){
+    $("#setor_resp").click(function(){
         if($(this).is(':checked')){
-            $("#setor_check").css('display','block');
+            $("#setor_resp_check").css('display','block');
         }
         else{
-            $("#setor_check").css('display','none');
+            $("#setor_resp_check").css('display','none');
+        }
+    });
+    
+    $("#setor_usuarios").click(function(){
+        if($(this).is(':checked')){
+            $("#setor_usu_check").css('display','block');
+        }
+        else{
+            $("#setor_usu_check").css('display','none');
         }
     });
     
@@ -17,6 +26,10 @@
             $("#usuario_check").css('display','none');
         }
     });
+    
+    function confirmacao(){
+        confirm("Aviso não podera ser alterado após envio. Confirma operação: ");
+    }
 </script>
 
 <form id="form-cadastro" action="<?= site_url('AvisoController/salvar'); ?>" 
@@ -36,7 +49,7 @@
             <tr>
                 <td>Descrição: </td>
                 <td>
-                    <textarea rows="4" cols="50" id="descricao" name="descricao" value="<?= empty($aviso) ? '' : $aviso->getDescricao(); ?>"></textarea>
+                    <textarea rows="4" cols="50" id="descricao" name="descricao" value=""></textarea>
                 </td>
             </tr>
             <tr>
@@ -52,7 +65,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <select id="setor_check" multiple="multiple" name="setor_resp_check[]" style="display: none">
+                    <select id="setor_resp_check" multiple="multiple" name="setor_resp_check[]" style="display: none">
                         <?
                         foreach ($dptos as $v) {
                             
@@ -113,7 +126,8 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit"value="Salvar" /></td>
+                <td><input type="submit" value="Salvar" 
+                           onClick="confirmacao();"/></td>
             </tr>   
         </tbody>
     </table>

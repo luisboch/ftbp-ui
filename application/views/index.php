@@ -27,5 +27,15 @@
         Avisos
     </span>
     <hr>
-    <p><a href="#">Reunião Terça as 10:00</a></p>
+    <? if (is_array($aviso)) { ?>
+        <? foreach ($aviso as $v) {
+            ?>
+            <p style="color: #FF6347">
+                <a href="<?=site_url('AvisoController/verAviso/'.$v->getId())?>" onclick=""><?= $v->getNome() ?></a>
+                <br>
+            </p>
+        <?
+        }
+    }
+    ?>
 </div>  
