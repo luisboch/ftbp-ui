@@ -12,6 +12,13 @@
                 </ul> 
             </li>
             <li><a href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais', null, true);">Atualizações</a></li> 
+            <li><a href="#" onclick="return false;">Meus Itens</a>
+                <ul>
+                    <li><a href="" onclick="">Avisos</a></li> 
+                    <li><a href="" onclick="">Notificações</a></li>
+                    <li><a href="" onclick="">Requisições</a></li>
+                </ul>
+            </li>
             <!--<li><a href="#">Chat</a></li>-->
         </ul>
     <? } ?>
