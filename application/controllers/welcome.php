@@ -1,6 +1,7 @@
 <?php
 
 require_once 'ftbp-src/servicos/impl/ServicoNotificacao.php';
+require_once 'ftbp-src/servicos/impl/ServicoAviso.php';
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
