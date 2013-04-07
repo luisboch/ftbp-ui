@@ -22,51 +22,28 @@
         <title><?= $alvo->getNome(); ?></title>
     </head>
     <body>
-        <div id='usr-messages' style="height: 250px;overflow: auto">
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>
-            <div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>
+        <div id='usr-messages' style="height: 300px;overflow: auto">
+            <?foreach($mensagens as $msg){?>
+                <div style="width: 100%"><span class="usr-nome"><?=$msg->getUsuario()->getNome();?>: </span><span class="msg"><?=$msg->getMensagem();?></span><br></div>
+            <?}?>
+            <!--<div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>-->
+            <!--<div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>-->
         </div>
         <form method="post" onsubmit="return carregar('ChatController/enviarMensagem', $('#form-chat').serialize());" id="form-chat">
-            <div id="usr-editor" style="height: 150px;"><textarea name="mensagem"></textarea>
-                <div>
+            <div id="usr-editor" style="width: 100%;"><textarea style="width: 100%;height: 100px;"name="mensagem"></textarea>
+                <div style="text-align: right;">
                     <input type="hidden" name="usr_id" value="<?=$alvo->getId();?>" />
                     <input type="submit" value="enviar" />
                 </div>
             </div>
         </form>
+        <script type="text/javascript">
+            
+            $(scrollToFinal);
+            function scrollToFinal(){
+                $('#usr-messages').scrollTop($('#usr-messages').innerHeight())
+            }
+            
+        </script>
     </body>
 </html>

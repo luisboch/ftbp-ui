@@ -31,7 +31,8 @@ class ChatController extends MY_Controller {
     public function u() {
         $id = $this->uri->segment(3);
         $alvo = $this->servicoUsuario->getById($id);
-        $this->load->view('usuario_chat.php', array('alvo' => $alvo));
+        $msgs = $this->chat->carregarMensagens($this->session->getUsuario(), $alvo);
+        $this->load->view('usuario_chat.php', array('alvo' => $alvo, 'mensagens' => $msgs));
     }
     
     public function toogleChat() {
