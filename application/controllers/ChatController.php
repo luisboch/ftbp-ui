@@ -1,5 +1,6 @@
 <?php
 require_once 'ftbp-src/servicos/impl/ServicoChat.php';
+require_once 'ftbp-src/servicos/impl/ServicoUsuario.php';
 /*
  * ChatController.php
  */
@@ -11,7 +12,7 @@ require_once 'ftbp-src/servicos/impl/ServicoChat.php';
  * @since Mar 24, 2013
  */
 class ChatController extends MY_Controller {
-    
+    private $servicoUsuario;
     private $chat;
     /**
      *
@@ -22,12 +23,15 @@ class ChatController extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->chat = new Chat();
+        $this->servicoUsuario = new ServicoUsuario();
     }
     public function index() {
         
     }
     public function u() {
-        $this->load->view('usuario_chat.php');
+        $id = $this->uri->segment(3);
+        $alvo = $this->servicoUsuario->getById($id);
+        $this->load->view('usuario_chat.php', array('alvo' => $alvo));
     }
     
     public function toogleChat() {
@@ -54,6 +58,7 @@ class ChatController extends MY_Controller {
         }
         
         $this->montarXml();
+        exit;
     }
     
     public function montarXml() {
@@ -82,6 +87,14 @@ class ChatController extends MY_Controller {
             }
         }
         return $return;
+    }
+    
+    public function enviarMensagem() {
+        $usuarioAlvo = $_POST['usr_id'];
+        $msg = $_POST['mensagem'];
+        $usuarioAlvo = $this->servicoUsuario->getById($usuarioAlvo);
+        $this->chat->enviarMensagem($this->session->getUsuario(), $usuarioAlvo, $msg);
+        exit;
     }
 }
 
