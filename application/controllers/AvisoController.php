@@ -129,21 +129,6 @@ class AvisoController extends MY_Controller {
             $this->view('paginas/cadastrarAviso.php', array('aviso' => $n, 'dptos' => $dptos, 'usuarios' => $usuarios));
         }
     }
-
-    public function item() {
-        $id = $this->uri->segment(3);
-        
-        $at = new Aviso();
-        
-        $at->setId($id);
-        
-        //$av = $this->servico->avisoLido($at, $this->session->getUsuario());
-        
-        
-        $av = $this->servico->getById($id);
-        
-        $this->view('paginas/lerAviso.php', array('aviso' => $av));
-    }
     
     public function verAviso(){
     
@@ -153,7 +138,7 @@ class AvisoController extends MY_Controller {
         
         $at->setId($id);
         
-        //$av = $this->servico->avisoLido($at, $this->session->getUsuario());
+        $av = $this->servico->avisoLido($at, $this->session->getUsuario());
         
         
         $av = $this->servico->getById($id);
