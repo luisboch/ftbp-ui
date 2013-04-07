@@ -28,7 +28,7 @@
     });
     
     function confirmacao(){
-        confirm("Aviso não podera ser alterado após envio. Confirma operação: ");
+        return confirm("Aviso não podera ser alterado após envio. Confirma operação: ");
     }
 </script>
 
@@ -127,7 +127,7 @@
             <tr>
                 <td></td>
                 <td><input type="submit" value="Salvar" 
-                           onClick="confirmacao();"/></td>
+                           onClick="return confirmacao();"/></td>
             </tr>   
         </tbody>
     </table>
