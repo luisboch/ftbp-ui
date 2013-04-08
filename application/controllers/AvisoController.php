@@ -111,7 +111,7 @@ class AvisoController extends MY_Controller {
             }
 
             // direciona para a view correta, e adiciona uma mensagem de feed back.
-            $this->info("Cadastrado " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
+            $this->info("Aviso " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
 
             $dptos = $this->servicoDepartamento->carregarDepartamentos();
             $usuarios = $this->servicoUsuario->carregarTodosOsUsuarios();

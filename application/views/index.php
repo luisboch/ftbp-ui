@@ -34,7 +34,7 @@
                 <a href="<?=site_url('AvisoController/verAviso/'.$v->getId())?>" 
                    onclick="return carregar('<?= "AvisoController/verAviso/".$v->getId()?>', null, true);"
                    >
-                    <?= $v->getTitulo() ?></a>
+                    <?= $v->getLido() === 't' ? '<strong>'. $v->getTitulo() . '</strong>' : $v->getTitulo() ?></a>
                 (<?= $v->getCriadoPor()->getNome() ?>)
                 <br>
             </p>
