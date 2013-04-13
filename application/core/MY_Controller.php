@@ -184,7 +184,7 @@ class MY_Controller extends CI_Controller {
     protected function info($msg, $var = null) {
         $this->addMsg($msg, $var, Mensagens::INFO);
     }
-
+    
 }
 
 ?>

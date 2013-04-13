@@ -23,9 +23,11 @@
     </head>
     <body>
         <div id='usr-messages' style="height: 250px;overflow: auto">
-            <? foreach ($mensagens as $msg) { ?>
-                <div style="width: 100%"><span class="usr-nome"><?= $msg->getUsuario()->getNome(); ?>: </span><span class="msg"><?= $msg->getMensagem(); ?></span><br></div>
-            <? } ?>
+            <div id="scroll-area">
+                <? foreach ($mensagens as $msg) { ?>
+                    <div style="width: 100%"><span class="usr-nome"><?= $msg->getUsuario()->getNome(); ?>: </span><span class="msg"><?= $msg->getMensagem(); ?></span><br></div>
+                <? } ?>
+            </div>
         </div>
         <form method="post" onsubmit="return enviarMensagem();" id="form-chat">
             <div id="usr-editor" style="width: 100%;">
@@ -48,7 +50,7 @@
                             {'usr_id': $('input[name=usr_id]').val()}, false,
                             function(data) {
                                 var msgs = $(data.documentElement).find('mensagens');
-                                var div = $('#usr-messages').html('');
+                                var div = $('#scroll-area').html('');
                                 $(msgs).children().each(function() {
                                     var mensagem = $(this).find('mensagem').text();
                                     var usuario = $(this).find('nome').text();
@@ -59,7 +61,7 @@
                                     div.append(html);
                                 });
 
-                                $('#usr-messages').scrollTop($('#usr-messages').innerHeight());
+                                $('#usr-messages').scrollTop($('#scroll-area').innerHeight());
                             })
 
 
