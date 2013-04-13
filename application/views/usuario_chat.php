@@ -42,7 +42,7 @@
 
             $(function() {
 
-                $('#usr-messages').scrollTop($('#usr-messages').innerHeight());
+                 $('#usr-messages').scrollTop($('#scroll-area').innerHeight());
 
                 window.setInterval(function() {
 
