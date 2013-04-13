@@ -95,7 +95,27 @@ class ChatController extends MY_Controller {
         $msg = $_POST['mensagem'];
         $usuarioAlvo = $this->servicoUsuario->getById($usuarioAlvo);
         $this->chat->enviarMensagem($this->session->getUsuario(), $usuarioAlvo, $msg);
-        exit;
+        $this->params['sucesso'] = true;
+        $this->montarXml();
+    }
+    
+    public function atualizarMensagens() {
+        
+        $usrId = $_POST['usr_id'];
+        
+        $usuarioAlvo = $this->servicoUsuario->getById($usrId);
+        
+        $mensagens = $this->chat->carregarMensagens($this->session->getUsuario(), $usuarioAlvo);
+        $this->params['mensagens'] = array();
+        foreach($mensagens as $k => $v){
+            $this->params['mensagens']['msg_'.$k] = array();
+            $this->params['mensagens']['msg_'.$k]['nome'] = $v->getUsuario()->getNome();
+            $this->params['mensagens']['msg_'.$k]['mensagem'] = $v->getMensagem();
+            $this->params['mensagens']['msg_'.$k]['lido'] = $v->isRead()?'true':'false';
+            $this->params['mensagens']['msg_'.$k]['data'] = $v->getData()->format('d/m H:i:s');
+        }
+        
+        $this->montarXml();
     }
 }
 

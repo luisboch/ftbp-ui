@@ -17,33 +17,69 @@
 
         <script type="text/javascript" >
             var URL_HOME = '<?= URL_HOME ?>';
-            var logado = <?=$logado?'true':'false'?>;
+            var logado = <?= $logado ? 'true' : 'false' ?>;
         </script>
         <title><?= $alvo->getNome(); ?></title>
     </head>
     <body>
-        <div id='usr-messages' style="height: 300px;overflow: auto">
-            <?foreach($mensagens as $msg){?>
-                <div style="width: 100%"><span class="usr-nome"><?=$msg->getUsuario()->getNome();?>: </span><span class="msg"><?=$msg->getMensagem();?></span><br></div>
-            <?}?>
-            <!--<div style="width: 100%"><span class="usr-nome">Eu:</span><span class="msg">Olá</span><br></div>-->
-            <!--<div style="width: 100%"><span class="usr-nome">Paulo:</span><span class="msg">Olá</span><br></div>-->
+        <div id='usr-messages' style="height: 250px;overflow: auto">
+            <? foreach ($mensagens as $msg) { ?>
+                <div style="width: 100%"><span class="usr-nome"><?= $msg->getUsuario()->getNome(); ?>: </span><span class="msg"><?= $msg->getMensagem(); ?></span><br></div>
+            <? } ?>
         </div>
-        <form method="post" onsubmit="return carregar('ChatController/enviarMensagem', $('#form-chat').serialize());" id="form-chat">
-            <div id="usr-editor" style="width: 100%;"><textarea style="width: 100%;height: 100px;"name="mensagem"></textarea>
+        <form method="post" onsubmit="return enviarMensagem();" id="form-chat">
+            <div id="usr-editor" style="width: 100%;">
+                <textarea style="width: 100%;height: 100px;" name="mensagem"></textarea>
                 <div style="text-align: right;">
-                    <input type="hidden" name="usr_id" value="<?=$alvo->getId();?>" />
+                    <input type="hidden" name="usr_id" value="<?= $alvo->getId(); ?>" />
                     <input type="submit" value="enviar" />
                 </div>
             </div>
         </form>
         <script type="text/javascript">
-            
-            $(scrollToFinal);
-            function scrollToFinal(){
-                $('#usr-messages').scrollTop($('#usr-messages').innerHeight())
+
+            $(function() {
+
+                $('#usr-messages').scrollTop($('#usr-messages').innerHeight());
+
+                window.setInterval(function() {
+
+                    carregar('ChatController/atualizarMensagens',
+                            {'usr_id': $('input[name=usr_id]').val()}, false,
+                            function(data) {
+                                var msgs = $(data.documentElement).find('mensagens');
+                                var div = $('#usr-messages').html('');
+                                $(msgs).children().each(function() {
+                                    var mensagem = $(this).find('mensagem').text();
+                                    var usuario = $(this).find('nome').text();
+                                    var lido = $(this).find('lido').text() === 'true';
+                                    var data = $(this).find('data').text();
+
+                                    var html = '<div style="width: 100%"><span class="usr-nome">' + usuario + ': </span><span class="msg" style="' + (lido ? '' : 'font-weight:bold') + '">' + mensagem + '</span><br></div>';
+                                    div.append(html);
+                                });
+
+                                $('#usr-messages').scrollTop($('#usr-messages').innerHeight());
+                            })
+
+
+                }, 5000)
+            });
+
+            function enviarMensagem() {
+                try {
+                    carregar('ChatController/enviarMensagem',
+                            $('#form-chat').serialize(),
+                            false,
+                            function() {
+
+                            })
+                } catch (e) {
+
+                }
+                $('textarea[name=mensagem]').val('');
+                return false;
             }
-            
         </script>
     </body>
 </html>
