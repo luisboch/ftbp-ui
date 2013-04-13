@@ -194,4 +194,26 @@ a:hover {text-decoration:underline;color:#999999;}
     color:#888;
 }
 
+#chat .icon_alert{
 
+    background: url('../imagens/chat_ico.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    font-weight: bold;
+    padding-right: 15px;
+}
+
+#usr-messages .usr-nome{
+    font-weight:bold;
+    font-size:13px;
+    color:#444;
+}
+#usr-messages .msg{
+    color:#444;
+    font-size:13px;
+}
+
+#usr-editor textarea{
+    border: 2px solid #c0c0c0;
+    color: #333;
+}

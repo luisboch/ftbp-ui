@@ -167,9 +167,11 @@ $(function() {
                 $(usr).children().each(function() {
                     var nome = $(this).find('nome').text();
                     var id = $(this).find('id').text();
+//                    alert($(this).find('com_mgs').text())
+                    var com_mgs = $(this).find('com_mgs').text()==='true'?true:false;
                     var departamento = $(this).find('departamento').text();
                     var html = '<li onclick="popup(URL_HOME+\'ChatController/u/' + id + '\', \'' + nome + '\', 300, 400)">\n' +
-                            '<span class="usuario-nome">' + nome + '</span>\n' +
+                            '<span class="usuario-nome '+(com_mgs?'icon_alert':'')+' ">' + nome + '</span>\n' +
                             '<span class="departamento-nome">' + departamento + '</span>\n' +
                             '</li>\n';
                     ul.append(html);

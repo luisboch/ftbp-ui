@@ -53,7 +53,7 @@ class ChatController extends MY_Controller {
             $arr['nome'] = $u->getNome();
             $arr['id'] = $u->getId();
             $arr['departamento'] = $u->getDepartamento() === null? '':$u->getDepartamento()->getNome();
-            
+            $arr['com_mgs'] = $this->chat->existeMensagem($this->session->getUsuario(), $u)?'true':'false';
             $this->params['usuarios']['usr_'.$i] = $arr;
             $i++;
         }

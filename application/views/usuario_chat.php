@@ -63,20 +63,31 @@
                             })
 
 
-                }, 5000)
+                }, 5000);
+
+                // Adiciona o evento para capturar os enters do textarea
+                $('textarea').keyup(function(e) {
+                    if (e.keyCode === 13) {
+                        enviarMensagem();
+                    }
+                });
+
             });
 
             function enviarMensagem() {
+
                 try {
-                    carregar('ChatController/enviarMensagem',
-                            $('#form-chat').serialize(),
-                            false,
-                            function() {
-
-                            })
+                    if ($('textarea').val() !== '') {
+                        carregar('ChatController/enviarMensagem',
+                                $('#form-chat').serialize(),
+                                false,
+                                function() {
+                                })
+                    }
                 } catch (e) {
-
+                    // Nothing to do
                 }
+
                 $('textarea[name=mensagem]').val('');
                 return false;
             }
