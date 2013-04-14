@@ -1,6 +1,7 @@
 <?php
 
 require_once 'ftbp-src/servicos/impl/ServicoUsuario.php';
+require_once 'ftbp-src/servicos/impl/ServicoChat.php';
 /*
  * LoginService.php
  */
@@ -18,10 +19,17 @@ class Login extends MY_Controller {
      * @var ServicoUsuario
      */
     private $service;
-
+    
+    /**
+     *
+     * @var Chat
+     */
+    private $chatService;
+            
     function __construct() {
         parent::__construct();
         $this->service = new ServicoUsuario();
+        $this->chatService = new Chat();
     }
 
     public function index() {
@@ -45,6 +53,7 @@ class Login extends MY_Controller {
 
     public function logout() {
         $this->session->close();
+        $this->chatService->logout();
         $this->redirect('/');
         
     }
