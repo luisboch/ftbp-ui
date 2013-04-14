@@ -13,6 +13,7 @@
     border: 1px solid #888;
     width: 170px;
 }
+
 </style>
 <strong><?= $titulo ?></strong>
 <hr>
@@ -34,8 +35,8 @@
                     "<?= $v->getCriadoPor()->getNome() ?>"
                 </a>
                 <div style="text-align: right;color: #666">
-                    <span style="background-color: #FF0000">
-                        <a href="#">DELETAR </a>
+                    <span>
+                        <a href="#" class="button blue small link">DELETAR </a>
                     </span>
                     <?= $v->getDataCriacao()->format('d/M/y') ?>
                 </div>
