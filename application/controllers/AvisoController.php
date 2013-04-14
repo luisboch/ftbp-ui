@@ -145,6 +145,20 @@ class AvisoController extends MY_Controller {
         
         $this->view('paginas/lerAviso.php', array('aviso' => $av));
     }
+    
+    public function verMais(){
+        
+        $av =  $this->servico->carregarAviso($this->session->getUsuario());
+        
+        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Entrada de Avisos'));
+    }
+    
+    public function meusAvisos(){
+        
+        $av =  $this->servico->carregarMeusAviso($this->session->getUsuario());
+        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos'));
+        
+    }
 
 }
 

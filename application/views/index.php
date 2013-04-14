@@ -24,7 +24,7 @@
     border: 1px solid #c0c0c0; 
     float: left">
     <span style="text-align: left; font-weight: bold">
-        Avisos
+        Avisos <a class="simple-link" href="<?=site_url('AvisoController/verMais')?>" onclick="return carregar('AvisoController/verMais', null, true);">ver mais</a>
     </span>
     <hr>
     <? if (is_array($aviso)) { ?>
@@ -34,7 +34,7 @@
                 <a href="<?=site_url('AvisoController/verAviso/'.$v->getId())?>" 
                    onclick="return carregar('<?= "AvisoController/verAviso/".$v->getId()?>', null, true);"
                    >
-                    <?= $v->getLido() === 't' ? '<strong>'. $v->getTitulo() . '</strong>' : $v->getTitulo() ?></a>
+                    <?= $v->getLido() === 'f' ? '<strong>'. $v->getTitulo() . '</strong>' : $v->getTitulo() ?></a>
                 (<?= $v->getCriadoPor()->getNome() ?>)
                 <br>
             </p>
