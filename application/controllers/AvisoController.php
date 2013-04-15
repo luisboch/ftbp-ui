@@ -150,14 +150,32 @@ class AvisoController extends MY_Controller {
         
         $av =  $this->servico->carregarAviso($this->session->getUsuario());
         
-        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Entrada de Avisos'));
+        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Entrada de Avisos', 'opcao' => 'entrada'));
     }
     
     public function meusAvisos(){
         
         $av =  $this->servico->carregarMeusAviso($this->session->getUsuario());
-        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos'));
+        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos', 'opcao' => 'saida'));
         
+    }
+    
+    public function deletarAviso(){
+    
+        $id = $this->uri->segment(3);
+        $opcao = $this->uri->segment(4);
+        $at = new Aviso();
+        $at->setId($id);
+        
+        if ($opcao === "saida"){
+            $av = $this->servico->remover($at);
+            $av = $this->servico->carregarMeusAviso($this->session->getUsuario());
+        }else if ($opcao === "entrada"){
+            $av = $this->servico->deletarAvisoDestinatario($at, $this->session->getUsuario());
+            $av = $this->servico->carregarAviso($this->session->getUsuario());
+        }
+        $this->info("Aviso " . ('deletado') . " com sucesso");
+        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos', 'opcao' => $opcao));
     }
 
 }
