@@ -82,7 +82,8 @@ CREATE TABLE aviso_destinatario
 (
   aviso_id integer NOT NULL,
   usuario_id integer NOT NULL,
-  ativo boolean,
+  lido boolean default false,
+  excluida boolean default false,
   CONSTRAINT pk_aviso_destinatario PRIMARY KEY (aviso_id, usuario_id),
   CONSTRAINT fk_aviso FOREIGN KEY (aviso_id)
       REFERENCES aviso (id) MATCH SIMPLE

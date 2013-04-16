@@ -11,11 +11,10 @@
                     <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index', null, true);">Funcionários</a></li>
                 </ul> 
             </li>
-            <li><a href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais', null, true);">Atualizações</a></li> 
             <li><a href="#" onclick="return false;">Meus Itens</a>
                 <ul>
                     <li><a href="<?=site_url('AvisoController/verMais')?>" onclick="return carregar('AvisoController/verMais', null, true);">Avisos</a></li> 
-                    <li><a href="" onclick="">Notificações</a></li>
+                    <li><a href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais', null, true);">Notificações</a></li>
                     <li><a href="" onclick="">Requisições</a></li>
                 </ul>
             </li>
