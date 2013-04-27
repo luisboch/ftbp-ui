@@ -91,4 +91,30 @@ CREATE TABLE aviso_destinatario
   CONSTRAINT fk_destinatario_usuario FOREIGN KEY (usuario_id)
       REFERENCES usuarios (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+CREATE TABLE curso
+(
+  id serial NOT NULL,
+  nome character varying(200) NOT NULL,
+  descricao character varying(1000) NOT NULL,
+  data_vestibular date,
+  coordenador character varying(200),
+  email character varying(200),
+  corpo_docente character varying(1000),
+  publico_alvo character varying(200),
+  valor real,
+  duracao real,
+  videoapres character varying(5000) NOT NULL,
+  areacurso_id integer,
+  nivelgraduacao character varying(200),
+  contatosecretaria character varying(200),
+  excluida boolean,
+  CONSTRAINT curso_pkey PRIMARY KEY (id),
+  CONSTRAINT curso_areacurso_id_fkey FOREIGN KEY (areacurso_id)
+      REFERENCES area_curso (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
 )
+WITH (
+  OIDS=FALSE
+);

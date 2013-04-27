@@ -4,7 +4,7 @@
             <li><a href="<?= site_url('welcome/index') ?>" onclick="return carregar('welcome/index', null, true)">Home</a></li>
             <li><a href="#" onclick="return false;">Cadastrar</a> 
                 <ul> 
-                    <!--<li><a href="#" onclick="cadastro('cadastrarCurso', '.html');">Cursos</a></li>-->
+                    <li><a href="<?= site_url('CursoController/index') ?>" onclick="return carregar('CursoController/index', null, true);">Cursos</a></li>
                     <li><a href="<?= site_url('AvisoController/index') ?>" onclick="return carregar('AvisoController/index', null, true);">Avisos</a></li> 
                     <li><a href="<?= site_url('DepartamentoController/index') ?>" onclick="return carregar('DepartamentoController/index', null, true);">Setores</a></li> 
                     <li><a href="<?= site_url('AreaController/index') ?>" onclick="return carregar('AreaController/index', null, true);">Cursos Areas</a></li> 
