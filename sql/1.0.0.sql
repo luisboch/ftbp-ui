@@ -93,6 +93,35 @@ CREATE TABLE aviso_destinatario
       ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
+create table requisicoes
+(
+  id serial NOT NULL,
+  titulo character varying(500) NOT NULL,
+  descricao text NOT NULL,
+  usuario_id integer NOT NULL,
+  criado_por integer NOT NULL,
+  data_criacao timestamp without time zone NOT NULL DEFAULT now(),
+  status character varying(50),
+  prioridade character varying(15),
+  constraint requisicoes_pkey PRIMARY KEY (id),
+  constraint fk_usuario_requisicao foreign key (usuario_id)
+      references usuarios (id) 
+  constraint fk_usuario_requisicao_criador foreign key (criado_por)
+      references usuarios (id)
+);
+
+create table requisicoes_iteracoes(
+	requisicao_id integer not null,
+	usuario_id integer not null,
+	mensagem text not null,
+	data_criacao timestamp default now() not null,
+	constraint fk_iteracao_requisicao
+		foreign key (requisicao_id)
+		references requisicoes(id),
+	constraint fk_iteracao_usuario
+		foreign key (usuario_id)
+		references usuarios(id)
+);
 CREATE TABLE curso
 (
   id serial NOT NULL,
