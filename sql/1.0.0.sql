@@ -1,6 +1,6 @@
-create table departamento(
+﻿create table departamento(
 	id serial primary key,
-	nome character varying(200),
+	nome character varying(200) not null,
         data_criacao timestamp not null default now()
 );
 
@@ -13,7 +13,7 @@ create table usuarios(
 	departamento_id integer,
         responsavel boolean default false not null,
         tipo_usuario integer not null,
-        constraint fk_usuario_departamento foreign key (departamento_id)
+        constraint fk_usuario_departamento foreign key(departamento_id)
         references departamento(id)
         
 );
@@ -30,7 +30,7 @@ create table pesquisa(
 create table palavras_chave(
 	pesquisa_id integer not null,
 	palavra character varying(100) not null,
-	constraint fk_palavra_pesquisa foreign key (pesquisa_id) 
+	constraint fk_palavra_pesquisa foreign key(pesquisa_id) 
 		references pesquisa(id)
 );
 
@@ -47,66 +47,58 @@ create table notificacoes(
 	data_expiracao timestamp not null,
 	data_criacao timestamp not null default now(),
         link character varying (1000) not null,
-	constraint fk_notificacao_usuario foreign key (usuario_id)
+	constraint fk_notificacao_usuario foreign key(usuario_id)
 	references usuarios(id)
-);
-
-create table nivel_curso(
-	id serial primary key,
-	nome character varying(200),
-        data_criacao timestamp not null default now()
 );
 
 
 create table area_curso
 (
   id serial primary key,
-  nome character varying(200),
+  nome character varying(200) not null,
   data_criacao timestamp not null default now()
 );
-CREATE TABLE aviso
+
+create table aviso
 (
-  id serial NOT NULL,
-  titulo character varying(200) NOT NULL,
-  descricao character varying(1000) NOT NULL,
-  data_criacao timestamp without time zone NOT NULL DEFAULT now(),
-  usuario_id integer NOT NULL,
+  id serial not null,
+  titulo character varying(200) not null,
+  descricao character varying(1000) not null,
+  data_criacao timestamp without time zone not null DEFAULT now(),
+  usuario_id integer not null,
   excluida boolean,
-  CONSTRAINT avisos_pkey PRIMARY KEY (id),
-  CONSTRAINT fk_usuario FOREIGN KEY (usuario_id)
-      REFERENCES usuarios (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  constraint avisos_pkey primary key(id),
+  constraint fk_usuario foreign key(usuario_id)
+      references usuarios (id) 
 );
 
-CREATE TABLE aviso_destinatario
+create table aviso_destinatario
 (
-  aviso_id integer NOT NULL,
-  usuario_id integer NOT NULL,
+  aviso_id integer not null,
+  usuario_id integer not null,
   lido boolean default false,
   excluida boolean default false,
-  CONSTRAINT pk_aviso_destinatario PRIMARY KEY (aviso_id, usuario_id),
-  CONSTRAINT fk_aviso FOREIGN KEY (aviso_id)
-      REFERENCES aviso (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT fk_destinatario_usuario FOREIGN KEY (usuario_id)
-      REFERENCES usuarios (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  constraint pk_aviso_destinatario primary key(aviso_id, usuario_id),
+  constraint fk_aviso foreign key(aviso_id)
+      references aviso (id),
+  constraint fk_destinatario_usuario foreign key(usuario_id)
+      references usuarios (id) 
 );
 
 create table requisicoes
 (
-  id serial NOT NULL,
-  titulo character varying(500) NOT NULL,
-  descricao text NOT NULL,
-  usuario_id integer NOT NULL,
-  criado_por integer NOT NULL,
-  data_criacao timestamp without time zone NOT NULL DEFAULT now(),
+  id serial not null,
+  titulo character varying(500) not null,
+  descricao text not null,
+  usuario_id integer not null,
+  criado_por integer not null,
+  data_criacao timestamp without time zone not null default now(),
   status character varying(50),
   prioridade character varying(15),
-  constraint requisicoes_pkey PRIMARY KEY (id),
-  constraint fk_usuario_requisicao foreign key (usuario_id)
-      references usuarios (id) 
-  constraint fk_usuario_requisicao_criador foreign key (criado_por)
+  constraint requisicoes_pkey primary key(id),
+  constraint fk_usuario_requisicao foreign key(usuario_id)
+      references usuarios (id),
+  constraint fk_usuario_requisicao_criador foreign key(criado_por)
       references usuarios (id)
 );
 
@@ -116,17 +108,18 @@ create table requisicoes_iteracoes(
 	mensagem text not null,
 	data_criacao timestamp default now() not null,
 	constraint fk_iteracao_requisicao
-		foreign key (requisicao_id)
+		foreign key(requisicao_id)
 		references requisicoes(id),
 	constraint fk_iteracao_usuario
-		foreign key (usuario_id)
+		foreign key(usuario_id)
 		references usuarios(id)
 );
-CREATE TABLE curso
+
+create table curso
 (
-  id serial NOT NULL,
-  nome character varying(200) NOT NULL,
-  descricao character varying(1000) NOT NULL,
+  id serial not null,
+  nome character varying(200) not null,
+  descricao character varying(1000) not null,
   data_vestibular date,
   coordenador character varying(200),
   email character varying(200),
@@ -134,16 +127,24 @@ CREATE TABLE curso
   publico_alvo character varying(200),
   valor real,
   duracao real,
-  videoapres character varying(5000) NOT NULL,
+  videoapres character varying(5000) not null,
   areacurso_id integer,
   nivelgraduacao character varying(200),
   contatosecretaria character varying(200),
   excluida boolean,
-  CONSTRAINT curso_pkey PRIMARY KEY (id),
-  CONSTRAINT curso_areacurso_id_fkey FOREIGN KEY (areacurso_id)
-      REFERENCES area_curso (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
+  constraint curso_pkey primary key(id),
+  constraint curso_areacurso_id_fkey foreign key(areacurso_id)
+      references area_curso (id) 
+);
+
+create table eventos
+(
+  id serial not null,
+  titulo character varying(200) not null,
+  descricao character varying(4000) not null,
+  data timestamp without time zone,
+  local character varying(200),
+  contato character varying(200),
+  excluida boolean,
+  constraint pk_evento_id primary key(id)
 );
