@@ -185,6 +185,9 @@ class MY_Controller extends CI_Controller {
         $this->addMsg($msg, $var, Mensagens::INFO);
     }
     
+    protected function carregarHome() {
+        $this->redirect('welcome/index');
+    }
 }
 
 ?>
