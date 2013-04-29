@@ -55,33 +55,36 @@
             </tr>
             <tr>
                 <td>Corpo Docente</td>
-                <td><textarea id="corpo_docente" name="corpo_docente" rows="10" cols="30"></textarea></td>
+                <td><textarea id="corpoDocente" name="corpoDocente" rows="10" cols="30"></textarea></td>
             </tr>
             <tr>
                 <td> Público Alvo</td>
-                <td><input id="publico_alvo" name="publico_alvo" type="text"></td>
+                <td><input id="publicoAlvo" name="publicoAlvo" type="text"></td>
             </tr>
             <tr>
                 <td>Valor</td>
                 <td><input id="valor" name="valor" type="text"></td>
             </tr>
+             <tr>
+                <td>Duração</td>
+                <td><input id="duracao" name="duracao" type="text"></td>
+            </tr>
             <tr>
                 <td>Video de Apresentação</td>
-                <td><input id="video" name="video" type="text"></td>
+                <td><input id="videoApres" name="videoApres" type="text"></td>
             </tr>
           
             <tr>
                 <td>Data do Vestibular</td>
                 <td>
-                    <select id="mes_inicio" name="mes_inicio"></select> /
-                    <select id="ano_inicio" id="ano_inicio"></select>
+                    <input type="text" id="dataVestibular" name="dataVestibular" />
                 </td>
             </tr>
             
             <tr>
                 <td>Area de Atuação</td>
                 <td>
-                    <select id="area" name ="area">
+                    <select id="areaCurso" name ="areaCurso">
                         <option>rh</option>
                     </select>
                 </td>
@@ -90,9 +93,9 @@
             <tr>
                 <td>Nivel</td>
                 <td>
-                    <select id="nivel" name ="nivel">
-                        <option>Graduação</option>
-                        <option>Pós-Graduação</option>
+                    <select id="nivelCurso" name ="nivelCurso">
+                        <option value="graduacao">Graduação</option>
+                        <option value="Pós-Graduação">Pós-Graduação</option>
                     </select>
                 </td>
             </tr>
@@ -102,7 +105,7 @@
             </tr>
             <tr>
                 <td>Contatos da Secretaria</td>
-                <td><input type="type" id="contatos" name="contatos"></td>
+                <td><input type="type" id="contatoSecretaria" name="contatoSecretaria"></td>
             </tr>
             <tr>
                 <td>Upload de Arquivos</td>

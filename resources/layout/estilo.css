@@ -149,11 +149,12 @@ a:hover {text-decoration:underline;color:#999999;}
 .form-table tr td:first-child{
     text-align: right;
     font-weight: bold;
+    vertical-align: top;
 }
 
 .form-table tr td:last-child{
     text-align: left;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 #chat {
@@ -236,4 +237,8 @@ a:hover {text-decoration:underline;color:#999999;}
      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4776a4', endColorstr='#234568',GradientType=0 );
      background: linear-gradient(top, #4776a4 0%,#406f9d 35%,#366291 74%,#31608c 83%,#2f5e8c 96%,#234568 100%);
      text-decoration:none;color:#fff;
+}
+
+.usuario-nome{
+    font-weight: bold;
 }

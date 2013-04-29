@@ -1,6 +1,6 @@
-create table departamento(
+﻿create table departamento(
 	id serial primary key,
-	nome character varying(200),
+	nome character varying(200) not null,
         data_criacao timestamp not null default now()
 );
 
@@ -50,20 +50,13 @@ create table notificacoes(
 	constraint fk_notificacao_usuario foreign key(usuario_id)
 	references usuarios(id)
 );
-
-create table nivel_curso(
-	id serial primary key,
-	nome character varying(200),
-        data_criacao timestamp not null default now()
-);
-
-
 create table area_curso
 (
   id serial primary key,
-  nome character varying(200),
+  nome character varying(200) not null,
   data_criacao timestamp not null default now()
 );
+
 create table aviso
 (
   id serial not null,
@@ -119,6 +112,7 @@ create table requisicoes_iteracoes(
 		foreign key(usuario_id)
 		references usuarios(id)
 );
+
 create table curso
 (
   id serial not null,

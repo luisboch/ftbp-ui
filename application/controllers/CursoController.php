@@ -32,7 +32,7 @@ class CursoController extends MY_Controller {
         
         $this->view('paginas/cadastrarCurso.php');
     }
-/*
+
     public function salvar() {
         // Recupera o id que veio do form.
         $id = $_POST['id'];
@@ -41,7 +41,7 @@ class CursoController extends MY_Controller {
         try {
             // Se estiver vazio é novo.
             if ($id == '') {
-                $n = new Aviso();
+                $n = new Curso();
             } else {
                 $n = $this->servico->getById($id);
             }
@@ -53,47 +53,17 @@ class CursoController extends MY_Controller {
 
         // Inicia bloco de controle
         try {
-
-            $usuariosAenviar = array();
-            // verificar se é para enviar para todos os usuários 
-            if ($_POST['todos'] === 'on') {
-                // pega os usuários
-                $usuariosAenviar = $this->servicoUsuario->carregarTodosOsUsuarios();
-            } else {
-                if ($_POST['setor_resp'] === 'on') {
-                    
-                    $responsaveis = $this->servicoUsuario->carregarResponsavelDepartamento($_POST['setor_resp_check']);
-                    
-                    foreach ($responsaveis as $v) {
-                        $usuariosAenviar[] = $v;
-                    }
-                    
-                }
-                if ($_POST['setor_usuarios'] === 'on') {
-                    $usuarios = $this->servicoUsuario->carregarUsuariosDepartamento($_POST['setor_usu_check']);
-                    foreach($usuarios as $v){
-                        $usuariosAenviar[] = $v;
-                    }
-                }
-                if ($_POST['usuario'] === 'on') {
-                    $usuarios = $this->servicoUsuario->getByIds($_POST['usuario_check']);
-                    foreach($usuarios as $v){
-                        $usuariosAenviar[] = $v;
-                    }
-                }
-            }
-
-            $n->setUsuariosAlvo($usuariosAenviar);
-
+            
             // Seta os novos valores
 
-            $n->setTitulo($_POST['titulo']);
-
+            $n->setNome($_POST['nome']);
             $n->setDescricao($_POST['descricao']);
-
-            $n->setCriadoPor($this->session->getUsuario());
-
+            $n->setAreaCurso($_POST['area']);
+            $n->setContatoSecretaria($_POST['contatoSecretaria']);
+            $n->setCoordenador($_POST['coordenador']);
+            
             // Chama o salvar, (atualiza ou insere)
+            
             if ($id == '') {
                 $this->servico->inserir($n);
             } else {
@@ -101,25 +71,21 @@ class CursoController extends MY_Controller {
             }
 
             // direciona para a view correta, e adiciona uma mensagem de feed back.
-            $this->info("Aviso " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
-
-            $dptos = $this->servicoDepartamento->carregarDepartamentos();
-            $usuarios = $this->servicoUsuario->carregarTodosOsUsuarios();
-
-            $this->view('paginas/cadastrarAviso.php', array('aviso' => $n, 'dptos' => $dptos, 'usuarios' => $usuarios));
+            
+            $this->info("Curso " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
+            
+            $this->view('paginas/cadastrarCurso.php', array('curso' => $n));
+            
         } catch (ValidacaoExecao $e) {
 
             foreach ($e->getErrors() as $v) {
                 $this->warn($v->getMensagem(), $v->getCampo());
             }
 
-            $dptos = $this->servicoDepartamento->carregarDepartamentos();
-            $usuarios = $this->servicoUsuario->carregarTodosOsUsuarios();
-
-            $this->view('paginas/cadastrarAviso.php', array('aviso' => $n, 'dptos' => $dptos, 'usuarios' => $usuarios));
+            $this->view('paginas/cadastrarCurso.php', array('curso' => $n));
         }
     }
-    
+    /*
     public function verAviso(){
     
         $id = $this->uri->segment(3);
