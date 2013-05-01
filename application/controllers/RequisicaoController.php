@@ -37,12 +37,19 @@ class RequisicaoController extends MY_Controller {
         $this->view('paginas/cadastrarRequisicao.php', array('usuarios' => $usuarios));
     }
 
+    public function verMais() {
+        $this->entrada();
+    }
+
+
     public function minhasRequisicoes() {
-        
+        $reqst = $this->servico->getByCriador($this->session->getUsuario());
+        $this->view('paginas/requisicoes.php', array('reqst' => $reqst, 'titulo' => 'Minhas Requisições'));
     }
 
     public function entrada() {
-        
+        $reqst = $this->servico->getByUsuario($this->session->getUsuario());
+        $this->view('paginas/requisicoes.php', array('reqst' => $reqst, 'titulo' => 'Entrada'));
     }
 
     /**

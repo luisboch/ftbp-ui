@@ -47,7 +47,7 @@
      border: 1px solid #c0c0c0; 
      float: left">
     <span style="text-align: left; font-weight: bold">
-        Últimas Requisicoes <a class="simple-link" href="<?= site_url('RequisicaoController/verMais') ?>" onclick="return carregar('AvisoController/verMais', null, true);">ver mais</a>
+        Últimas Requisicoes <a class="simple-link" href="<?= site_url('RequisicaoController/verMais') ?>" onclick="return carregar('RequisicaoController/verMais', null, true);">ver mais</a>
     </span>
     <hr>
     <? if (isset($reqst) && is_array($reqst)) { ?>
