@@ -8,7 +8,6 @@
                 <td>Tipo:</td>
                 <td>
                     <select name="tipo_usuario" id="tipo_usuario">
-                        <option <?=!empty($usuario)&&$usuario->getTipoUsuario() == 2?'selected="selected"':'';?> value="2">Aluno</option>
                         <option <?=!empty($usuario)&&$usuario->getTipoUsuario() == 3?'selected="selected"':'';?>value="3">Funcionário</option>
                         <option <?=!empty($usuario)&&$usuario->getTipoUsuario() == 4?'selected="selected"':'';?>value="4">Professor</option>
                     </select>
