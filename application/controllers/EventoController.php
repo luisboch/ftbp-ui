@@ -1,53 +1,46 @@
 <?php
 
-require_once 'ftbp-src/servicos/impl/ServicoCurso.php';
-require_once 'ftbp-src/servicos/impl/ServicoArea.php';
-
-require_once 'ftbp-src/entidades/basico/Curso.php';
-require_once 'ftbp-src/entidades/basico/AreaCurso.php';
+require_once 'ftbp-src/servicos/impl/ServicoAviso.php';
+require_once 'ftbp-src/servicos/impl/ServicoUsuario.php';
+require_once 'ftbp-src/servicos/impl/ServicoDepartamento.php';
+require_once 'ftbp-src/entidades/basico/Aviso.php';
 
 /**
  * Description of AvisoController
  *
  * @author felipe
  */
-class CursoController extends MY_Controller {
+class EventoController extends MY_Controller {
 
     /**
      *
      * @var ServicoAviso
      */
     private $servico;
-    
-    /**
-     *
-     * @var ServicoArea 
-     */
-    private $servicoArea;
 
     /**
      *
      * @var ServicoUsuario 
      */
+    private $servicoUsuario;
 
+    /**
+     *
+     * @var ServicoDepartamento 
+     */
+    private $servicoDepartamento;
 
     function __construct() {
         parent::__construct();
-        $this->servico = new ServicoCurso();
-        $this->servicoArea = new ServicoArea();
+        $this->servico = new ServicoAviso();
+  
     }
 
     public function index() {
-        
-        
-        
-        $areaCurso = new AreaCurso();
-        
-        $areaCurso = $this->servicoArea->carregarArea();
-        
-        $this->view('paginas/cadastrarCurso.php', array('area' => $areaCurso));
+   
+        $this->view('paginas/cadastrarEvento.php');
     }
-
+/*
     public function salvar() {
         // Recupera o id que veio do form.
         $id = $_POST['id'];
@@ -56,7 +49,7 @@ class CursoController extends MY_Controller {
         try {
             // Se estiver vazio é novo.
             if ($id == '') {
-                $n = new Curso();
+                $n = new Aviso();
             } else {
                 $n = $this->servico->getById($id);
             }
@@ -68,27 +61,47 @@ class CursoController extends MY_Controller {
 
         // Inicia bloco de controle
         try {
-            
+
+            $usuariosAenviar = array();
+            // verificar se é para enviar para todos os usuários 
+            if ($_POST['todos'] === 'on') {
+                // pega os usuários
+                $usuariosAenviar = $this->servicoUsuario->carregarTodosOsUsuarios();
+            } else {
+                if ($_POST['setor_resp'] === 'on') {
+                    
+                    $responsaveis = $this->servicoUsuario->carregarResponsavelDepartamento($_POST['setor_resp_check']);
+                    
+                    foreach ($responsaveis as $v) {
+                        $usuariosAenviar[] = $v;
+                    }
+                    
+                }
+                if ($_POST['setor_usuarios'] === 'on') {
+                    $usuarios = $this->servicoUsuario->carregarUsuariosDepartamento($_POST['setor_usu_check']);
+                    foreach($usuarios as $v){
+                        $usuariosAenviar[] = $v;
+                    }
+                }
+                if ($_POST['usuario'] === 'on') {
+                    $usuarios = $this->servicoUsuario->getByIds($_POST['usuario_check']);
+                    foreach($usuarios as $v){
+                        $usuariosAenviar[] = $v;
+                    }
+                }
+            }
+
+            $n->setUsuariosAlvo($usuariosAenviar);
+
             // Seta os novos valores
 
-            $n->setId($id);
-            $n->setNome($_POST['nome']);
+            $n->setTitulo($_POST['titulo']);
+
             $n->setDescricao($_POST['descricao']);
-            $n->setAreaCurso($_POST['area']);
-            $n->setContatoSecretaria($_POST['contatoSecretaria']);
-            $n->setCoordenador($_POST['coordenador']);
-            $n->setCorpoDocente($_POST["corpoDocente"]);
-            $n->setDataVestibular($_POST["dataVestibular"]);
-            $n->setDescricao($_POST['descricao']);
-            $n->setDuracao($_POST['duracao']);
-            $n->setNivelGraduacao($_POST['nivelGraduacao']);
-            $n->setPublicoAlvo($_POST['publicoAlvo']);
-            $n->setValor($_POST['valor']);
-            $n->setVideoApresentacao($_POST['videoApresentacao']);
-            $n->setEmail($_POST['email']);
-            
+
+            $n->setCriadoPor($this->session->getUsuario());
+
             // Chama o salvar, (atualiza ou insere)
-            
             if ($id == '') {
                 $this->servico->inserir($n);
             } else {
@@ -96,21 +109,25 @@ class CursoController extends MY_Controller {
             }
 
             // direciona para a view correta, e adiciona uma mensagem de feed back.
-            
-            $this->info("Curso " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
-            
-            $this->view('paginas/cadastrarCurso.php', array('curso' => $n));
-            
+            $this->info("Aviso " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
+
+            $dptos = $this->servicoDepartamento->carregarDepartamentos();
+            $usuarios = $this->servicoUsuario->carregarTodosOsUsuarios();
+
+            $this->view('paginas/cadastrarAviso.php', array('aviso' => $n, 'dptos' => $dptos, 'usuarios' => $usuarios));
         } catch (ValidacaoExecao $e) {
 
             foreach ($e->getErrors() as $v) {
                 $this->warn($v->getMensagem(), $v->getCampo());
             }
 
-            $this->view('paginas/cadastrarCurso.php', array('curso' => $n));
+            $dptos = $this->servicoDepartamento->carregarDepartamentos();
+            $usuarios = $this->servicoUsuario->carregarTodosOsUsuarios();
+
+            $this->view('paginas/cadastrarAviso.php', array('aviso' => $n, 'dptos' => $dptos, 'usuarios' => $usuarios));
         }
     }
-    /*
+    
     public function verAviso(){
     
         $id = $this->uri->segment(3);
@@ -129,9 +146,7 @@ class CursoController extends MY_Controller {
     */
     public function verMais(){
         
-        //$av =  $this->servico->carregarAviso($this->session->getUsuario());
-        
-        $this->view('paginas/curso.php');
+        $this->view('paginas/evento.php');
     }
     /*
     public function meusAvisos(){

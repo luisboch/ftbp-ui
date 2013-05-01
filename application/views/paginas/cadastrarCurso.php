@@ -71,7 +71,7 @@
             </tr>
             <tr>
                 <td>Video de Apresentação</td>
-                <td><input id="videoApres" name="videoApres" type="text"></td>
+                <td><input id="videoApresentacao" name="videoApresentacao" type="text" /></td>
             </tr>
           
             <tr>
@@ -85,7 +85,11 @@
                 <td>Area de Atuação</td>
                 <td>
                     <select id="areaCurso" name ="areaCurso">
-                        <option>rh</option>
+                       <?foreach($area as $v){?>    
+                            <option value="<?=$v->getId()?>"><?=$v->getNome()?></option>
+                        <?
+                        }
+                        ?>
                     </select>
                 </td>
             </tr>

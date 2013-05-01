@@ -10,6 +10,7 @@
                     <li><a href="<?= site_url('AreaController/index') ?>" onclick="return carregar('AreaController/index', null, true);">Cursos Areas</a></li> 
                     <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index', null, true);">Funcionários</a></li>
                     <li><a href="<?= site_url('RequisicaoController/index') ?>" onclick="return carregar('RequisicaoController/index', null, true);">Requisições</a></li>
+                    <li><a href="<?= site_url('EventoController/index') ?>" onclick="return carregar('EventoController/index', null, true);">Eventos</a></li>
                 </ul> 
             </li>
             <li><a href="#" onclick="return false;">Meus Itens</a>
@@ -19,7 +20,8 @@
                     <li><a href="" onclick="">Requisições</a></li>
                 </ul>
             </li>
-            <!--<li><a href="#">Chat</a></li>-->
+            <li><a href="<?=site_url('CursoController/verMais')?>" onclick="return carregar('CursoController/verMais', null, true);">Cursos</a></li>
+            <li><a href="<?=site_url('EventoController/verMais')?>" onclick="return carregar('EventoController/verMais', null, true);">Eventos</a></li>
         </ul>
     <? } ?>
     <div id="pesquisar">
