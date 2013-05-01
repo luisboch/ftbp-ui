@@ -4,7 +4,7 @@
     <!--<input type="hidden" name="id" id="id" value="<?= empty($aviso) ? '' : $aviso->getId(); ?>" /> -->
     <table border="0" class="form-table">
 
-        <caption><span>Cadastrar Evento</span></caption>
+        <caption><span>Evento</span></caption>
         <tbody >
             <tr>
                 <td>Titulo</td>
