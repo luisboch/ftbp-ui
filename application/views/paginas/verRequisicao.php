@@ -24,6 +24,10 @@
                 <td><?= $requisicao->getDescricao(); ?></td>
             </tr>
             <tr>
+                <td>Aberto por: </td>
+                <td><span class="usuario-nome"><?= $requisicao->getCriadoPor()->getNome(); ?></span>  em <span class="data"><?= $requisicao->getDataCriacao()->format('d/m') ?></span> ás  <span class="data"><?= $requisicao->getDataCriacao()->format('H:i') ?></span></td>
+            </tr>
+            <tr>
                 <td>Designado para:</td>
                 <td><?= $requisicao->getUsuario()->getNome(); ?></td>
             </tr>
