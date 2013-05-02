@@ -74,7 +74,7 @@ class CursoController extends MY_Controller {
             $n->setId($id);
             $n->setNome($_POST['nome']);
             $n->setDescricao($_POST['descricao']);
-            $n->setAreaCurso($_POST['area']);
+            $n->setAreaCurso($_POST['areaCurso']);
             $n->setContatoSecretaria($_POST['contatoSecretaria']);
             $n->setCoordenador($_POST['coordenador']);
             $n->setCorpoDocente($_POST["corpoDocente"]);
@@ -86,7 +86,7 @@ class CursoController extends MY_Controller {
             $n->setValor($_POST['valor']);
             $n->setVideoApresentacao($_POST['videoApresentacao']);
             $n->setEmail($_POST['email']);
-            
+            $n->setCredito($_POST['credito']);
             // Chama o salvar, (atualiza ou insere)
             
             if ($id == '') {
@@ -99,7 +99,11 @@ class CursoController extends MY_Controller {
             
             $this->info("Curso " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
             
-            $this->view('paginas/cadastrarCurso.php', array('curso' => $n));
+            $areaCurso = new AreaCurso();
+        
+            $areaCurso = $this->servicoArea->carregarArea();
+            
+            $this->view('paginas/cadastrarCurso.php', array('curso' => $n, 'area' => $areaCurso));
             
         } catch (ValidacaoExecao $e) {
 
