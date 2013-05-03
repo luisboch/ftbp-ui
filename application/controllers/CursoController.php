@@ -133,9 +133,10 @@ class CursoController extends MY_Controller {
     */
     public function verMais(){
         
-        //$av =  $this->servico->carregarAviso($this->session->getUsuario());
+        $cr = new Curso();
+        $cr =  $this->servico->carregarCurso();
         
-        $this->view('paginas/curso.php');
+        $this->view('paginas/curso.php',array('titulo' => 'Cursos', 'curso' => $cr));
     }
     /*
     public function meusAvisos(){

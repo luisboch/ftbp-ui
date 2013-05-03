@@ -1,7 +1,7 @@
 <form id="form-cadastro" action="<?= site_url('CursoController/salvar'); ?>" 
       onsubmit="return carregar('CursoController/salvar', $('#form-cadastro').serialize())" 
       method="post">
-    <input type="text" name="id" id="id" value="<?= empty($curso)?'':$curso->getId();?>" />
+    <input type="hidden" name="id" id="id" value="<?= empty($curso)?'':$curso->getId();?>" />
     <table class="form-table">
         <caption>Cadastro de Cursos</caption>
         <tbody>
