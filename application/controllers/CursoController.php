@@ -114,23 +114,18 @@ class CursoController extends MY_Controller {
             $this->view('paginas/cadastrarCurso.php', array('curso' => $n));
         }
     }
-    /*
-    public function verAviso(){
+    
+    public function verCurso(){
     
         $id = $this->uri->segment(3);
         
-        $at = new Aviso();
+        $cr = new Curso();
         
-        $at->setId($id);
+        $cr = $this->servico->getById($id);
         
-        $av = $this->servico->avisoLido($at, $this->session->getUsuario());
-        
-        
-        $av = $this->servico->getById($id);
-        
-        $this->view('paginas/lerAviso.php', array('aviso' => $av));
+        $this->view('paginas/verCurso.php', array('curso' => $cr));
     }
-    */
+    
     public function verMais(){
         
         $cr = new Curso();

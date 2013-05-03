@@ -3,17 +3,16 @@
     <tbody>
         <tr>
             <td>Nome do Curso</td>
-            <td>Teologia</td>
+            <td><?=$curso->getNome()?></td>
         </tr>
         <tr>
             <td>Coordenador</td>
-            <td>José da Silva</td>
+            <td><?=$curso->getCoordenador()?></td>
         </tr>
         <tr>
             <td>Descrição</td>
             <td><textarea id="descricao" name="descricao" rows="10" cols="30" readonly="readonly">
-O curso de Bacharelado em Teologia, com duração de 4 anos, comprometido com os valores éticos, morais e espirituais do cristianismo oferta ao aluno uma formação profunda e abrangente que o capacite a contribuir para o surgimento de uma sociedade mais justa, humana e fraterna. A Faculdade Teológica Batista do Paraná prepara os seus alunos psicológica, sociológica, cultural e teologicamente para o exercício de sua missão de forma integral,eficaz e eficiente. 
-
+                    <?=$curso->getDescricao()?>
                 </textarea>
             </td>
         </tr>
