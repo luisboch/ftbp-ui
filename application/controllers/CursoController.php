@@ -39,8 +39,6 @@ class CursoController extends MY_Controller {
 
     public function index() {
         
-        
-        
         $areaCurso = new AreaCurso();
         
         $areaCurso = $this->servicoArea->carregarArea();
@@ -133,14 +131,23 @@ class CursoController extends MY_Controller {
         
         $this->view('paginas/curso.php',array('titulo' => 'Cursos', 'curso' => $cr));
     }
-    /*
-    public function meusAvisos(){
+    
+    public function alterarCurso(){
         
-        $av =  $this->servico->carregarMeusAviso($this->session->getUsuario());
-        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos', 'opcao' => 'saida'));
+        $id = $this->uri->segment(3);
+        
+        $cr = new Curso();
+        
+        $cr = $this->servico->getById($id);
+        
+        $areaCurso = new AreaCurso();
+        
+        $areaCurso = $this->servicoArea->carregarArea();
+        
+        $this->view('paginas/cadastrarCurso.php', array('area' => $areaCurso, 'curso' => $cr));
         
     }
-    
+    /*
     public function deletarAviso(){
     
         $id = $this->uri->segment(3);

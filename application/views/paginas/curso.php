@@ -18,7 +18,7 @@
                 <a href="<?=site_url('CursoController/verCurso/'.$v->getId())?>" 
                    onclick="return carregar('<?= "CursoController/verCurso/".$v->getId()?>', null, true);"
                    >
-                    Titulo: <strong><?= $v->getNome() ?></strong> [Data Vestibular: <?= $v->getDataVestibular()->format('d/M/y') ?>]
+                    Titulo: <strong><?= $v->getNome() ?></strong> [Data Vestibular: <?= $v->getDataVestibular()?>]
                 </a>
                 
                 <div style="text-align: right;color: #666">
