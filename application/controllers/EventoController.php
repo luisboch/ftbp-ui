@@ -1,12 +1,10 @@
 <?php
 
-require_once 'ftbp-src/servicos/impl/ServicoAviso.php';
-require_once 'ftbp-src/servicos/impl/ServicoUsuario.php';
-require_once 'ftbp-src/servicos/impl/ServicoDepartamento.php';
-require_once 'ftbp-src/entidades/basico/Aviso.php';
+require_once 'ftbp-src/servicos/impl/ServicoEvento.php';
+require_once 'ftbp-src/entidades/basico/Evento.php';
 
 /**
- * Description of AvisoController
+ * Description of EventoController
  *
  * @author felipe
  */
@@ -14,33 +12,21 @@ class EventoController extends MY_Controller {
 
     /**
      *
-     * @var ServicoAviso
+     * @var ServicoEvento
      */
     private $servico;
 
-    /**
-     *
-     * @var ServicoUsuario 
-     */
-    private $servicoUsuario;
-
-    /**
-     *
-     * @var ServicoDepartamento 
-     */
-    private $servicoDepartamento;
-
     function __construct() {
         parent::__construct();
-        $this->servico = new ServicoAviso();
-  
+        $this->servico = new ServicoEvento();
+        
     }
 
     public function index() {
    
         $this->view('paginas/cadastrarEvento.php');
     }
-/*
+
     public function salvar() {
         // Recupera o id que veio do form.
         $id = $_POST['id'];
@@ -49,7 +35,7 @@ class EventoController extends MY_Controller {
         try {
             // Se estiver vazio é novo.
             if ($id == '') {
-                $n = new Aviso();
+                $n = new Evento();
             } else {
                 $n = $this->servico->getById($id);
             }
@@ -62,44 +48,13 @@ class EventoController extends MY_Controller {
         // Inicia bloco de controle
         try {
 
-            $usuariosAenviar = array();
-            // verificar se é para enviar para todos os usuários 
-            if ($_POST['todos'] === 'on') {
-                // pega os usuários
-                $usuariosAenviar = $this->servicoUsuario->carregarTodosOsUsuarios();
-            } else {
-                if ($_POST['setor_resp'] === 'on') {
-                    
-                    $responsaveis = $this->servicoUsuario->carregarResponsavelDepartamento($_POST['setor_resp_check']);
-                    
-                    foreach ($responsaveis as $v) {
-                        $usuariosAenviar[] = $v;
-                    }
-                    
-                }
-                if ($_POST['setor_usuarios'] === 'on') {
-                    $usuarios = $this->servicoUsuario->carregarUsuariosDepartamento($_POST['setor_usu_check']);
-                    foreach($usuarios as $v){
-                        $usuariosAenviar[] = $v;
-                    }
-                }
-                if ($_POST['usuario'] === 'on') {
-                    $usuarios = $this->servicoUsuario->getByIds($_POST['usuario_check']);
-                    foreach($usuarios as $v){
-                        $usuariosAenviar[] = $v;
-                    }
-                }
-            }
-
-            $n->setUsuariosAlvo($usuariosAenviar);
-
             // Seta os novos valores
 
             $n->setTitulo($_POST['titulo']);
-
             $n->setDescricao($_POST['descricao']);
-
-            $n->setCriadoPor($this->session->getUsuario());
+            $n->setData($_POST['data']);
+            $n->setLocal($_POST['local']);
+            $n->setContato($_POST['contato']);
 
             // Chama o salvar, (atualiza ou insere)
             if ($id == '') {
@@ -109,53 +64,51 @@ class EventoController extends MY_Controller {
             }
 
             // direciona para a view correta, e adiciona uma mensagem de feed back.
-            $this->info("Aviso " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
+            $this->info("Evento " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
 
-            $dptos = $this->servicoDepartamento->carregarDepartamentos();
-            $usuarios = $this->servicoUsuario->carregarTodosOsUsuarios();
+            $this->view('paginas/cadastrarEvento.php', array('evento' => $n));
 
-            $this->view('paginas/cadastrarAviso.php', array('aviso' => $n, 'dptos' => $dptos, 'usuarios' => $usuarios));
-        } catch (ValidacaoExecao $e) {
+            } catch (ValidacaoExecao $e) {
 
             foreach ($e->getErrors() as $v) {
                 $this->warn($v->getMensagem(), $v->getCampo());
             }
 
-            $dptos = $this->servicoDepartamento->carregarDepartamentos();
-            $usuarios = $this->servicoUsuario->carregarTodosOsUsuarios();
-
-            $this->view('paginas/cadastrarAviso.php', array('aviso' => $n, 'dptos' => $dptos, 'usuarios' => $usuarios));
+            $this->view('paginas/cadastrarEvento.php', array('evento' => $n));
         }
     }
     
-    public function verAviso(){
+    public function verEvento(){
     
         $id = $this->uri->segment(3);
         
-        $at = new Aviso();
+        $ev = new Evento();
         
-        $at->setId($id);
+        $ev = $this->servico->getById($id);
         
-        $av = $this->servico->avisoLido($at, $this->session->getUsuario());
-        
-        
-        $av = $this->servico->getById($id);
-        
-        $this->view('paginas/lerAviso.php', array('aviso' => $av));
+        $this->view('paginas/verEvento.php', array('evento' => $ev));
     }
-    */
+
     public function verMais(){
         
-        $this->view('paginas/evento.php');
-    }
-    /*
-    public function meusAvisos(){
+        $cr = new Evento();
+        $cr = $this->servico->carregarEvento();
         
-        $av =  $this->servico->carregarMeusAviso($this->session->getUsuario());
-        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos', 'opcao' => 'saida'));
-        
+        $this->view('paginas/evento.php', array('evento' => $cr));
     }
     
+    public function alterarEvento(){
+        
+        $id = $this->uri->segment(3);
+        
+        $cr = new Evento();
+        
+        $cr = $this->servico->getById($id);
+        
+        $this->view('paginas/cadastrarEvento.php', array('evento' => $cr));
+        
+    }
+    /*
     public function deletarAviso(){
     
         $id = $this->uri->segment(3);

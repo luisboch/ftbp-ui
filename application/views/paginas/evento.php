@@ -1,50 +1,31 @@
-<form id="form-cadastro" action="<?= site_url('AvisoController/salvar'); ?>" 
-      onsubmit="return carregar('AvisoController/salvar', $('#form-cadastro').serialize())" 
-      method="post">
-    <!--<input type="hidden" name="id" id="id" value="<?= empty($aviso) ? '' : $aviso->getId(); ?>" /> -->
-    <table border="0" class="form-table">
+<style type="text/css">
+   .resultado-pesquisa {
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid #888;
+        float: right;
+        width: 980px;
+        text-align: left;
+    }
+</style>
 
-        <caption><span>Evento</span></caption>
-        <tbody >
-            <tr>
-                <td>Titulo</td>
-                <td>
-                    Abertura Livraria
-                </td>
-            </tr>
-            <tr>
-                <td>Descrição: </td>
-                <td>
-                    <textarea rows="7" cols="50" id="descricao" name="descricao" readonly="readonly" >
-A Livraria Evangélica de Curitiba, em parceria com a Faculdade Teológica Batista do Paraná, disponibiliza seus contatos a você, que deseja adquirir livros para os estudos.
+<strong><?= $titulo ?></strong>
+<hr>
+<div>
+    <? if (is_array($evento)) { ?>
+        <? foreach ($evento as $v) { ?>
+            <div class="resultado-pesquisa">
+                <a href="<?=site_url('EventoController/verEvento/'.$v->getId())?>" 
+                   onclick="return carregar('<?= "EventoController/verEvento/".$v->getId()?>', null, true);"
+                   >
+                    Titulo: <strong><?= $v->getTitulo() ?></strong> 
+                    [Data Evento: <?=$v->getData() == null?'':$v->getData()?>]
+                </a>
+            </div>    
+        <?
+         
+        }
+    }
+    ?>
 
-                    </textarea>
-                </td>
-            </tr>
-            <tr>
-                <td>Data</td>
-                <td>
-                    01/05/13
-                </td>
-            </tr>
-            <tr>
-                <td>Local</td>
-                <td>
-                    Campus Água Verde
-                </td>
-            </tr>
-            <tr>
-                <td>Contato</td>
-                <td>
-                    José da Silva 3333-4444
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Voltar" 
-                           onClick=""/></td>
-            </tr>   
-        </tbody>
-    </table>
-</form>
-
+</div>
