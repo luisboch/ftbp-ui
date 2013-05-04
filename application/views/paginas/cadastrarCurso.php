@@ -1,6 +1,11 @@
 <form id="form-cadastro" action="<?= site_url('CursoController/salvar'); ?>" 
       onsubmit="return carregar('CursoController/salvar', $('#form-cadastro').serialize())" 
       method="post">
+    <script type="text/javascript">
+        $(function(){
+            $('#dataVestibular').datepicker({ dateFormat: "dd/mm/yy" });
+        })
+    </script>
     <input type="hidden" name="id" id="id" value="<?= empty($curso)?'':$curso->getId();?>" />
     <table class="form-table">
         <caption>Cadastro de Cursos</caption>
@@ -26,8 +31,8 @@
                 <td><input id="publicoAlvo" name="publicoAlvo" type="text" value="<?= empty($curso)?'':$curso->getPublicoAlvo();?>"></td>
             </tr>
             <tr>
-                <td>Valor</td>
-                <td><input id="valor" name="valor" type="text" value="<?= empty($curso)?'':$curso->getValor();?>"></td>
+                <td>Valor (R$)</td>
+                <td><input id="valor" name="valor" type="text" value="<?= empty($curso)?'':str_replace('.', ',', $curso->getValor());?>"></td>
             </tr>
              <tr>
                 <td>Duração</td>
@@ -41,7 +46,7 @@
             <tr>
                 <td>Data do Vestibular</td>
                 <td>
-                    <input type="text" id="dataVestibular" name="dataVestibular" value="<?= empty($curso)?'':$curso->getDataVestibular();?>"/>
+                    <input type="text" id="dataVestibular" name="dataVestibular" value="<?= empty($curso)|| $curso->getDataVestibular() == null ?'':$curso->getDataVestibular()->format('d/m/Y');?>"/>
                 </td>
             </tr>
             

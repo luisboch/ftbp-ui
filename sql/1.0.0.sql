@@ -129,6 +129,8 @@ create table curso
   areacurso_id integer,
   nivelgraduacao character varying(200),
   contatosecretaria character varying(200),
+  credito integer,
+  data_criacao timestamp not null default now(),
   excluida boolean,
   constraint curso_pkey primary key(id),
   constraint curso_areacurso_id_fkey foreign key(areacurso_id)

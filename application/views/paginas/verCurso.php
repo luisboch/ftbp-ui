@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td>Valor</td>
-            <td>R$ <?=$curso->getValor()?></td>
+            <td>R$ <?=str_replace('.', ',', $curso->getValor())?></td>
         </tr>
             <tr>
             <td>Duração</td>
@@ -46,9 +46,9 @@
         </tr>
 
         <tr>
-            <td>Data do Vestibular</td>
+            <td>Data do Vestibular:</td>
             <td>
-               <?=$curso->getDataVestibular()?>
+               <?=$curso->getDataVestibular()->format('d/m/Y')?>
             </td>
         </tr>
 
@@ -75,9 +75,10 @@
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Voltar"onclick="javascript:window.history.go(-1);location.reload(true);"></td>
+            <td>
+                <input type="submit" value="Voltar"onclick="javascript:window.history.go(-1);location.reload(true);">
+                <input type="submit" value="Editar"onclick="return carregar('CursoController/alterarCurso/<?=$curso->getId();?>', null, true);">
+            </td>
         </tr>
-        
-        
     </tbody>
 </table>

@@ -17,7 +17,6 @@
             <li><a href="#" onclick="return false;">Meus Itens</a>
                 <ul>
                     <li><a href="<?=site_url('AvisoController/verMais')?>" onclick="return carregar('AvisoController/verMais', null, true);">Avisos</a></li> 
-                    <li><a href="<?=site_url('CursoController/verMais')?>" onclick="return carregar('CursoController/verMais', null, true);">Cursos</a></li>
                     <li><a href="<?=site_url('EventoController/verMais')?>" onclick="return carregar('EventoController/verMais', null, true);">Eventos</a></li>
                     <li><a href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais', null, true);">Notificações</a></li>
                     <li><a href="" onclick="">Requisições</a></li>
