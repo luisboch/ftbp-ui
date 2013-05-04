@@ -141,6 +141,7 @@ create table eventos
 (
   id serial not null,
   titulo character varying(200) not null,
+  data_criacao timestamp not null default now(),
   descricao character varying(4000) not null,
   data timestamp without time zone,
   local character varying(200),
