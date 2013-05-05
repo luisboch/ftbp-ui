@@ -137,7 +137,23 @@ create table curso
       references area_curso (id) 
 );
 
-create table eventos
+create table curso_arquivos(
+    curso_id integer not null,
+    departamento_id integer not null, 
+    descricao character varying (200) not null,
+    caminho character varying (200) not null,
+    data_upload timestamp not null default now(),
+    usuario_id integer not null, 
+    constraint arquivo_curso foreign key (curso_id) 
+        references curso(id),
+    constraint arquivo_departamento foreign key (departamento_id) 
+        references departamento(id),
+    constraint arquivo_usuario foreign key (usuario_id) 
+        references usuarios(id),
+    constraint pk_cursos_arquivos primary key(curso_id, departamento_id, caminho)
+);
+
+create table evento
 (
   id serial not null,
   titulo character varying(200) not null,

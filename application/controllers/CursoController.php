@@ -2,8 +2,6 @@
 
 require_once 'ftbp-src/servicos/impl/ServicoCurso.php';
 require_once 'ftbp-src/servicos/impl/ServicoArea.php';
-
-require_once 'ftbp-src/entidades/basico/Curso.php';
 require_once 'ftbp-src/entidades/basico/AreaCurso.php';
 
 /**
@@ -65,7 +63,12 @@ class CursoController extends MY_Controller {
 
             $n->setNome($_POST['nome']);
             $n->setDescricao($_POST['descricao']);
-            $n->setAreaCurso($_POST['areaCurso']);
+
+            if ($_POST['areaCurso'] != '') {
+                $area = $this->servicoArea->getById($_POST['areaCurso']);
+                $n->setAreaCurso($area);
+            }
+
             $n->setContatoSecretaria($_POST['contatoSecretaria']);
             $n->setCoordenador($_POST['coordenador']);
             $n->setCorpoDocente($_POST["corpoDocente"]);
@@ -85,8 +88,21 @@ class CursoController extends MY_Controller {
             $n->setVideoApresentacao($_POST['videoApresentacao']);
             $n->setEmail($_POST['email']);
             $n->setCredito($_POST['credito']);
-            // Chama o salvar, (atualiza ou insere)
 
+            // Verifica se há arquivo para upload
+            if (isset($_FILES['arquivo']) && isset($_FILES['arquivo']['name']) && 
+                    $_FILES['arquivo']['name'] != null) {
+                $caminho = $this->uploadArquivos();
+                $descricao = $_POST['arq_desc'];
+                $arq = new CursoArquivo();
+                $arq->setUsuario($this->session->getUsuario());
+                $arq->setCaminho($caminho);
+                $arq->setCurso($n);
+                $arq->setSetor($this->session->getUsuario()->getDepartamento());
+                $arq->setDescricao($descricao);
+                $n->adicionarArquivo($arq);
+            }
+            // Chama o salvar, (atualiza ou insere)
             if ($id == '') {
                 $this->servico->inserir($n);
             } else {
@@ -137,6 +153,59 @@ class CursoController extends MY_Controller {
             $this->index();
         }
     }
+
+    public function excluirArquivo() {
+        // Carrega as variaveis da requisição.
+        $cursoId = $_POST['curso'];
+        $usuarioId = $_POST['usuario'];
+        $departamento_id = $_POST['departamento'];
+        $msg = $_POST['mensagem'];
+
+        // Carrega as áreas (usadas apenas na view).
+        $areas = $this->servicoArea->carregarArea();
+        
+        $curso = new Curso();
+        
+        try {
+            // Carrega o curso
+            $curso = $this->servico->getById($cursoId);
+            
+            $cursoArquivo = null;
+            
+            // Encontra o arquivo.
+            foreach ($curso->getArquivos() as $arq) {
+                if ($arq->getUsuario()->getId() == $usuarioId && $arq->getSetor()->getId() == $departamento_id && $arq->getDescricao() == $msg) {
+                    $cursoArquivo = $arq;
+                    break;
+                }
+            }
+            
+            // Se encontrou o arquivo.
+            if ($cursoArquivo != null) {
+                // Remove do curso
+                $curso->removerArquivo($arq);
+                
+                // Deleta o arquivo em disco
+                unlink($this->getApplicationPath() . $cursoArquivo->getCaminho());
+                
+                // Salva o curso
+                $this->servico->atualizar($curso);
+                
+                // Adiciona mensagem de sucesso.
+                $this->info("Arquivo excluido com sucesso");
+            } else {
+                // Adiciona mensagem de erro.
+                $this->info("Arquivo para exclusão não encontrado");
+            }
+            
+            // Carrega a view.
+            $this->view('paginas/cadastrarCurso.php', array('area' => $areas, 'curso' => $curso));
+        } catch (Exception $ex) {
+            $this->error("Ops, encontramos um problema ao excluir o arquivo");
+            $this->view('paginas/cadastrarCurso.php', array('area' => $areas, 'curso' => $curso));
+        }
+    }
+
 }
 
 ?>
