@@ -72,7 +72,7 @@
                 <td>
                     <select id="areaCurso" name ="areaCurso">
                         <?
-                        $areaAtual = $curso->getAreaCurso() == null ? null : $curso->getAreaCurso()->getId();
+                        $areaAtual = ($curso == null || $curso->getAreaCurso() == null) ? null : $curso->getAreaCurso()->getId();
                         foreach ($area as $v) {
                             ?>    
                             <option  value="<?= $v->getId() ?>" <?= $areaAtual == $v->getId() ? 'selected="selected"' : ''; ?>><?= $v->getNome() ?></option>
@@ -111,7 +111,7 @@
                     <strong>Descrição:</strong><input type="text" name="arq_desc" id="arq_desc">
                 </td>
             </tr>
-            <? if ($curso->getArquivos() != '' && is_array($curso->getArquivos()) && count($curso->getArquivos()) > 0) {
+            <? if ($curso != null && $curso->getArquivos() != '' && is_array($curso->getArquivos()) && count($curso->getArquivos()) > 0) {
                 ?>
                 <tr>
                     <td>Arquivos disponíveis:</td>
