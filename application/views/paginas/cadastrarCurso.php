@@ -6,8 +6,8 @@
         })
 <? if (!empty($curso)) { ?>
             function confirmarExclusão(msg) {
-                dp = <?= $session->getUsuario()->getDepartamento() != ''?$session->getUsuario()->getDepartamento()->getId():'null' ?>;
-                
+                dp = <?= $session->getUsuario()->getDepartamento() != '' ? $session->getUsuario()->getDepartamento()->getId() : 'null' ?>;
+
                 if (confirm("Você realmente deseja excluir este arquivo?")) {
                     carregar('CursoController/excluirArquivo',
                             {
@@ -17,7 +17,7 @@
                                 mensagem: msg
                             }, false);
                 }
-                
+
                 return false;
             }
 <? } ?>
@@ -117,13 +117,15 @@
                     <td>Arquivos disponíveis:</td>
                     <td>
                         <?
-                        foreach ($curso->getArquivos() as $arq) {
-                            ?><div style="margin: 5px;"><?= $arq->getDescricao(); ?>
-                                <span style="color: #666666"> por <?= $arq->getUsuario()->getNome() ?>
-                                    em <?= $arq->getDataUpload()->format('d/m/y H:m'); ?></span>
-                                <strong> <a href="<?= URL_HOME . $arq->getCaminho(); ?>" target="_new">baixar</a>
-                                <a href="" onclick="return confirmarExclusão('<?=$arq->getDescricao();?>')">excluir</a></strong>
-                            </div><?
+                        if (isset($arquivos) && is_array($arquivos)) {
+                            foreach ($arquivos as $arq) {
+                                ?><div style="margin: 5px;"><?= $arq->getDescricao(); ?>
+                                    <span style="color: #666666"> por <?= $arq->getUsuario()->getNome() ?>
+                                        em <?= $arq->getDataUpload()->format('d/m/y H:m'); ?></span>
+                                    <strong> <a href="<?= URL_HOME . $arq->getCaminho(); ?>" target="_new">baixar</a>
+                                        <a href="" onclick="return confirmarExclusão('<?= $arq->getDescricao(); ?>')">excluir</a></strong>
+                                </div><?
+                            }
                         }
                         ?>
                     </td>
