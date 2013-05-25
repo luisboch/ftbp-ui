@@ -56,6 +56,8 @@
                             <span><?= $session->getUsuario()->getNome(); ?></span>
                             <a href="<?= site_url('Login/logout') ?>">sair</a>
                         </div>
+                    <? } else{ ?>
+                            <a href="<?= site_url('Login/login') ?>">login</a>
                     <? } ?>
                 </div>
                 <img src="<?= URL_HOME ?>resources/imagens/logo.jpg" /></div>

@@ -215,7 +215,7 @@ class MY_Controller extends CI_Controller {
                     }
                     
                     if (is_writable($appPath.'uploads/')) {
-
+                        
                         if (!move_uploaded_file($arq['tmp_name'], $appPath . $fileName)) {
                             throw new Exception("Falhou ao realizar o upload");
                         }

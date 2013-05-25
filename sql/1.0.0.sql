@@ -132,6 +132,7 @@ create table curso
   credito integer,
   data_criacao timestamp not null default now(),
   excluida boolean,
+  acessos integer not null default 0,
   constraint curso_pkey primary key(id),
   constraint curso_areacurso_id_fkey foreign key(areacurso_id)
       references area_curso (id) 
