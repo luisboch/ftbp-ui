@@ -28,7 +28,7 @@
             <tr>
                 <td>Data</td>
                 <td>
-                    <input type="text" id="data" name="data" value="<?= empty($evento) ? '' : $evento->getData(); ?>"/>
+                    <input type="text" id="data" name="data" value="<?= empty($evento) ? '' : $evento->getDataEvento(); ?>"/>
                 </td>
             </tr>
             <tr>

@@ -19,7 +19,7 @@
         <tr>
             <td>Data</td>
             <td>
-                <?= $evento->getData(); ?>
+                <?= $evento->getDataEvento(); ?>
             </td>
         </tr>
         <tr>

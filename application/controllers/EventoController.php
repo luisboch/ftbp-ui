@@ -52,7 +52,7 @@ class EventoController extends MY_Controller {
 
             $n->setTitulo($_POST['titulo']);
             $n->setDescricao($_POST['descricao']);
-            $n->setData($_POST['data']);
+            $n->setDataEvento($_POST['data']);
             $n->setLocal($_POST['local']);
             $n->setContato($_POST['contato']);
 

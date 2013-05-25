@@ -22,7 +22,12 @@
                     <li><a href="" onclick="">Requisições</a></li>
                 </ul>
             </li>
-            
+            <li><a href="#" onclick="return false;">Relatórios</a>
+                <ul>
+                    <li><a href="" >Cursos</a></li>
+                    <li><a href="<?=site_url('RequisicaoController/montarRelatorio')?>" onclick="return carregar('RequisicaoController/montarRelatorio', null, true);" >Requisições</a></li>
+                </ul>
+            </li>
         </ul>
     <? } ?>
     <div id="pesquisar">

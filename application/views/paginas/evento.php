@@ -19,7 +19,7 @@
                    onclick="return carregar('<?= "EventoController/verEvento/".$v->getId()?>', null, true);"
                    >
                     Titulo: <strong><?= $v->getTitulo() ?></strong> 
-                    [Data Evento: <?=$v->getData() == null?'':$v->getData()?>]
+                    [Data Evento: <?=$v->getDataEvento() == null?'':$v->getDataEvento()?>]
                 </a>
             </div>    
         <?
