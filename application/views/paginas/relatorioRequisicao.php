@@ -1,4 +1,10 @@
-<form method="post" id="form-cadastro" action="<?= site_url('AreaController/salvar') ?>" onsubmit="return carregar('AreaController/salvar', $('#form-cadastro').serialize())">
+<script type="text/javascript">
+    $(function(){
+        $('.data').datepicker({ dateFormat: "dd/mm/yy" });
+    })
+</script>
+
+<form method="post" id="form-cadastro" action="<?= site_url('RelatorioRequisicaoController/gerarRelatorio') ?>" onsubmit="return carregar('RelatorioRequisicaoController/gerarRelatorio', $('#form-cadastro').serialize())">
 
     <table class="form-table">
         <caption><span>Relatório de Requisições</span></caption>
@@ -6,20 +12,18 @@
             <tr>
                 <td>Selecione um tipo</td>
                 <td>
-                    <select id="tipo">
+                    <select id="tipo" name="tipo">
                         <option></option>
-                        <option>Abertura</option>
-                        <option>Fechamento</option>
+                        <option value="0">Abertura</option>
+                        <option value="1">Fechamento</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>Periodo</td>
-            </tr>
-            <tr>
+                <td>Periodo</td>            
                 <td>
-                    <input type="text" id="dataInicio" name="dataInicio" placeholder="Data de Inicio">
-                    <input type="text" id="dataFim" name="dataFim" placeholder="Data Final">
+                    <input type="text" class="data" id="dataInicio" name="dataInicio" placeholder="Data de Inicio">
+                    <input type="text" class="data" id="dataFim" name="dataFim" placeholder="Data Final">
                 </td>
             </tr>
             <tr>

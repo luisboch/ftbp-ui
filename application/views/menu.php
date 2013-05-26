@@ -25,7 +25,7 @@
             <li><a href="#" onclick="return false;">Relatórios</a>
                 <ul>
                     <li><a href="" >Cursos</a></li>
-                    <li><a href="<?=site_url('RequisicaoController/montarRelatorio')?>" onclick="return carregar('RequisicaoController/montarRelatorio', null, true);" >Requisições</a></li>
+                    <li><a href="<?=site_url('RelatorioRequisicaoController/index')?>" onclick="return carregar('RelatorioRequisicaoController/index', null, true);" >Requisições</a></li>
                 </ul>
             </li>
         </ul>
