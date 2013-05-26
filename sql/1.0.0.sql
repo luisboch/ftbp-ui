@@ -4,6 +4,12 @@
         data_criacao timestamp not null default now()
 );
 
+create table grupos(
+        id serial primary key, 
+        nome character varying (100) not null,
+        data_criacao timestamp not null default now()
+);
+
 create table usuarios(
 	id serial primary key,
 	nome character varying(200) not null,

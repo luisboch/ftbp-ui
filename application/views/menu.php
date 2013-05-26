@@ -11,6 +11,7 @@
                     <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index', null, true);">Funcionários</a></li>
                     <li><a href="<?= site_url('RequisicaoController/index') ?>" onclick="return carregar('RequisicaoController/index', null, true);">Requisições</a></li>
                     <li><a href="<?= site_url('DepartamentoController/index') ?>" onclick="return carregar('DepartamentoController/index', null, true);">Setores</a></li> 
+                    <li><a href="<?= site_url('GrupoController/index') ?>" onclick="return carregar('GrupoController/index', null, true);">Grupos de usuários</a></li> 
                     
                 </ul> 
             </li>
