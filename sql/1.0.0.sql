@@ -93,10 +93,13 @@ create table requisicoes
   data_criacao timestamp without time zone not null default now(),
   status character varying(50),
   prioridade character varying(15),
+  fechado_por integer,
   constraint requisicoes_pkey primary key(id),
   constraint fk_usuario_requisicao foreign key(usuario_id)
       references usuarios (id),
   constraint fk_usuario_requisicao_criador foreign key(criado_por)
+      references usuarios (id),
+  constraint fk_usuario_requisicao_fechado_por foreign key(fechado_por)
       references usuarios (id)
 );
 
