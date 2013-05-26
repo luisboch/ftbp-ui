@@ -92,9 +92,10 @@
         <tr>
             <td></td>
             <td>
-                <input type="submit" value="Voltar"onclick="javascript:window.history.go(-1);
-                        location.reload(true);">
-                <input type="submit" value="Editar"onclick="return carregar('CursoController/alterarCurso/<?= $curso->getId(); ?>', null, true);">
+                <input type="submit" value="Voltar"onclick="javascript:window.history.go(-1);location.reload(true);">
+                <? if ($logado) { ?>
+                    <input type="submit" value="Editar"onclick="return carregar('CursoController/alterarCurso/<?= $curso->getId(); ?>', null, true);">
+                <? } ?>
             </td>
         </tr>
     </tbody>

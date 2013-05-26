@@ -28,7 +28,9 @@ class PesquisaController extends MY_Controller {
         $this->view('resultadoPesquisa.php', $params);
     }
     
-    
+    public function checkLogin() {
+        return false;
+    }
 }
 
 ?>

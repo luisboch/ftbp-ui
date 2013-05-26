@@ -1,21 +1,30 @@
 <?php
 
 require_once 'ftbp-src/servicos/impl/ServicoCurso.php';
+require_once 'ftbp-src/servicos/impl/ServicoEvento.php';
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class DefaultController extends MY_Controller {
-    
+
     /**
      *
      * @var ServicoCurso
      */
     private $servicoCurso;
-    
+
+    /**
+     *
+     * @var ServicoEvento
+     */
+    private $servicoEvento;
+
     function __construct() {
         parent::__construct();
+
         $this->servicoCurso = new ServicoCurso();
+        $this->servicoEvento = new ServicoEvento();
     }
 
     /**
@@ -35,13 +44,14 @@ class DefaultController extends MY_Controller {
      */
     public function index() {
         $cursos = $this->servicoCurso->carregarCurso(10);
-        $this->view('index_ext.php', array('cursos'=>$cursos));
-        
+        $eventos = $this->servicoEvento->carregarEvento(10);
+        $this->view('index_ext.php', array('cursos' => $cursos, 'eventos' => $eventos));
     }
-    
+
     public function checkLogin() {
         return false;
     }
+
 }
 
 /* End of file welcome.php */
