@@ -42,7 +42,7 @@ class Login extends MY_Controller {
         try{
             $usuario = $this->service->login($email, $senha);
             $this->session->setUsuario($usuario);
-            $this->redirect('/');
+            $this->redirect('/welcome');
             
         } catch (ValidacaoExecao $e){
             $this->login(true);
