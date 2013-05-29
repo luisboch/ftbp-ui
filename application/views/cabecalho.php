@@ -17,7 +17,7 @@
 
         <script type="text/javascript" >
             var URL_HOME = '<?= URL_HOME ?>';
-            var logado = <?=$logado?'true':'false'?>;
+            var logado = <?= $logado ? 'true' : 'false' ?>;
         </script>
 
         <title>Gerenciador de Informações</title>
@@ -55,6 +55,10 @@
                         <div id="usuario-info">
                             <span><?= $session->getUsuario()->getNome(); ?></span>
                             <a href="<?= site_url('Login/logout') ?>">sair</a>
+                        </div>
+                    <? } else { ?>
+                        <div id="usuario-info">
+                            <a href="<?= site_url('Login/login') ?>">Login</a>
                         </div>
                     <? } ?>
                 </div>

@@ -42,7 +42,7 @@ define('APP_PATH', dirname(__FILE__).'/');
 if (defined('ENVIRONMENT')) {
     switch (ENVIRONMENT) {
         case 'development':
-            //error_reporting(0);
+            //error_reporting();
             
             // Add new include path of local folder only on development mode
             if (PHP_OS == 'Linux') {

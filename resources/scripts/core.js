@@ -128,6 +128,9 @@ $(function() {
         }
     })
 
+    // Corrige o css das mensagens
+    $('#bloco-mensagems').css('position','absolute');
+    
     $('#msg-location').mouseout(function() {
         if (!dragging) {
             $('#bloco-mensagems').draggable();

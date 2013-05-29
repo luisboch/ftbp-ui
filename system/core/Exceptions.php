@@ -138,7 +138,7 @@ class CI_Exceptions {
         $_logger->error($message);
 
 
-        if ($_GET['ajax'] === 'true') {
+        if (isset($_GET['ajax']) && $_GET['ajax'] === 'true') {
             Mensagens::getInstance()->addMsg($message, Mensagens::SYS_ERROR);
             echo Mensagens::getInstance()->criarXml(true);
             die;

@@ -19,7 +19,7 @@
         <tr>
             <td>Data</td>
             <td>
-                <?= $evento->getDataEvento(); ?>
+                <?= empty($evento) || $evento->getDataEvento() == null ? '' : $evento->getDataEvento()->format('d/m/Y'); ?>
             </td>
         </tr>
         <tr>
@@ -38,7 +38,9 @@
             <td></td>
             <td>
                 <input type="submit" value="Voltar"onclick="javascript:window.history.go(-1);location.reload(true);">
+                <?if($logado) {?>
                 <input type="submit" value="Editar"onclick="return carregar('EventoController/alterarEvento/<?=$evento->getId();?>', null, true);">
+                <? }?>
             </td>
         </tr>   
     </tbody>

@@ -4,6 +4,12 @@
         data_criacao timestamp not null default now()
 );
 
+create table grupos(
+        id serial primary key, 
+        nome character varying (100) not null,
+        data_criacao timestamp not null default now()
+);
+
 create table usuarios(
 	id serial primary key,
 	nome character varying(200) not null,
@@ -93,10 +99,13 @@ create table requisicoes
   data_criacao timestamp without time zone not null default now(),
   status character varying(50),
   prioridade character varying(15),
+  fechado_por integer,
   constraint requisicoes_pkey primary key(id),
   constraint fk_usuario_requisicao foreign key(usuario_id)
       references usuarios (id),
   constraint fk_usuario_requisicao_criador foreign key(criado_por)
+      references usuarios (id),
+  constraint fk_usuario_requisicao_fechado_por foreign key(fechado_por)
       references usuarios (id)
 );
 
@@ -132,12 +141,29 @@ create table curso
   credito integer,
   data_criacao timestamp not null default now(),
   excluida boolean,
+  acessos integer not null default 0,
   constraint curso_pkey primary key(id),
   constraint curso_areacurso_id_fkey foreign key(areacurso_id)
       references area_curso (id) 
 );
 
-create table eventos
+create table curso_arquivos(
+    curso_id integer not null,
+    departamento_id integer not null, 
+    descricao character varying (200) not null,
+    caminho character varying (200) not null,
+    data_upload timestamp not null default now(),
+    usuario_id integer not null, 
+    constraint arquivo_curso foreign key (curso_id) 
+        references curso(id),
+    constraint arquivo_departamento foreign key (departamento_id) 
+        references departamento(id),
+    constraint arquivo_usuario foreign key (usuario_id) 
+        references usuarios(id),
+    constraint pk_cursos_arquivos primary key(curso_id, departamento_id, caminho)
+);
+
+create table evento
 (
   id serial not null,
   titulo character varying(200) not null,
