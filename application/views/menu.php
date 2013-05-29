@@ -21,12 +21,15 @@
                     <li><a href="<?=site_url('EventoController/verMais')?>" onclick="return carregar('EventoController/verMais', null, true);">Eventos</a></li>
                     <li><a href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais', null, true);">Notificações</a></li>
                     <li><a href="<?= site_url('RequisicaoController/verMais') ?>" onclick="return carregar('RequisicaoController/verMais', null, true);">Requisições</a></li>
+<<<<<<< HEAD
                 </ul>
             </li>
             <li><a href="#" onclick="return false;">Relatórios</a>
                 <ul>
                     <li><a href="" >Cursos</a></li>
                     <li><a href="<?=site_url('RelatorioRequisicaoController/index')?>" onclick="return carregar('RelatorioRequisicaoController/index', null, true);" >Requisições</a></li>
+=======
+>>>>>>> 0db5605c03865abbaecf50fb7cee1aac02c094d4
                 </ul>
             </li>
         </ul>

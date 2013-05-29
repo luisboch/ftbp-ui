@@ -52,14 +52,10 @@ class EventoController extends MY_Controller {
 
             $n->setTitulo($_POST['titulo']);
             $n->setDescricao($_POST['descricao']);
-
-            $n->setDataEvento($_POST['data']);
-
             // Cria o objeto DateTime de acordo com a data enviada do formulário
             $dt = DateTime::createFromFormat('d/m/Y', $_POST["data"]);
             $n->setDataEvento($dt);
-            
-
+			
             $n->setLocal($_POST['local']);
             $n->setContato($_POST['contato']);
 

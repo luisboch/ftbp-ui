@@ -2,6 +2,7 @@
 
 require_once 'ftbp-src/servicos/impl/ServicoUsuario.php';
 require_once 'ftbp-src/servicos/impl/ServicoDepartamento.php';
+require_once 'ftbp-src/servicos/impl/ServicoGrupo.php';
 /*
  * Usuarios.php
  */
@@ -24,11 +25,25 @@ class UsuariosController extends MY_Controller {
      */
     private $servicoDepartamento;
 
+    /**
+     *
+     * @var ServicoGrupo
+     */
+    private $servicoGrupo;
+
+    /**
+     *
+     * @var Grupo[]
+     */
+    private $grupos;
+
     function __construct() {
 
         parent::__construct();
         $this->servico = new ServicoUsuario();
         $this->servicoDepartamento = new ServicoDepartamento();
+        $this->servicoGrupo = new ServicoGrupo();
+        $this->grupos = $this->servicoGrupo->carregarGrupos();
     }
 
     public function index() {
@@ -39,10 +54,14 @@ class UsuariosController extends MY_Controller {
         $id = $this->uri->segment(3);
         if ($id != null) {
             $usuario = $this->servico->getById($id);
-            $this->view('paginas/cadastroUsuario.php', array('usuario' => $usuario,
-                'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
+            $this->view('paginas/cadastroUsuario.php', 
+                    array('usuario' => $usuario,
+                'deptos' => $this->servicoDepartamento->carregarDepartamentos(),
+                        'grupos'=>  $this->grupos));
         } else {
-            $this->view('paginas/cadastroUsuario.php', array('deptos' => $this->servicoDepartamento->carregarDepartamentos()));
+            $this->view('paginas/cadastroUsuario.php', 
+                    array('deptos' => $this->servicoDepartamento->carregarDepartamentos(),
+                        'grupos'=>  $this->grupos));
         }
     }
 
@@ -80,6 +99,11 @@ class UsuariosController extends MY_Controller {
             }
 
             $usuario->setResponsavel($_POST['responsavel'] == 'on');
+            
+            if($_POST['grupo_id'] != ''){
+                $grupo = $this->servicoGrupo->getById($_POST['grupo_id']);
+                $usuario->setGrupo($grupo);
+            }
 
             // Chama o salvar, (atualiza ou insere)
             if ($id == '') {
@@ -91,7 +115,8 @@ class UsuariosController extends MY_Controller {
             // direciona para a view correta, e adiciona uma mensagem de feed back.
             $this->info("Usuário " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
             $this->view('paginas/cadastroUsuario.php', array('usuario' => $usuario,
-                'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
+                'deptos' => $this->servicoDepartamento->carregarDepartamentos(),
+                        'grupos'=>  $this->grupos));
         } catch (ValidacaoExecao $e) {
 
             foreach ($e->getErrors() as $v) {
@@ -99,7 +124,8 @@ class UsuariosController extends MY_Controller {
             }
 
             $this->view('paginas/cadastroUsuario.php', array('usuario' => $usuario,
-                'deptos' => $this->servicoDepartamento->carregarDepartamentos()));
+                'deptos' => $this->servicoDepartamento->carregarDepartamentos(),
+                        'grupos'=>  $this->grupos));
         }
     }
 

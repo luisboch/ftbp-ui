@@ -16,11 +16,14 @@ create table usuarios(
 	email character varying(200) not null,
 	senha character varying(200) not null,
 	data_criacao timestamp not null default now(),
+        grupo_id integer not null,
 	departamento_id integer,
         responsavel boolean default false not null,
         tipo_usuario integer not null,
         constraint fk_usuario_departamento foreign key(departamento_id)
-        references departamento(id)
+            references departamento(id),
+        constraint fk_usuario_grupo foreign key(grupo_id)
+            references grupos(id)
         
 );
 
