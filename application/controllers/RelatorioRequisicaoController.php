@@ -2,7 +2,7 @@
 
 require_once 'ftbp-src/servicos/impl/ServicoRelatorioRequisicao.php';
 require_once 'ftbp-src/entidades/basico/Requisicao.php';
-require_once 'ftbp-src/entidades/basico/Relatorio.php';
+require_once 'ftbp-src/entidades/basico/RelatorioRequisicao.php';
 
 /**
  * Description of AvisoController
@@ -29,7 +29,7 @@ class RelatorioRequisicaoController extends MY_Controller {
 
     public function gerarRelatorio() {
         // Recupera o id que veio do form.
-        $r = new Relatorio;
+        $r = new RelatorioRequisicao();
         $r->setTipo($_POST['tipo']);
         $r->setDataInicio($_POST['dataInicio']);
         $r->setDataFim($_POST['dataFim']);
@@ -37,7 +37,6 @@ class RelatorioRequisicaoController extends MY_Controller {
         $n = new Requisicao();
         try {
             $n = $this->servico->gerarRelatorio($r);
-
 
             $this->view('paginas/verRelatorioRequisicao.php', array('reqst' => $n));
         

@@ -46,6 +46,7 @@
                     <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::REQUISICAO)) { ?>
                         <li><a href="<?= site_url('RequisicaoController/verMais') ?>" onclick="return carregar('RequisicaoController/verMais', null, true);">Requisições</a></li>
                     <? } ?>
+
                 </ul>
             </li>
             <li><a href="#" onclick="return false;">Relatórios</a>
