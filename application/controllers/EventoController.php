@@ -55,7 +55,7 @@ class EventoController extends MY_Controller {
             // Cria o objeto DateTime de acordo com a data enviada do formulário
             $dt = DateTime::createFromFormat('d/m/Y', $_POST["data"]);
             $n->setDataEvento($dt);
-            
+			
             $n->setLocal($_POST['local']);
             $n->setContato($_POST['contato']);
 
