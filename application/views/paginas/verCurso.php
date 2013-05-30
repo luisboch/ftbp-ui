@@ -93,7 +93,7 @@
             <td></td>
             <td>
                 <input type="submit" value="Voltar"onclick="javascript:window.history.go(-1);location.reload(true);">
-                <? if ($logado) { ?>
+                <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::CURSO, true)) { ?>
                     <input type="submit" value="Editar"onclick="return carregar('CursoController/alterarCurso/<?= $curso->getId(); ?>', null, true);">
                 <? } ?>
             </td>

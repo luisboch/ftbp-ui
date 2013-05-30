@@ -47,10 +47,12 @@ class UsuariosController extends MY_Controller {
     }
 
     public function index() {
+        $this->checarAcesso(GrupoAcesso::USUARIO, true);
         $this->registro();
     }
 
     public function registro() {
+        $this->checarAcesso(GrupoAcesso::USUARIO, false);
         $id = $this->uri->segment(3);
         if ($id != null) {
             $usuario = $this->servico->getById($id);
@@ -67,6 +69,7 @@ class UsuariosController extends MY_Controller {
 
     public function salvar() {
 
+        $this->checarAcesso(GrupoAcesso::USUARIO, true);
         // Recupera o id que veio do form.
         $id = $_POST['id'];
         try {

@@ -1,3 +1,5 @@
+<? /* @var $_grupo Grupo */ ?>
+
 <form id="form-cadastro" action="<?= site_url('CursoController/salvar'); ?>" 
       method="post" enctype="multipart/form-data">
     <script type="text/javascript">
@@ -133,7 +135,11 @@
             <? } ?>
             <tr>
                 <td></td>
-                <td><input type="submit" value="<?= empty($curso) ? 'Cadastrar' : 'Atualizar' ?>"></td>
+                <td>
+                    <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::CURSO, true)) { ?>
+                        <input type="submit" value="<?= empty($curso) ? 'Cadastrar' : 'Atualizar' ?>">
+                    <? } ?>
+                </td>
             </tr>
 
         </tbody>

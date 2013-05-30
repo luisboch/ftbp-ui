@@ -21,10 +21,16 @@ class GrupoController extends MY_Controller {
     }
 
     public function index() {
+        
+        $this->checarAcesso(GrupoAcesso::GRUPO_DE_USUARIO, true);
+        
         $this->view('paginas/cadastrarGrupo.php');
     }
 
     public function salvar() {
+        
+        $this->checarAcesso(GrupoAcesso::GRUPO_DE_USUARIO, true);
+        
         // Recupera o id que veio do form.
         $id = $_POST['id'];
         
@@ -81,6 +87,9 @@ class GrupoController extends MY_Controller {
     }
 
     public function item() {
+        
+        $this->checarAcesso(GrupoAcesso::GRUPO_DE_USUARIO, false);
+        
         $id = $this->uri->segment(3);
         $d = $this->servico->getById($id);
         $this->view('paginas/cadastrarGrupo.php', array('grupo' => $d));

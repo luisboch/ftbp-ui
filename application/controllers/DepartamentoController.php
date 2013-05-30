@@ -21,10 +21,13 @@ class DepartamentoController extends MY_Controller {
     }
 
     public function index() {
+        $this->checarAcesso(GrupoAcesso::SETOR, true);
         $this->view('paginas/cadastrarDepartamento.php');
     }
 
     public function salvar() {
+        
+        $this->checarAcesso(GrupoAcesso::SETOR, true);
         // Recupera o id que veio do form.
         $id = $_POST['id'];
         
@@ -69,6 +72,7 @@ class DepartamentoController extends MY_Controller {
     }
 
     public function item() {
+        $this->checarAcesso(GrupoAcesso::SETOR, false);
         $id = $this->uri->segment(3);
         $d = $this->servico->getById($id);
         $this->view('paginas/cadastrarDepartamento.php', array('departamento' => $d));

@@ -1,14 +1,15 @@
+<? /* @var $_grupo Grupo */ ?>
 <script type="text/javascript">
-        $(function(){
-            $('#data').datepicker({ dateFormat: "dd/mm/yy" });
-        })
-    </script>
+    $(function() {
+        $('#data').datepicker({dateFormat: "dd/mm/yy"});
+    })
+</script>
 <form id="form-cadastro" action="<?= site_url('EventoController/salvar'); ?>" 
       onsubmit="return carregar('EventoController/salvar', $('#form-cadastro').serialize())" 
       method="post">
-    
+
     <input type="hidden" name="id" id="id" value="<?= empty($evento) ? '' : $evento->getId(); ?>" /> 
-    
+
     <table border="0" class="form-table">
 
         <caption><span>Cadastrar Evento</span></caption>
@@ -45,7 +46,11 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="<?= empty($evento)?'Cadastrar':'Atualizar'?>"/></td>
+                <td>
+                    <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::EVENTO, true)) { ?>
+                        <input type="submit" value="<?= empty($evento) ? 'Cadastrar' : 'Atualizar' ?>"/>
+                    <? } ?>
+                </td>
             </tr>   
         </tbody>
     </table>

@@ -32,22 +32,26 @@ class RequisicaoController extends MY_Controller {
     }
 
     public function index() {
-
+        
+        $this->checarAcesso(GrupoAcesso::REQUISICAO, true);
         $usuarios = $this->servicoUsuario->carregarTodosOsUsuarios();
         $this->view('paginas/cadastrarRequisicao.php', array('usuarios' => $usuarios));
     }
 
     public function verMais() {
+        $this->checarAcesso(GrupoAcesso::REQUISICAO, false);
         $this->entrada();
     }
 
 
     public function minhasRequisicoes() {
+        $this->checarAcesso(GrupoAcesso::REQUISICAO, false);
         $reqst = $this->servico->getByCriador($this->session->getUsuario());
         $this->view('paginas/requisicoes.php', array('reqst' => $reqst, 'titulo' => 'Minhas Requisições'));
     }
 
     public function entrada() {
+        $this->checarAcesso(GrupoAcesso::REQUISICAO, false);
         $reqst = $this->servico->getByUsuario($this->session->getUsuario());
         $this->view('paginas/requisicoes.php', array('reqst' => $reqst, 'titulo' => 'Entrada'));
     }
@@ -57,6 +61,7 @@ class RequisicaoController extends MY_Controller {
      * @param Requisicao|integer $rq
      */
     public function ver($rq = null) {
+        $this->checarAcesso(GrupoAcesso::REQUISICAO, false);
 
         if ($rq === null || !$rq instanceof Requisicao) {
             $id = $this->uri->segment(3);
@@ -69,7 +74,8 @@ class RequisicaoController extends MY_Controller {
     }
 
     public function salvar() {
-
+        $this->checarAcesso(GrupoAcesso::REQUISICAO, true);
+        
         // Verifica se é salvamento ou atualização.
         if ($_POST['id'] == '') {
             $rq = new Requisicao();
@@ -127,7 +133,7 @@ class RequisicaoController extends MY_Controller {
     }
 
     public function salvarIteracao() {
-
+        $this->checarAcesso(GrupoAcesso::REQUISICAO, true);
         // Verifica se é salvamento ou atualização.
         if ($_POST['id'] == '') {
             throw new IllegalStateException("Esperado id da requisição, nada encontrado");
