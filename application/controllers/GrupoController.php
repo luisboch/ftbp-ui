@@ -47,6 +47,18 @@ class GrupoController extends MY_Controller {
             
             // Seta os novos valores
             $n->setNome($_POST['nome']);
+            
+            // Carrega os acessos
+            // Limpa os acessos carregados
+            $n->setAcessos(array());
+            
+            // Executa um loop e cadastr os novos acessos.
+            for($i = 1; $i < 15; $i++){
+                if ($_POST['r_'.$i] === 'on') {
+                  $escrita = $_POST['w_'.$i] === 'on';
+                  $n->adicionarAcesso($i, $escrita);
+                } 
+            }
 
             // Chama o salvar, (atualiza ou insere)
             if ($id == '') {
