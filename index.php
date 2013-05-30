@@ -50,6 +50,7 @@ if (defined('ENVIRONMENT')) {
             } else {
                 set_include_path(get_include_path() . ';C:\xampp\htdocs\includes');
             }
+            error_reporting(~E_ALL);
             
             break;
 

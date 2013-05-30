@@ -57,7 +57,7 @@
                         <?
                         $grupoId = $usuario == null || $usuario->getGrupo() == null ? null : $usuario->getGrupo()->getId();
                         foreach ($grupos as $g) {
-                            ?><option value="<?= $g->getId(); ?>" <?= $grupoId === $g->getId() ? 'selected="selected"' : '' ?>><?= $g->getNome(); ?></option><?
+                            ?><option value="<?= $g->getId(); ?>" <?= $grupoId == $g->getId() ? 'selected="selected"' : '' ?>><?= $g->getNome(); ?></option><?
                         }
                         ?>
                     </select>

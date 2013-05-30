@@ -178,3 +178,13 @@ create table evento
   excluida boolean,
   constraint pk_evento_id primary key(id)
 );
+
+create table grupo_acesso(
+	grupo_id integer not null,
+	acesso integer not null, 
+	escrita boolean not null default false,
+	constraint pk_grupo_acesso primary key (grupo_id, acesso),
+	constraint fk_grupo_gacesso foreign key (grupo_id)
+		references grupos(id)
+);
+ 
