@@ -36,13 +36,6 @@
             </li>
             <li><a href="#" onclick="return false;">Meus Itens</a>
                 <ul>
-
-                    <li><a href="<?=site_url('AvisoController/verMais')?>" onclick="return carregar('AvisoController/verMais', null, true);">Avisos</a></li> 
-                    <li><a href="<?=site_url('EventoController/verMais')?>" onclick="return carregar('EventoController/verMais', null, true);">Eventos</a></li>
-                    <li><a href="<?=site_url('NotificacaoController/verMais')?>" onclick="return carregar('NotificacaoController/verMais', null, true);">Notificações</a></li>
-                    <li><a href="<?= site_url('RequisicaoController/verMais') ?>" onclick="return carregar('RequisicaoController/verMais', null, true);">Requisições</a></li>
-
-
                     <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::AVISO)) { ?>
                         <li><a href="<?= site_url('AvisoController/verMais') ?>" onclick="return carregar('AvisoController/verMais', null, true);">Avisos</a></li> 
                     <? } ?>
