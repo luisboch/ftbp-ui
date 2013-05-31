@@ -39,17 +39,13 @@ class RelatorioRequisicaoController extends MY_Controller {
 
             if ($r->getTipo() == 1) {
                 $n = $this->servico->gerarRelatorioFechamento($r);
-                //$n->setDataInicio($r->getDataInicio());
-                //$n->setDataFim($_POST['dataFim']);
                 $tipo = 'Fechamento';
             } else {
                 $n = $this->servico->gerarRelatorioAbertura($r);
-//                $n->setDataInicio($_POST['dataInicio']);
-//                $n->setDataFim($_POST['dataFim']);
                 $tipo = 'Abertura';
             }
 
-            $this->view('paginas/verRelatorioRequisicao.php', array('reqst' => $n, 'tipo' => $tipo));
+            $this->view('paginas/verRelatorioRequisicao.php', array('reqst' => $n, 'r' => $r, 'titulo' => $tipo));
         } catch (ValidacaoExecao $e) {
 
             // Se não encontrar exibe 404
@@ -65,9 +61,16 @@ class RelatorioRequisicaoController extends MY_Controller {
 
         $tipo = $_POST['tipo'];
         $rq = new RelatorioRequisicao();
+        $rq->setTipo($_POST['tipo']);
+        $rq->setDataInicio($_POST['dataInicio']);
+        $rq->setDataFim($_POST['dataFim']);
 
-        $rq = $_POST['reqst'];
-        
+        if ($rq->getTipo() == '1') {
+            $n = $this->servico->gerarRelatorioFechamento($rq);
+        } else {
+            $n = $this->servico->gerarRelatorioAbertura($rq);
+        }
+
         $this->load->library('pdf'); // Load library
         // Generate PDF with FPDF
 //        $header = array('Nome', 'Departamento', 'Quantidade');
@@ -81,11 +84,10 @@ class RelatorioRequisicaoController extends MY_Controller {
 
         $db_data = array();
 
-        foreach ($rq as $r) {
-            $db_data[] = array('nome' => $r->getNome(), 'departamento' => $r->getDepartamento()->getNome(), 'qtde' => $r->getQtde());
+        foreach ($n as $r) {
+            $db_data[] = array('nome' => $r->getUsuario()->getNome(), 'departamento' => $r->getDepartamento()->getNome(), 'qtde' => $r->getQtde());
         }
-        $db_data[] = array('name' => 'Jon Doe', 'phone' => '111-222-3333', 'email' => 'jdoe@someplace.com');
-
+       
         //var_dump($db_data);
 
         $col_names = array(
@@ -94,8 +96,8 @@ class RelatorioRequisicaoController extends MY_Controller {
             'qtde' => 'Quantidade'
         );
 
-        $this->cezpdf->ezTable($db_data, $col_names, 'Relatorio Requisicoes ' . $_POST['tipo'], array('width' => 550));
-//        $this->cezpdf->ezStream();
+        $this->cezpdf->ezTable($db_data, $col_names, 'Relatorio Requisicoes ' . $_POST['titulo'], array('width' => 550));
+        $this->cezpdf->ezStream();
     }
 
 }

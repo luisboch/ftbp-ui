@@ -29,11 +29,13 @@
 
 <form action="<?= site_url('RelatorioRequisicaoController/gerarPdf') ?>" method="post" target="_blank">
 
-    <input type="hidden" id="tipo" name="tipo" value="<?= $tipo ?>">
-    <input type="hidden" id="reqst" name="reqst" value="<?= $reqst ?>">
-    
+    <input type="hidden" id="tipo" name="tipo" value="<?= $r->getTipo() ?>">
+    <input type="hidden" id="titulo" name="titulo" value="<?= $titulo ?>">
+    <input type="hidden" id="dataInicio" name="dataInicio" value="<?= $r->getDataInicio() ?>">
+    <input type="hidden" id="dataFim" name="dataFim" value="<?= $r->getDataFim() ?>">
+
     <table>
-        <caption width="700px">Relatório Requisições <?= empty($tipo) ? '' : $tipo ?></caption>
+        <caption width="700px">Relatório Requisições <?= empty($titulo) ? '' : $titulo ?></caption>
         <thead>
             <tr>
                 <td>Nome</td>
