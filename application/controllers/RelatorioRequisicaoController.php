@@ -1,7 +1,7 @@
 <?php
 
 require_once 'ftbp-src/servicos/impl/ServicoRelatorioRequisicao.php';
-require_once 'ftbp-src/entidades/basico/Requisicao.php';
+
 require_once 'ftbp-src/entidades/basico/RelatorioRequisicao.php';
 
 /**
@@ -34,14 +34,18 @@ class RelatorioRequisicaoController extends MY_Controller {
         $r->setDataInicio($_POST['dataInicio']);
         $r->setDataFim($_POST['dataFim']);
 
-        $n = new Requisicao();
+        $n = new RelatorioRequisicao();
         try {
 
             if ($r->getTipo() == 1) {
                 $n = $this->servico->gerarRelatorioFechamento($r);
+                $tipo = 'Fechamento';
+            } else {
+                $n = $this->servico->gerarRelatorioAbertura($r);
+                $tipo = 'Abertura';
             }
 
-            $this->view('paginas/verRelatorioRequisicao.php', array('reqst' => $n));
+            $this->view('paginas/verRelatorioRequisicao.php', array('reqst' => $n, 'tipo' => $tipo));
         } catch (ValidacaoExecao $e) {
 
             // Se não encontrar exibe 404

@@ -1,11 +1,37 @@
+<style  type="text/css">
+
+    table{
+        font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size:1.2em;
+        width:500px;
+        border-collapse:collapse;
+    }
+
+    table thead
+    {
+        font-size:1.2em;
+        text-align:left;
+        padding-top:5px;
+        padding-bottom:4px;
+        background-color:#2E82FF;
+        color:#fff;
+    }
+
+
+    table tbody tr:nth-child(odd) {
+        background-color: #D3D3D3;
+        width: 500px;
+
+    }
+
+
+</style>
+
 <form action="<?= site_url('RelatorioRequisicaoController/gerarPdf') ?>">
 
     <table>
-        <caption width="700px">Relatório Requisições</caption>
+        <caption width="700px">Relatório Requisições <?= empty($tipo) ? '' : $tipo ?></caption>
         <thead>
-            <tr>
-                <td colspan="2">Requisições encerradas</td>
-            </tr>
             <tr>
                 <td>Nome</td>
                 <td>Departamento</td>
@@ -22,10 +48,12 @@
                     </tr>
                 <? } ?>
             <? } ?>
-
+        </tbody>
+        <tfoot>
             <tr>
                 <td><input type="submit" value="Gerar PDF"></td>
             </tr>
-        </tbody>
+        </tfoot>
+
     </table>
 </form>
