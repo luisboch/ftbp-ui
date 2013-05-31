@@ -23,11 +23,13 @@ class EventoController extends MY_Controller {
     }
 
     public function index() {
-   
+        $this->checarAcesso(GrupoAcesso::EVENTO, true);
         $this->view('paginas/cadastrarEvento.php');
     }
 
     public function salvar() {
+        
+        $this->checarAcesso(GrupoAcesso::EVENTO, true);
         // Recupera o id que veio do form.
         $id = $_POST['id'];
 
@@ -82,7 +84,7 @@ class EventoController extends MY_Controller {
     }
     
     public function verEvento(){
-    
+        $this->checarAcesso(GrupoAcesso::EVENTO, FALSE);
         $id = $this->uri->segment(3);
         
         $ev = new Evento();
@@ -93,7 +95,7 @@ class EventoController extends MY_Controller {
     }
 
     public function verMais(){
-        
+        $this->checarAcesso(GrupoAcesso::EVENTO, false);
         $cr = new Evento();
         $cr = $this->servico->carregarEvento();
         
@@ -101,7 +103,7 @@ class EventoController extends MY_Controller {
     }
     
     public function alterarEvento(){
-        
+        $this->checarAcesso(GrupoAcesso::EVENTO, true);
         $id = $this->uri->segment(3);
         
         $cr = new Evento();
@@ -111,25 +113,6 @@ class EventoController extends MY_Controller {
         $this->view('paginas/cadastrarEvento.php', array('evento' => $cr));
         
     }
-    /*
-    public function deletarAviso(){
-    
-        $id = $this->uri->segment(3);
-        $opcao = $this->uri->segment(4);
-        $at = new Aviso();
-        $at->setId($id);
-        
-        if ($opcao === "saida"){
-            $av = $this->servico->remover($at);
-            $av = $this->servico->carregarMeusAviso($this->session->getUsuario());
-        }else if ($opcao === "entrada"){
-            $av = $this->servico->deletarAvisoDestinatario($at, $this->session->getUsuario());
-            $av = $this->servico->carregarAviso($this->session->getUsuario());
-        }
-        $this->info("Aviso " . ('deletado') . " com sucesso");
-        $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos', 'opcao' => $opcao));
-    }
-*/
 }
 
 ?>

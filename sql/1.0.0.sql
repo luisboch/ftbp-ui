@@ -103,6 +103,7 @@ create table requisicoes
   status character varying(50),
   prioridade character varying(15),
   fechado_por integer,
+  data_fechamento timestamp,
   constraint requisicoes_pkey primary key(id),
   constraint fk_usuario_requisicao foreign key(usuario_id)
       references usuarios (id),

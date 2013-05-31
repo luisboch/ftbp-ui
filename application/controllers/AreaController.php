@@ -21,10 +21,12 @@ class AreaController extends MY_Controller {
     }
 
     public function index() {
+        $this->checarAcesso(GrupoAcesso::CURSO_AREA, true);
         $this->view('paginas/cadastrarArea.php');
     }
 
     public function salvar() {
+        $this->checarAcesso(GrupoAcesso::CURSO_AREA, true);
         
         // Recupera o id que veio do form.
         $id = $_POST['id'];
@@ -72,6 +74,7 @@ class AreaController extends MY_Controller {
     }
 
     public function item() {
+        $this->checarAcesso(GrupoAcesso::CURSO_AREA, false);
         $id = $this->uri->segment(3);
         $d = $this->servico->getById($id);
         $this->view('paginas/cadastrarArea.php', array('area' => $d));

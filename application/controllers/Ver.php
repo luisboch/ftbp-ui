@@ -34,6 +34,7 @@ class Ver extends MY_Controller {
     }
 
     public function curso() {
+        $this->checarAcesso(GrupoAcesso::CURSO, false);
 
         // Pega o id da visualização.
         $id = $this->uri->segment(3);
@@ -52,7 +53,9 @@ class Ver extends MY_Controller {
     }
 
     public function evento() {
-
+        
+        $this->checarAcesso(GrupoAcesso::EVENTO, false);
+        
         // Pega o id da visualização.
         $id = $this->uri->segment(3);
 

@@ -1,33 +1,35 @@
+<? /* @var $_grupo Grupo */ ?>
+
 <script>
-   
-    $("#setor_resp").click(function(){
-        if($(this).is(':checked')){
-            $("#setor_resp_check").css('display','block');
+
+    $("#setor_resp").click(function() {
+        if ($(this).is(':checked')) {
+            $("#setor_resp_check").css('display', 'block');
         }
-        else{
-            $("#setor_resp_check").css('display','none');
-        }
-    });
-    
-    $("#setor_usuarios").click(function(){
-        if($(this).is(':checked')){
-            $("#setor_usu_check").css('display','block');
-        }
-        else{
-            $("#setor_usu_check").css('display','none');
+        else {
+            $("#setor_resp_check").css('display', 'none');
         }
     });
-    
-    $("#usuario").click(function(){
-        if($(this).is(':checked')){
-            $("#usuario_check").css('display','block');
+
+    $("#setor_usuarios").click(function() {
+        if ($(this).is(':checked')) {
+            $("#setor_usu_check").css('display', 'block');
         }
-        else{
-            $("#usuario_check").css('display','none');
+        else {
+            $("#setor_usu_check").css('display', 'none');
         }
     });
-    
-    function confirmacao(){
+
+    $("#usuario").click(function() {
+        if ($(this).is(':checked')) {
+            $("#usuario_check").css('display', 'block');
+        }
+        else {
+            $("#usuario_check").css('display', 'none');
+        }
+    });
+
+    function confirmacao() {
         return confirm("Aviso não podera ser alterado após envio. Confirma operação: ");
     }
 </script>
@@ -68,7 +70,6 @@
                     <select id="setor_resp_check" multiple="multiple" name="setor_resp_check[]" style="display: none">
                         <?
                         foreach ($dptos as $v) {
-                            
                             ?>
                             <option value ="<?= $v->getId(); ?>"><?= $v->getNome(); ?></option>
 
@@ -89,10 +90,9 @@
                 <td></td>
                 <td>
                     <select id="setor_usu_check" multiple="multiple" name="setor_usu_check[]" style="display: none">
-                        
+
                         <?
                         foreach ($dptos as $v) {
-                            
                             ?>
                             <option value ="<?= $v->getId(); ?>"><?= $v->getNome(); ?></option>
 
@@ -114,7 +114,6 @@
                     <select id="usuario_check" name="usuario_check[]" multiple="multiple" style="display: none">
                         <?
                         foreach ($usuarios as $v) {
-                            
                             ?>
                             <option value ="<?= $v->getId(); ?>"><?= $v->getNome(); ?></option>
 
@@ -126,8 +125,12 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="Salvar" 
-                           onClick="return confirmacao();"/></td>
+                <td>
+                    <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::AVISO, true)) { ?>
+                        <input type="submit" value="Salvar" 
+                               onClick="return confirmacao();"/>
+                    <? } ?>
+                </td>
             </tr>   
         </tbody>
     </table>

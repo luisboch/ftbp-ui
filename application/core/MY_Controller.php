@@ -44,6 +44,8 @@ class MY_Controller extends CI_Controller {
         $params['messages'] = Mensagens::getInstance()->getMsgs();
         $params['session'] = $this->session;
         $params['logado'] = $this->session->getUsuario() != null;
+        $params['_usuario'] = $this->session->getUsuario();
+        $params['_grupo'] = $this->session->getUsuario() != null ? $this->session->getUsuario()->getGrupo() : null;
 
         if ($_GET['ajax'] == 'true') {
             self::$logger->debug("[Finishing] closing ajax request, showing view \"$view\"");
@@ -213,9 +215,9 @@ class MY_Controller extends CI_Controller {
                         $i++;
                         $fileName = 'upload_' . time() . $i . '.' . $ext;
                     }
-                    
-                    if (is_writable($appPath.'uploads/')) {
-                        
+
+                    if (is_writable($appPath . 'uploads/')) {
+
                         if (!move_uploaded_file($arq['tmp_name'], $appPath . $fileName)) {
                             throw new Exception("Falhou ao realizar o upload");
                         }
@@ -238,9 +240,40 @@ class MY_Controller extends CI_Controller {
         return $array[count($array) - 1];
     }
 
-    protected function getApplicationPath(){
+    protected function getApplicationPath() {
         return dirname($_SERVER['SCRIPT_FILENAME']) . '/';
     }
+
+    /**
+     * @param int $acesso {@link GrupoAcesso}
+     * @param boolean $escrita
+     */
+    protected function checarAcesso($acesso, $escrita = false) {
+        // Checa se o usuário não está logado, e é alteração
+        if ($this->session->getUsuario() == null && $escrita) {
+            $this->bloquearAcesso();
+        }
+
+        // Se for visualização e o usuário não está logado, se for curso ou evento permite, 
+        // Se não checa a permição do usuário
+        else if (!$escrita &&
+                (GrupoAcesso::CURSO != $acesso && GrupoAcesso::EVENTO != $acesso) &&
+                $this->session->getUsuario() == null) {
+            $this->bloquearAcesso();
+
+            // Se não é escrita e o usuário está logado checa o acesso.
+        } else if ($this->session->getUsuario() != null) {
+            if (!$this->session->getUsuario()->getGrupo()->temAcesso($acesso, $escrita)) {
+                $this->bloquearAcesso();
+            }
+        }
+    }
+
+    protected function bloquearAcesso() {
+        $this->view('acesso_negado.php');
+        die;
+    }
+
 }
 
 ?>

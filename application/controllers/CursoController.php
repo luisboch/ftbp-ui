@@ -34,11 +34,13 @@ class CursoController extends MY_Controller {
     }
 
     public function index() {
+        $this->checarAcesso(GrupoAcesso::CURSO, true);
         $areaCurso = $this->servicoArea->carregarArea();
         $this->view('paginas/cadastrarCurso.php', array('area' => $areaCurso, 'arquivos' => array()));
     }
 
     public function salvar() {
+        $this->checarAcesso(GrupoAcesso::CURSO, true);
         // Recupera o id que veio do form.
         $id = $_POST['id'];
         // Inicia bloco de controle
@@ -156,6 +158,7 @@ class CursoController extends MY_Controller {
 
     public function verCurso() {
 
+        $this->checarAcesso(GrupoAcesso::CURSO, false);
         $id = $this->uri->segment(3);
 
         try {
@@ -168,11 +171,13 @@ class CursoController extends MY_Controller {
     }
 
     public function verMais() {
+        $this->checarAcesso(GrupoAcesso::CURSO, false);
         $cr = $this->servico->carregarCurso();
         $this->view('paginas/curso.php', array('titulo' => 'Cursos', 'curso' => $cr));
     }
 
     public function alterarCurso() {
+        $this->checarAcesso(GrupoAcesso::CURSO, false);
         try {
             $id = $this->uri->segment(3);
             $cr = $this->servico->getById($id);
@@ -190,6 +195,8 @@ class CursoController extends MY_Controller {
     }
 
     public function excluirArquivo() {
+        
+        $this->checarAcesso(GrupoAcesso::CURSO, true);
         // Carrega as variaveis da requisição.
         $cursoId = $_POST['curso'];
         $usuarioId = $_POST['usuario'];

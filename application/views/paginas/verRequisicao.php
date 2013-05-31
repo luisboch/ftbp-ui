@@ -53,13 +53,13 @@
             <tr>
                 <td>Mensagem: </td>
                 <td>
-                    <textarea <?=$status=='FINALIZADO'&&!$dono?'disabled="disabled"':''?>  style="width: 400px;height: 90px;" name="mensagem" id="mensagem"></textarea>
+                    <textarea <?= $status == 'FINALIZADO' && !$dono ? 'disabled="disabled"' : '' ?>  style="width: 400px;height: 90px;" name="mensagem" id="mensagem"></textarea>
                 </td>
             </tr>
             <tr>
                 <td>Encaminhar para: </td>
                 <td>
-                    <select id="usuario_id" <?=$status=='FINALIZADO'&&!$dono?'disabled="disabled"':''?> name="usuario_id">
+                    <select id="usuario_id" <?= $status == 'FINALIZADO' && !$dono ? 'disabled="disabled"' : '' ?> name="usuario_id">
                         <option value="">--selecione--</option>
                         <?
                         $usuario_id = $requisicao->getUsuario()->getId();
@@ -75,7 +75,7 @@
             <tr>
                 <td>Alterar Prioridade: </td>
                 <td>
-                    <select id="prioridade" name="prioridade" <?=$status=='FINALIZADO'&&!$dono?'disabled="disabled"':''?> >
+                    <select id="prioridade" name="prioridade" <?= $status == 'FINALIZADO' && !$dono ? 'disabled="disabled"' : '' ?> >
 
                         <?
                         $prioridade = $requisicao->getPrioridade();
@@ -100,7 +100,7 @@
                         }
                     }
                     ?>
-                    <select id="status" <?=$status=='FINALIZADO'&&!$dono?'disabled="disabled"':''?> name="status" >
+                    <select id="status" <?= $status == 'FINALIZADO' && !$dono ? 'disabled="disabled"' : '' ?> name="status" >
                         <option <?= $status === 'ABERTO' ? 'selected="selected"' : '' ?> value="ABERTO" disabled="disabled" >Aberto</option>
                         <option <?= $status === 'EM_ANDAMENTO' ? 'selected="selected"' : '' ?> value="EM_ANDAMENTO">Em Andamento</option>
                         <option <?= $status === 'FINALIZADO' ? 'selected="selected"' : '' ?> value="FINALIZADO">Finalizado</option>
@@ -110,9 +110,14 @@
             <tr>
                 <td></td>
                 <td>
-                    <? if ($status != 'FINALIZADO' || $dono) { ?>
-                        <input type="submit" value="Salvar"/>
-                    <? } ?>
+                    <? if ($status != 'FINALIZADO' || $dono) {
+                        if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::REQUISICAO, true)) {
+                            ?>
+                            <input type="submit" value="Salvar"/>
+                        <?
+                        }
+                    }
+                    ?>
                 </td>
             </tr>   
         </tbody>

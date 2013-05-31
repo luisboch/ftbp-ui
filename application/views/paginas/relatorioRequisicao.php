@@ -1,6 +1,7 @@
+<? /* @var $_grupo Grupo */ ?>
 <script type="text/javascript">
-    $(function(){
-        $('.data').datepicker({ dateFormat: "yy-mm-dd" });
+    $(function() {
+        $('.data').datepicker({dateFormat: "yy-mm-dd"});
     })
 </script>
 
@@ -28,7 +29,11 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="Enviar"></td>
+                <td>
+                    <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::REQUISICAO, true)) { ?>
+                        <input type="submit" value="Enviar">
+                    <? } ?>
+                </td>
             </tr>
         </tbody>
     </table>

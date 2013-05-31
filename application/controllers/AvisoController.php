@@ -38,12 +38,14 @@ class AvisoController extends MY_Controller {
     }
 
     public function index() {
+        $this->checarAcesso(GrupoAcesso::AVISO, TRUE);
         $dptos = $this->servicoDepartamento->carregarDepartamentos();
         $usuarios = $this->servicoUsuario->carregarTodosOsUsuarios();
         $this->view('paginas/cadastrarAviso.php', array('dptos' => $dptos, 'usuarios' => $usuarios));
     }
 
     public function salvar() {
+        $this->checarAcesso(GrupoAcesso::AVISO, TRUE);
         // Recupera o id que veio do form.
         $id = $_POST['id'];
 
@@ -131,6 +133,7 @@ class AvisoController extends MY_Controller {
     }
     
     public function verAviso(){
+        $this->checarAcesso(GrupoAcesso::AVISO, FALSE);
     
         $id = $this->uri->segment(3);
         
@@ -147,21 +150,21 @@ class AvisoController extends MY_Controller {
     }
     
     public function verMais(){
-        
+        $this->checarAcesso(GrupoAcesso::AVISO, FALSE);
         $av =  $this->servico->carregarAviso($this->session->getUsuario());
         
         $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Entrada de Avisos', 'opcao' => 'entrada'));
     }
     
     public function meusAvisos(){
-        
+        $this->checarAcesso(GrupoAcesso::AVISO, FALSE);
         $av =  $this->servico->carregarMeusAviso($this->session->getUsuario());
         $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos', 'opcao' => 'saida'));
         
     }
     
     public function deletarAviso(){
-    
+        $this->checarAcesso(GrupoAcesso::AVISO, true);
         $id = $this->uri->segment(3);
         $opcao = $this->uri->segment(4);
         $at = new Aviso();

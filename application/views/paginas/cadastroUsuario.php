@@ -1,5 +1,6 @@
 <?php /* @var $grupos Grupo[] */ ?>
 <?php /* @var $usuario Usuario */ ?>
+<? /* @var $_grupo Grupo */ ?>
 <form id="form-cadastro" action="<?= site_url('UsuariosController/salvar'); ?>" onsubmit="return carregar('UsuariosController/salvar', $('#form-cadastro').serialize())" method="post">
     <input type="hidden" name="id" id="id" value="<?= empty($usuario) ? '' : $usuario->getId(); ?>" />
     <table class="form-table">
@@ -65,7 +66,10 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" name="salvar" value="Salvar" />
+                <td>
+                    <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::USUARIO, true)) {?>
+                        <input type="submit" name="salvar" value="Salvar" />
+                    <? }?>
                 </td>
             </tr>
         </tbody>
