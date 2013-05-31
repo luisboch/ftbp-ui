@@ -78,7 +78,7 @@ class RelatorioRequisicaoController extends MY_Controller {
         
         $data = array();
         
-         $this->pdf->SetTitle("Relatório de requisições");
+         $this->pdf->SetTitle('Relatório de requisições');
         
         foreach ($n as $r) {
             $data[] = array($r->getUsuario()->getNome(), $r->getDepartamento()->getNome(), $r->getQtde());

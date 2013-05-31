@@ -34,7 +34,7 @@ class Pdf extends FPDF {
         $this->Ln();
         
         // Color and font restoration
-        $this->SetFillColor(224, 235, 255);
+        $this->SetFillColor(215, 215, 215, 255);
         $this->SetTextColor(0);
         $this->SetFont('');
         // Data
@@ -49,7 +49,7 @@ class Pdf extends FPDF {
             foreach ($row as $k => $value) {
                 $this->Cell($w[$k], 10, $value, ($i < $rowQtd - 1 ? 'LR' : 'LRB'), 0, 'C', $fill);
             }
-            
+            // Swap background color
             $fill = !$fill;
             
         }
@@ -78,10 +78,9 @@ class Pdf extends FPDF {
 
         // Arial bold 15
         $this->SetFont('Arial', 'B', 15);
-        // Move to the right
-        $this->Cell(80);
+        
         // Title
-        $this->Cell(30, 10, $this->titleText, 0, 0, 'C');
+        $this->Cell(190, 10, $this->titleText, 1, 0, 'C');
         // Line break
         $this->Ln(20);
     }
@@ -93,12 +92,12 @@ class Pdf extends FPDF {
         // Arial italic 8
         $this->SetFont('Arial', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, 'Page ' . $this->PageNo() , 0, 0, 'C');
     }
     
     public function SetTitle($title) {
         parent::SetTitle($title, true);
-        $this->titleText = $title;
+        $this->titleText = iconv('UTF8', 'UTF16', $title);
     }
 }
 
