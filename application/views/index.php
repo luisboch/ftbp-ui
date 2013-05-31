@@ -20,7 +20,7 @@
 ?>
 </div>
 
-<div align="left" id="aviso" style="width: 240px;  padding: 10px; margin-left: 10px;
+<div align="left" id="aviso" style="width: 200px;  padding: 10px; margin-left: 10px;
      border: 1px solid #c0c0c0; 
      float: left">
     <span style="text-align: left; font-weight: bold">
@@ -43,7 +43,7 @@
     }
     ?>
 </div>
-<div align="left" id="aviso" style="width: 240px;  padding: 10px; margin-left: 10px;
+<div align="left" id="aviso" style="width: 200px;  padding: 10px; margin-left: 10px;
      border: 1px solid #c0c0c0; 
      float: left">
     <span style="text-align: left; font-weight: bold">
@@ -59,6 +59,28 @@
                    >
                     <?=$v->getTitulo();?></a>
                 (<?= $v->getCriadoPor()->getNome() ?>)
+                <br>
+            </p>
+            <?
+        }
+    }
+    ?>
+</div>  
+
+<div align="left" id="eventos" style="width: 240px; padding: 10px; margin-left: 10px; border: 1px solid #c0c0c0; float: left">
+    <span style="text-align: left; font-weight: bold">
+        Pŕoximos eventos
+    </span>
+    <hr>
+    <? if (isset($eventos) && is_array($eventos)) { ?>
+        <? foreach ($eventos as $v) {
+            ?>
+            <p style="color: #FF6347">
+                <a href="<?= site_url('Ver/evento/' . $v->getId()) ?>" 
+                   onclick="return carregar('<?= "Ver/evento/" . $v->getId() ?>', null, true);">
+                    Titulo: <strong><?= $v->getTitulo() ?></strong> 
+                    [Data: <?= $v->getDataEvento() == null ? '' : $v->getDataEvento()->format('d/m/y') ?>]
+                </a>
                 <br>
             </p>
             <?

@@ -3,6 +3,7 @@
 require_once 'ftbp-src/servicos/impl/ServicoNotificacao.php';
 require_once 'ftbp-src/servicos/impl/ServicoAviso.php';
 require_once 'ftbp-src/servicos/impl/ServicoRequisicao.php';
+require_once 'ftbp-src/servicos/impl/ServicoEvento.php';
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -27,11 +28,18 @@ class Welcome extends MY_Controller {
      */
     private $servicoRequisicao;
     
+    /**
+     *
+     * @var ServicoEvento
+     */
+    private $servicoEvento;
+    
     function __construct() {
         parent::__construct();
         $this->servicoNotificacao = new ServicoNotificacao();
         $this->servicoAviso = new ServicoAviso();
         $this->servicoRequisicao = new ServicoRequisicao();
+        $this->servicoEvento = new ServicoEvento();
     }
 
     /**
@@ -55,8 +63,9 @@ class Welcome extends MY_Controller {
         $listAviso = $this->servicoAviso->carregarUltimosAvisos($this->session->getUsuario());
         
         $listRequisicao = $this->servicoRequisicao->carregarUltimasRequisicoes($this->session->getUsuario());
+        $eventos = $this->servicoEvento->carregarEvento(10);
         
-        $this->view('index.php', array('notfs'=>$list, 'aviso' =>$listAviso, 'reqst' => $listRequisicao));
+        $this->view('index.php', array('notfs'=>$list, 'aviso' =>$listAviso, 'reqst' => $listRequisicao, 'eventos' => $eventos));
         
     }
 

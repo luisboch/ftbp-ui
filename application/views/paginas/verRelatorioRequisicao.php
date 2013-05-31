@@ -27,7 +27,7 @@
 
 </style>
 
-<form action="<?= site_url('RelatorioRequisicaoController/gerarPdf') ?>" method="post" target="_blank">
+<form action="<?= site_url('RelatorioRequisicaoController/gerarPdf') ?>" method="post" >
 
     <input type="hidden" id="tipo" name="tipo" value="<?= $r->getTipo() ?>">
     <input type="hidden" id="titulo" name="titulo" value="<?= $titulo ?>">
