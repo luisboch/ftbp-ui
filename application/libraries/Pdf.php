@@ -10,9 +10,6 @@ class Pdf extends FPDF {
     
     private $titleText = "";
     
-    // Extend FPDF using this class
-    // More at fpdf.org -> Tutorials
-
     function __construct($orientation = 'P', $unit = 'mm', $size = 'A4') {
         // Call parent constructor
         parent::__construct($orientation, $unit, $size);
@@ -49,8 +46,9 @@ class Pdf extends FPDF {
             $row = $data[$i];
             
             foreach ($row as $k => $value) {
-                $this->Cell($w[$k], 10, $value, ($i < $rowQtd - 1 ? 'LR' : 'LRB'), 0, 'C', $fill);
+                $this->Cell($w[$k], 7, $value, ($i < $rowQtd - 1 ? 'LR' : 'LRB'), 0, 'C', $fill);
             }
+            
             // Swap background color
             $fill = !$fill;
             
@@ -99,7 +97,7 @@ class Pdf extends FPDF {
     
     public function SetTitle($title) {
         parent::SetTitle($title, true);
-        $this->titleText = iconv('UTF8', 'UTF16', $title);
+        $this->titleText = substr(iconv('UTF8', 'UTF16', $title), 2);
     }
 }
 
