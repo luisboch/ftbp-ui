@@ -37,11 +37,13 @@ class Pdf extends FPDF {
         $this->SetFillColor(215, 215, 215, 255);
         $this->SetTextColor(0);
         $this->SetFont('');
+        
         // Data
         $fill = false;
 
         $rowQtd = count($data);
         
+        // Print data
         for ($i = 0; $i < $rowQtd; $i++) {
             
             $row = $data[$i];
