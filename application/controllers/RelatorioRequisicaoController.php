@@ -73,11 +73,16 @@ class RelatorioRequisicaoController extends MY_Controller {
 
         $this->load->library('pdf'); // Load library
         // Generate PDF with FPDF
+
+
         $header = array('Nome', 'Departamento', 'Quantidade');
 
-        $data = array(array('felipe','ti',10));
+        foreach ($n as $r) {
+            $data[] = array($r->getUsuario()->getNome(), $r->getDepartamento()->getNome(), $r->getQtde());
+        }
+        
         $this->pdf->AddPage();
-        $this->pdf->FancyTable($header,$data);
+        $this->pdf->FancyTable($header, $data);
         $this->pdf->Output();
     }
 
