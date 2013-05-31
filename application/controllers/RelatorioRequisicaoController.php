@@ -73,31 +73,12 @@ class RelatorioRequisicaoController extends MY_Controller {
 
         $this->load->library('pdf'); // Load library
         // Generate PDF with FPDF
-//        $header = array('Nome', 'Departamento', 'Quantidade');
-//
-//        $data = array('felipe','ti',10);
-//        $this->pdf->AddPage();
-//        $this->pdf->FancyTable($header,$data);
-//        $this->pdf->Output();
+        $header = array('Nome', 'Departamento', 'Quantidade');
 
-        $this->load->library('cezpdf');
-
-        $db_data = array();
-
-        foreach ($n as $r) {
-            $db_data[] = array('nome' => $r->getUsuario()->getNome(), 'departamento' => $r->getDepartamento()->getNome(), 'qtde' => $r->getQtde());
-        }
-       
-        //var_dump($db_data);
-
-        $col_names = array(
-            'nome' => 'Nome',
-            'departamento' => 'Departamento',
-            'qtde' => 'Quantidade'
-        );
-
-        $this->cezpdf->ezTable($db_data, $col_names, 'Relatorio Requisicoes ' . $_POST['titulo'], array('width' => 550));
-        $this->cezpdf->ezStream();
+        $data = array(array('felipe','ti',10));
+        $this->pdf->AddPage();
+        $this->pdf->FancyTable($header,$data);
+        $this->pdf->Output();
     }
 
 }
