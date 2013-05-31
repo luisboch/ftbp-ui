@@ -73,18 +73,22 @@ class RelatorioRequisicaoController extends MY_Controller {
 
         $this->load->library('pdf'); // Load library
         // Generate PDF with FPDF
-        $header = array('Nome', 'Departamento', 'Quantidade');
-
-        $data = array(array('felipe','ti',10));
         
-        $this->pdf->SetTitle("Relatório de requisições");
+        $header = array('Nome', 'Departamento', 'Quantidade');
+        
+        $data = array();
+        
+         $this->pdf->SetTitle("Relatório de requisições");
+        
+        foreach ($n as $r) {
+            $data[] = array($r->getUsuario()->getNome(), $r->getDepartamento()->getNome(), $r->getQtde());
+        }
         
         $this->pdf->AddPage();
         
         $this->pdf->setColumnSize(array(80, 80, 30));
         
-        $this->pdf->FancyTable($header,$data);
-        
+        $this->pdf->FancyTable($header, $data);
         
         $this->pdf->Output();
     }
