@@ -39,9 +39,13 @@ class RelatorioRequisicaoController extends MY_Controller {
 
             if ($r->getTipo() == 1) {
                 $n = $this->servico->gerarRelatorioFechamento($r);
+                //$n->setDataInicio($r->getDataInicio());
+                //$n->setDataFim($_POST['dataFim']);
                 $tipo = 'Fechamento';
             } else {
                 $n = $this->servico->gerarRelatorioAbertura($r);
+//                $n->setDataInicio($_POST['dataInicio']);
+//                $n->setDataFim($_POST['dataFim']);
                 $tipo = 'Abertura';
             }
 
@@ -59,10 +63,13 @@ class RelatorioRequisicaoController extends MY_Controller {
 
     public function gerarPdf() {
 
+        $tipo = $_POST['tipo'];
+        $rq = new RelatorioRequisicao();
 
+        $rq = $_POST['reqst'];
+        
         $this->load->library('pdf'); // Load library
-        // Generate PDF by saying hello to the world
-
+        // Generate PDF with FPDF
 //        $header = array('Nome', 'Departamento', 'Quantidade');
 //
 //        $data = array('felipe','ti',10);
@@ -73,18 +80,22 @@ class RelatorioRequisicaoController extends MY_Controller {
         $this->load->library('cezpdf');
 
         $db_data = array();
+
+        foreach ($rq as $r) {
+            $db_data[] = array('nome' => $r->getNome(), 'departamento' => $r->getDepartamento()->getNome(), 'qtde' => $r->getQtde());
+        }
         $db_data[] = array('name' => 'Jon Doe', 'phone' => '111-222-3333', 'email' => 'jdoe@someplace.com');
-        $db_data[] = array('name' => 'Jane Doe', 'phone' => '222-333-4444', 'email' => 'jane.doe@something.com');
-        $db_data[] = array('name' => 'Jon Smith', 'phone' => '333-444-5555', 'email' => 'jsmith@someplacepsecial.com');
+
+        //var_dump($db_data);
 
         $col_names = array(
-            'name' => 'Name',
-            'phone' => 'Phone Number',
-            'email' => 'E-mail Address'
+            'nome' => 'Nome',
+            'departamento' => 'Departamento',
+            'qtde' => 'Quantidade'
         );
 
-        $this->cezpdf->ezTable($db_data, $col_names, 'Contact List', array('width' => 550));
-        $this->cezpdf->ezStream();
+        $this->cezpdf->ezTable($db_data, $col_names, 'Relatorio Requisicoes ' . $_POST['tipo'], array('width' => 550));
+//        $this->cezpdf->ezStream();
     }
 
 }

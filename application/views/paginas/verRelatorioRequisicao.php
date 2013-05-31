@@ -27,8 +27,11 @@
 
 </style>
 
-<form action="<?= site_url('RelatorioRequisicaoController/gerarPdf') ?>">
+<form action="<?= site_url('RelatorioRequisicaoController/gerarPdf') ?>" method="post" target="_blank">
 
+    <input type="hidden" id="tipo" name="tipo" value="<?= $tipo ?>">
+    <input type="hidden" id="reqst" name="reqst" value="<?= $reqst ?>">
+    
     <table>
         <caption width="700px">Relatório Requisições <?= empty($tipo) ? '' : $tipo ?></caption>
         <thead>
@@ -48,6 +51,7 @@
                     </tr>
                 <? } ?>
             <? } ?>
+
         </tbody>
         <tfoot>
             <tr>
