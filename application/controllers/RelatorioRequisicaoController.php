@@ -76,8 +76,16 @@ class RelatorioRequisicaoController extends MY_Controller {
         $header = array('Nome', 'Departamento', 'Quantidade');
 
         $data = array(array('felipe','ti',10));
+        
+        $this->pdf->SetTitle("Relatório de requisições");
+        
         $this->pdf->AddPage();
+        
+        $this->pdf->setColumnSize(array(80, 80, 30));
+        
         $this->pdf->FancyTable($header,$data);
+        
+        
         $this->pdf->Output();
     }
 

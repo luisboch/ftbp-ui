@@ -6,6 +6,10 @@ require('fpdf.php');
 
 class Pdf extends FPDF {
 
+    private $columnSize = array();
+    
+    private $titleText = "";
+    
     // Extend FPDF using this class
     // More at fpdf.org -> Tutorials
 
@@ -16,36 +20,60 @@ class Pdf extends FPDF {
 
     function FancyTable($header, $data) {
         // Colors, line width and bold font
-        $this->SetFillColor(255, 0, 0);
+        $this->SetFillColor(59, 137, 255, 255);
         $this->SetTextColor(255);
         $this->SetDrawColor(128, 0, 0);
         $this->SetLineWidth(.3);
 
         // Header
-        $w = array(40, 35, 40, 45);
-        for ($i = 0; $i < count($header); $i++)
+        $w = $this->columnSize;
+        for ($i = 0; $i < count($header); $i++){
             $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
+        }
+        
         $this->Ln();
+        
         // Color and font restoration
         $this->SetFillColor(224, 235, 255);
         $this->SetTextColor(0);
         $this->SetFont('');
         // Data
-        $this->Ln();
         $fill = false;
 
-        foreach ($data as $row) {
+        $rowQtd = count($data);
+        
+        for ($i = 0; $i < $rowQtd; $i++) {
+            
+            $row = $data[$i];
+            
             foreach ($row as $k => $value) {
-                $this->Cell(40, 10, $value, 'LR', 0, 'L', $fill);
+                $this->Cell($w[$k], 10, $value, ($i < $rowQtd - 1 ? 'LR' : 'LRB'), 0, 'C', $fill);
             }
+            
             $fill = !$fill;
+            
         }
-
-        // Closing line
-        $this->Cell(array_sum($w), 0, '', 'T');
+        
+        $this->Ln();
     }
-
-// Page header
+    
+    /**
+     * Used to set header size.
+     * @param mixed $value Can use to set explicit index column size
+     * like this: $pdf->setHeaderSize(1, 40);
+     * or can use array to define all header columns 
+     * like this: $pdf->setHeaderSize(array(20, 30, 17));
+     * @param type $size
+     */
+    public function setColumnSize($value, $size = null){
+        if(!is_array($value)){
+            $this->columnSize[$value] = $size;
+        } else {
+            $this->columnSize = $value;
+        }
+    }
+    
+    // Page header
     function Header() {
 
         // Arial bold 15
@@ -53,12 +81,12 @@ class Pdf extends FPDF {
         // Move to the right
         $this->Cell(80);
         // Title
-        $this->Cell(30, 10, 'Title', 1, 0, 'C');
+        $this->Cell(30, 10, $this->titleText, 0, 0, 'C');
         // Line break
         $this->Ln(20);
     }
 
-// Page footer
+    // Page footer
     function Footer() {
         // Position at 1.5 cm from bottom
         $this->SetY(-15);
@@ -67,7 +95,11 @@ class Pdf extends FPDF {
         // Page number
         $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
     }
-
+    
+    public function SetTitle($title) {
+        parent::SetTitle($title, true);
+        $this->titleText = $title;
+    }
 }
 
 ?>
