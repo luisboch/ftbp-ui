@@ -36,72 +36,53 @@ class RelatorioRequisicaoController extends MY_Controller {
 
         $n = new Requisicao();
         try {
-            $n = $this->servico->gerarRelatorio($r);
+
+            if ($r->getTipo() == 1) {
+                $n = $this->servico->gerarRelatorioFechamento($r);
+            }
 
             $this->view('paginas/verRelatorioRequisicao.php', array('reqst' => $n));
-        
-            
         } catch (ValidacaoExecao $e) {
-    
+
             // Se não encontrar exibe 404
             foreach ($e->getErrors() as $v) {
                 $this->warn($v->getMensagem(), $v->getCampo());
             }
-            
+
             exit;
         }
     }
 
-    /*
-      public function verAviso(){
-
-      $id = $this->uri->segment(3);
-
-      $at = new Aviso();
-
-      $at->setId($id);
-
-      $av = $this->servico->avisoLido($at, $this->session->getUsuario());
+    public function gerarPdf() {
 
 
-      $av = $this->servico->getById($id);
+        $this->load->library('pdf'); // Load library
+        // Generate PDF by saying hello to the world
 
-      $this->view('paginas/lerAviso.php', array('aviso' => $av));
-      }
+//        $header = array('Nome', 'Departamento', 'Quantidade');
+//
+//        $data = array('felipe','ti',10);
+//        $this->pdf->AddPage();
+//        $this->pdf->FancyTable($header,$data);
+//        $this->pdf->Output();
 
+        $this->load->library('cezpdf');
 
-      public function verMais(){
+        $db_data = array();
+        $db_data[] = array('name' => 'Jon Doe', 'phone' => '111-222-3333', 'email' => 'jdoe@someplace.com');
+        $db_data[] = array('name' => 'Jane Doe', 'phone' => '222-333-4444', 'email' => 'jane.doe@something.com');
+        $db_data[] = array('name' => 'Jon Smith', 'phone' => '333-444-5555', 'email' => 'jsmith@someplacepsecial.com');
 
-      $av =  $this->servico->carregarAviso($this->session->getUsuario());
+        $col_names = array(
+            'name' => 'Name',
+            'phone' => 'Phone Number',
+            'email' => 'E-mail Address'
+        );
 
-      $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Entrada de Avisos', 'opcao' => 'entrada'));
-      }
+        $this->cezpdf->ezTable($db_data, $col_names, 'Contact List', array('width' => 550));
+        $this->cezpdf->ezStream();
+    }
 
-      public function meusAvisos(){
-
-      $av =  $this->servico->carregarMeusAviso($this->session->getUsuario());
-      $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos', 'opcao' => 'saida'));
-
-      }
-
-      public function deletarAviso(){
-
-      $id = $this->uri->segment(3);
-      $opcao = $this->uri->segment(4);
-      $at = new Aviso();
-      $at->setId($id);
-
-      if ($opcao === "saida"){
-      $av = $this->servico->remover($at);
-      $av = $this->servico->carregarMeusAviso($this->session->getUsuario());
-      }else if ($opcao === "entrada"){
-      $av = $this->servico->deletarAvisoDestinatario($at, $this->session->getUsuario());
-      $av = $this->servico->carregarAviso($this->session->getUsuario());
-      }
-      $this->info("Aviso " . ('deletado') . " com sucesso");
-      $this->view('paginas/avisos.php', array ('aviso' => $av, 'titulo' => 'Meus Avisos', 'opcao' => $opcao));
-      }
-     */
 }
 
 ?>

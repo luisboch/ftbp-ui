@@ -4,7 +4,7 @@
     })
 </script>
 
-<form method="post" id="form-cadastro" action="<?= site_url('RelatorioRequisicaoController/gerarRelatorio') ?>" onsubmit="return carregar('RelatorioRequisicaoController/gerarRelatorio', $('#form-cadastro').serialize())">
+<form method="post" id="form-cadastro" action="<?= site_url('RelatorioRequisicaoController/gerarRelatorio') ?>" >
 
     <table class="form-table">
         <caption><span>Relatório de Requisições</span></caption>
