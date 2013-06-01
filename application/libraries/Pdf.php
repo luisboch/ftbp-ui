@@ -6,6 +6,8 @@ require('fpdf.php');
 
 class Pdf extends FPDF {
 
+    private $logger;
+    
     private $columnSize = array();
     
     private $titleText = "";
@@ -13,6 +15,8 @@ class Pdf extends FPDF {
     function __construct($orientation = 'P', $unit = 'mm', $size = 'A4') {
         // Call parent constructor
         parent::__construct($orientation, $unit, $size);
+        
+        $this->logger = Logger::getLogger(__CLASS__);
     }
 
     function FancyTable($header, $data) {
@@ -103,7 +107,10 @@ class Pdf extends FPDF {
         $this->titleText = $this->utf8ToUtf16($title);
     }
     public function utf8ToUtf16($text) {
-        return substr(iconv('UTF8', 'UTF16', $text), 2);
+        $this->logger->debug("Before decode: ".$text);
+        $text = substr(iconv('UTF8', 'UTF16', $text), 2);
+        $this->logger->debug("After decode: ".$text);
+        return $text;
     }
 }
 
