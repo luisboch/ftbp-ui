@@ -13,7 +13,7 @@ class RelatorioRequisicaoController extends MY_Controller {
 
     /**
      *
-     * @var ServicoAviso
+     * @var ServicoRelatorioRequisicao
      */
     private $servico;
 

@@ -46,15 +46,17 @@ class Pdf extends FPDF {
             $row = $data[$i];
             
             foreach ($row as $k => $value) {
-                $this->Cell($w[$k], 7, $value, ($i < $rowQtd - 1 ? 'LR' : 'LRB'), 0, 'C', $fill);
+                $this->Cell($w[$k], 7, $this->utf8ToUtf16($value), ($i < $rowQtd - 1 ? 'LR' : 'LRB'), 0, 'C', $fill);
             }
             
             // Swap background color
             $fill = !$fill;
             
+            $this->Ln(7);
+            
         }
         
-        $this->Ln();
+        $this->Ln(6);
     }
     
     /**
@@ -97,7 +99,10 @@ class Pdf extends FPDF {
     
     public function SetTitle($title) {
         parent::SetTitle($title, true);
-        $this->titleText = substr(iconv('UTF8', 'UTF16', $title), 2);
+        $this->titleText = $this->utf8ToUtf16($title);
+    }
+    public function utf8ToUtf16($text) {
+        return substr(iconv('UTF8', 'UTF16', $text), 2);
     }
 }
 
