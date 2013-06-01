@@ -24,6 +24,7 @@ class Pdf extends FPDF {
 
         // Header
         $w = $this->columnSize;
+        
         for ($i = 0; $i < count($header); $i++){
             $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
         }
@@ -84,7 +85,7 @@ class Pdf extends FPDF {
         // Title
         $this->Cell(190, 10, $this->titleText, 1, 0, 'C');
         // Line break
-        $this->Ln(20);
+        $this->Ln(12);
     }
 
     // Page footer
