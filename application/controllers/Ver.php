@@ -42,7 +42,14 @@ class Ver extends MY_Controller {
         try {
             // Recupera o dado do banco de dados.
             $cr = $this->servicoCurso->getById($id);
-
+            
+            /* @var $cr Curso */
+            
+            if($this->session->getUsuario() == null){
+                $cr->setAcessos($cr->getAcessos()+1);
+                $this->servicoCurso->atualizar($cr, true, false);
+            }
+            
             // Redireciona para a página de visualização.
             $this->view('paginas/verCurso.php', array('curso' => $cr));
         } catch (NoResultException $ex) {

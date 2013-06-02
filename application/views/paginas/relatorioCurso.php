@@ -5,32 +5,27 @@
     })
 </script>
 
-<form method="post" id="form-cadastro" action="<?= site_url('RelatorioRequisicaoController/gerarRelatorio') ?>" >
+<form method="post" id="form-cadastro" 
+      action="<?= site_url('RelatorioCursoController/gerarRelatorio') ?>"
+      onsubmit="return carregar('RelatorioCursoController/gerarRelatorio',$(this).serialize(), true)">
 
     <table class="form-table">
         <caption><span>Relatório de Requisições</span></caption>
         <tbody>
             <tr>
-                <td>Selecione um tipo</td>
+                <td>Agrupar por:</td>
                 <td>
                     <select id="tipo" name="tipo">
-                        <option></option>
-                        <option value="0">Abertura</option>
-                        <option value="1">Fechamento</option>
+                        <option value="<?=  CursoAgrupamento::CURSO?>">Curso</option>
+                        <option value="<?=  CursoAgrupamento::CURSO_AREA?>">Curso Area</option>
+                        <option value="<?=  CursoAgrupamento::NIVEL?>">Nivel Graduação</option>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Periodo</td>            
-                <td>
-                    <input type="text" class="data" id="dataInicio" name="dataInicio" placeholder="Data de Inicio">
-                    <input type="text" class="data" id="dataFim" name="dataFim" placeholder="Data Final">
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::REQUISICAO, true)) { ?>
+                    <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::REQUISICAO)) { ?>
                         <input type="submit" value="Enviar">
                     <? } ?>
                 </td>

@@ -48,12 +48,14 @@ class RelatorioRequisicaoController extends MY_Controller {
             $this->view('paginas/verRelatorioRequisicao.php', array('reqst' => $n, 'r' => $r, 'titulo' => $tipo));
         } catch (ValidacaoExecao $e) {
 
-            // Se não encontrar exibe 404
             foreach ($e->getErrors() as $v) {
                 $this->warn($v->getMensagem(), $v->getCampo());
             }
-
-            exit;
+            
+            $this->index();
+        } catch (Exception $ex){
+            $this->error($ex->getMessage());
+            $this->index();
         }
     }
 

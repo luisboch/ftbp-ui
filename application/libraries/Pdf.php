@@ -30,7 +30,7 @@ class Pdf extends FPDF {
         $w = $this->columnSize;
         
         for ($i = 0; $i < count($header); $i++){
-            $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
+            $this->Cell($w[$i], 7, $this->utf8ToUtf16($header[$i]), 1, 0, 'C', true);
         }
         
         $this->Ln();
@@ -51,7 +51,7 @@ class Pdf extends FPDF {
             $row = $data[$i];
             
             foreach ($row as $k => $value) {
-                $this->Cell($w[$k], 7, $this->utf8ToUtf16($value), ($i < $rowQtd - 1 ? 'LR' : 'LRB'), 0, 'C', $fill);
+                $this->Cell($w[$k], 7, $this->utf8ToUtf16($value), ($i < $rowQtd - 1 ? 'LR' : 'LRB'), 0, 'L', $fill);
             }
             
             // Swap background color

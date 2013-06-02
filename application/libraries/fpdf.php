@@ -644,12 +644,13 @@ function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link
 	}
 	if($txt!=='')
 	{
-		if($align=='R')
+		if($align=='R'){
 			$dx = $w-$this->cMargin-$this->GetStringWidth($txt);
-		elseif($align=='C')
+                } else if($align=='C'){
 			$dx = ($w-$this->GetStringWidth($txt))/2;
-		else
+                } else {
 			$dx = $this->cMargin;
+                }
 		if($this->ColorFlag)
 			$s .= 'q '.$this->TextColor.' ';
 		$txt2 = str_replace(')','\\)',str_replace('(','\\(',str_replace('\\','\\\\',$txt)));

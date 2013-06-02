@@ -1,57 +1,51 @@
 <?php
 
-require_once 'ftbp-src/servicos/impl/ServicoRelatorioRequisicao.php';
-
-require_once 'ftbp-src/entidades/basico/RelatorioRequisicao.php';
+require_once 'ftbp-src/servicos/impl/ServicoRelatorioCurso.php';
 
 /**
  * Description of AvisoController
  *
- * @author felipe
+ * @author luis
  */
-class RelatorioRequisicaoController extends MY_Controller {
+class RelatorioCursoController extends MY_Controller {
 
     /**
-     *
-     * @var ServicoRelatorioRequisicao
+     * @var ServicoRelatorioCurso
      */
     private $servico;
 
     function __construct() {
         parent::__construct();
-        $this->servico = new ServicoRelatorioRequisicao();
+        $this->servico = new ServicoRelatorioCurso();
     }
 
     public function index() {
 
-        $this->view('paginas/relatorioRequisicao');
+        $this->view('paginas/relatorioCurso.php');
     }
 
     public function gerarRelatorio() {
-        // Recupera o id que veio do form.
-        $r = new RelatorioRequisicao();
-        $r->setTipo($_POST['tipo']);
-        $r->setDataInicio($_POST['dataInicio']);
-        $r->setDataFim($_POST['dataFim']);
 
-        $n = new RelatorioRequisicao();
+        // Verifica se o parametro é válido. Se não for adiciona o valor default.
+        $tipo = $_POST['tipo'];
+
+        if ($tipo == '' || !is_numeric($tipo)) {
+            $tipo = CursoAgrupamento::CURSO;
+        }
+
         try {
 
-            if ($r->getTipo() == 1) {
-                $n = $this->servico->gerarRelatorioFechamento($r);
-                $tipo = 'Fechamento';
-            } else {
-                $n = $this->servico->gerarRelatorioAbertura($r);
-                $tipo = 'Abertura';
-            }
+            $resultado = $this->servico->dadosRelatorioVisualizacao($tipo);
 
-            $this->view('paginas/verRelatorioRequisicao.php', array('reqst' => $n, 'r' => $r, 'titulo' => $tipo));
+            $this->view('paginas/verRelatorioCurso.php', array('reslt' => $resultado,
+                'tipo' => $tipo));
         } catch (ValidacaoExecao $e) {
 
-            // Se não encontrar exibe 404
             foreach ($e->getErrors() as $v) {
                 $this->warn($v->getMensagem(), $v->getCampo());
             }
+
+            $this->index();
 
             exit;
         }
@@ -60,38 +54,61 @@ class RelatorioRequisicaoController extends MY_Controller {
     public function gerarPdf() {
 
         $tipo = $_POST['tipo'];
-        $rq = new RelatorioRequisicao();
-        $rq->setTipo($_POST['tipo']);
-        $rq->setDataInicio($_POST['dataInicio']);
-        $rq->setDataFim($_POST['dataFim']);
 
-        if ($rq->getTipo() == '1') {
-            $n = $this->servico->gerarRelatorioFechamento($rq);
-        } else {
-            $n = $this->servico->gerarRelatorioAbertura($rq);
+        if ($tipo == '' || !is_numeric($tipo)) {
+            $tipo = CursoAgrupamento::CURSO;
         }
 
-        $this->load->library('pdf'); // Load library
-        // Generate PDF with FPDF
-        
-        $header = array('Nome', 'Departamento', 'Quantidade');
-        
-        $data = array();
-        
-        
-        foreach ($n as $r) {
-            $data[] = array($r->getUsuario()->getNome(), $r->getDepartamento()->getNome(), $r->getQtde());
+        try {
+
+            /* @var $resultado CursoRelatorioResultado[] */
+            
+            $resultado = $this->servico->dadosRelatorioVisualizacao($tipo);
+
+            $this->load->library('pdf'); // Load library
+            
+            $header = array(CursoAgrupamento::getCabecalho($tipo), 'Quantidade de Acessos');
+
+            $data = array();
+
+
+            foreach ($resultado as $r) {
+                switch ($tipo) {
+                    case CursoAgrupamento::CURSO:
+                        $nome = $r->getCurso();
+                        break;
+                    case CursoAgrupamento::CURSO_AREA:
+                        $nome = $r->getArea();
+                        break;
+                    case CursoAgrupamento::NIVEL:
+                        $nome = ucfirst($r->getNivelgraduacao());
+                        break;
+                    default:
+                        break;
+                }
+                $data[] = array($nome, $r->getAcessos());
+            }
+
+            $this->pdf->SetTitle('Relatório de Visualizações de Cursos');
+
+            $this->pdf->AddPage();
+
+            $this->pdf->setColumnSize(array(100, 90));
+
+            $this->pdf->FancyTable($header, $data);
+
+            $this->pdf->Output('relatorio_curso_' . date('d-m-y_H-i') . '.pdf', 'D');
+            
+        } catch (ValidacaoExecao $e) {
+
+            foreach ($e->getErrors() as $v) {
+                $this->warn($v->getMensagem(), $v->getCampo());
+            }
+
+            $this->index();
+
+            exit;
         }
-        
-        $this->pdf->SetTitle('Relatório de requisições');
-        
-        $this->pdf->AddPage();
-        
-        $this->pdf->setColumnSize(array(80, 80, 30));
-        
-        $this->pdf->FancyTable($header, $data);
-        
-        $this->pdf->Output('relatorio_requisicao_'.date('d-m-y_H-i').'.pdf', 'D');
     }
 
 }
