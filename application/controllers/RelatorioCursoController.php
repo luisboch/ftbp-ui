@@ -20,12 +20,16 @@ class RelatorioCursoController extends MY_Controller {
     }
 
     public function index() {
-
+        
+        $this->checarAcesso(GrupoAcesso::RELATORIOS);
+        
         $this->view('paginas/relatorioCurso.php');
     }
 
     public function gerarRelatorio() {
-
+        
+        $this->checarAcesso(GrupoAcesso::RELATORIOS);
+        
         // Verifica se o parametro é válido. Se não for adiciona o valor default.
         $tipo = $_POST['tipo'];
 
@@ -52,7 +56,9 @@ class RelatorioCursoController extends MY_Controller {
     }
 
     public function gerarPdf() {
-
+        
+        $this->checarAcesso(GrupoAcesso::RELATORIOS);
+        
         $tipo = $_POST['tipo'];
 
         if ($tipo == '' || !is_numeric($tipo)) {

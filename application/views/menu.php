@@ -49,12 +49,14 @@
 
                 </ul>
             </li>
-            <li><a href="#" onclick="return false;">Relatórios</a>
-                <ul>
-                    <li><a href="<?=site_url('RelatorioCursoController/index')?>" onclick="return carregar('RelatorioCursoController/index', null, true);" >Curso</a></li>
-                    <li><a href="<?=site_url('RelatorioRequisicaoController/index')?>" onclick="return carregar('RelatorioRequisicaoController/index', null, true);" >Requisições</a></li>
-                </ul>
-            </li>
+            <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::RELATORIOS)) { ?>
+                <li><a href="#" onclick="return false;">Relatórios</a>
+                    <ul>
+                        <li><a href="<?= site_url('RelatorioCursoController/index') ?>" onclick="return carregar('RelatorioCursoController/index', null, true);" >Curso</a></li>
+                        <li><a href="<?= site_url('RelatorioRequisicaoController/index') ?>" onclick="return carregar('RelatorioRequisicaoController/index', null, true);" >Requisições</a></li>
+                    </ul>
+                </li>
+            <? } ?>
 
         </ul>
     <? } ?>

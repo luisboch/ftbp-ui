@@ -25,7 +25,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::REQUISICAO)) { ?>
+                    <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::RELATORIOS)) { ?>
                         <input type="submit" value="Enviar">
                     <? } ?>
                 </td>

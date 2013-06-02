@@ -23,11 +23,16 @@ class RelatorioRequisicaoController extends MY_Controller {
     }
 
     public function index() {
-
+        
+        $this->checarAcesso(GrupoAcesso::RELATORIOS);
+        
         $this->view('paginas/relatorioRequisicao');
     }
 
     public function gerarRelatorio() {
+        
+        $this->checarAcesso(GrupoAcesso::RELATORIOS);
+        
         // Recupera o id que veio do form.
         $r = new RelatorioRequisicao();
         $r->setTipo($_POST['tipo']);
@@ -61,6 +66,8 @@ class RelatorioRequisicaoController extends MY_Controller {
 
     public function gerarPdf() {
 
+        $this->checarAcesso(GrupoAcesso::RELATORIOS);
+        
         $tipo = $_POST['tipo'];
         $rq = new RelatorioRequisicao();
         $rq->setTipo($_POST['tipo']);
