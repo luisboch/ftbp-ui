@@ -249,6 +249,7 @@ class MY_Controller extends CI_Controller {
      * @param boolean $escrita
      */
     protected function checarAcesso($acesso, $escrita = false) {
+        
         // Checa se o usuário não está logado, e é alteração
         if ($this->session->getUsuario() == null && $escrita) {
             $this->bloquearAcesso();

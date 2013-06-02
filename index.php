@@ -34,6 +34,11 @@ define('ENVIRONMENT', 'development');
 //Load configurations
 $ini = parse_ini_file('config.ini');
 foreach ($ini as $key => $value){
+    if(strtolower($value) === 'false'){
+        $value = false;
+    }else if(strtolower($value) === 'true'){
+        $value = true;
+    }
     define($key, $value);
 }
 
