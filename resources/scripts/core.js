@@ -37,7 +37,10 @@ function process(data) {
     documento = $(data.documentElement).find('document').text();
 
     if (documento != '') {
-        $('#conteudo').html(documento);
+    $('#conteudo').slideUp('fast', function(){
+        	$('#conteudo').html(documento);
+		$('#conteudo').slideDown('fast');
+	});
     }
     messages = $(data.documentElement).find('messages');
 
