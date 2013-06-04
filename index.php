@@ -62,6 +62,7 @@ if (defined('ENVIRONMENT')) {
         case 'testing':
         case 'production':
             error_reporting(0);
+            set_include_path('./:/var/www/includes');
             break;
 
         default:
