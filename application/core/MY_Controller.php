@@ -22,6 +22,8 @@ class MY_Controller extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        
+        define('URL_HOME', site_url());
 
         self::$logger = Logger::getLogger(__CLASS__);
 
