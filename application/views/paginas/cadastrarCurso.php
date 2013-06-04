@@ -70,9 +70,9 @@
             </tr>
 
             <tr>
-                <td>Area de Atuação</td>
+                <td>Area do Curso</td>
                 <td>
-                    <select id="areaCurso" name ="areaCurso">
+                    <select id="areaCurso" name="areaCurso">
                         <?
                         $areaAtual = ($curso == null || $curso->getAreaCurso() == null) ? null : $curso->getAreaCurso()->getId();
                         foreach ($area as $v) {

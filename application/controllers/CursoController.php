@@ -49,7 +49,7 @@ class CursoController extends MY_Controller {
             if ($id == '') {
                 $n = new Curso();
             } else {
-                
+
                 /**
                  * É obrigatório o carregamento do banco de dados, pois, quando
                  * encaminhamos para a view, carregamos apenas os arquivos 
@@ -62,13 +62,12 @@ class CursoController extends MY_Controller {
                  * dados antes de tentar atualizar algo que não foi cadastradou,
                  * ou foi deletado.
                  */
-                
                 $n = $this->servico->getById($id);
             }
         } catch (NoResultException $e) {
             // Se não encontrar exibe 404
             show_404();
-            
+
             exit;
         }
 
@@ -88,10 +87,15 @@ class CursoController extends MY_Controller {
             $n->setContatoSecretaria($_POST['contatoSecretaria']);
             $n->setCoordenador($_POST['coordenador']);
             $n->setCorpoDocente($_POST["corpoDocente"]);
+
             $dt = DateTime::createFromFormat('d/m/Y', $_POST["dataVestibular"]);
-            $n->setDataVestibular($dt);
+
+            if ($dt !== false) {
+                $n->setDataVestibular($dt);
+            }
+
             $n->setDescricao($_POST['descricao']);
-            
+
             // Trata o valor (retirando a vírgula)
             if ($_POST['valor'] != '') {
                 $duracao = str_replace(',', '.', $_POST['duracao']);
@@ -151,8 +155,11 @@ class CursoController extends MY_Controller {
             // Carrega os arquivos do curso
             $arquivos = $this->carregarArquivosDaArea($n);
 
+            $areaCurso = $this->servicoArea->carregarArea();
+
             // Encaminha para a view de edição
-            $this->view('paginas/cadastrarCurso.php', array('curso' => $n, 'arquivos' => $arquivos));
+            $this->view('paginas/cadastrarCurso.php', array('curso' => $n,
+                'arquivos' => $arquivos, 'area' => $areaCurso));
         }
     }
 
@@ -195,7 +202,7 @@ class CursoController extends MY_Controller {
     }
 
     public function excluirArquivo() {
-        
+
         $this->checarAcesso(GrupoAcesso::CURSO, true);
         // Carrega as variaveis da requisição.
         $cursoId = $_POST['curso'];
@@ -242,9 +249,9 @@ class CursoController extends MY_Controller {
 
             // Carrega os arquivos do curso
             $arquivos = $this->carregarArquivosDaArea($n);
-            
+
             // Carrega a view.
-            $this->view('paginas/cadastrarCurso.php', array('area' => $areas, 
+            $this->view('paginas/cadastrarCurso.php', array('area' => $areas,
                 'curso' => $curso, 'arquivos' => $arquivos));
         } catch (Exception $ex) {
             $this->error("Ops, encontramos um problema ao excluir o arquivo");

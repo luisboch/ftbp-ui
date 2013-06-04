@@ -53,7 +53,7 @@
         </tr>
 
         <tr>
-            <td>Area de Atuação</td>
+            <td>Area do Curso</td>
             <td>
                 <?= $curso->getAreaCurso() == null ? '' : $curso->getAreaCurso()->getNome(); ?>
             </td>
