@@ -48,7 +48,7 @@
         <tr>
             <td>Data do Vestibular:</td>
             <td>
-                <?= $curso->getDataVestibular()->format('d/m/Y') ?>
+                <?= $curso->getDataVestibular()!=null?$curso->getDataVestibular()->format('d/m/Y'):''; ?>
             </td>
         </tr>
 
