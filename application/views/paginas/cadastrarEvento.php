@@ -29,7 +29,7 @@
             <tr>
                 <td>Data</td>
                 <td>
-                    <input type="text" id="data" name="data" value="<?= empty($evento) || $evento->getData() == null ? '' : $evento->getDataEvento()->format('d/m/Y'); ?>"/>
+                    <input type="text" id="data" name="data" value="<?= empty($evento) || $evento->getDataEvento() == null ? '' : $evento->getDataEvento()->format('d/m/Y'); ?>"/>
                 </td>
             </tr>
             <tr>

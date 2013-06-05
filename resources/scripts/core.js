@@ -105,6 +105,7 @@ Messages.show = function() {
     text = $('#msg-location').text();
     if (text != '') {
         $('#bloco-mensagems').fadeIn(300);
+        $('#bloco-mensagems').scrollTo();
     }
 }
 

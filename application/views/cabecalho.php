@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="<?= URL_HOME ?>resources/layout/reset.css" />
 
         <script type="text/javascript" src="<?= URL_HOME ?>resources/scripts/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="<?= URL_HOME ?>resources/scripts/scrollto-1.4.3.1.min.js"></script>
 
         <!-- JQuery-UI dependencies-->
         <link rel="stylesheet" type="text/css" href="<?= URL_HOME ?>resources/layout/start/jquery-ui-1.10.2.custom.min.css" />
