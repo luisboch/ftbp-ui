@@ -37,8 +37,7 @@
         <tr>
             <td></td>
             <td>
-                <input type="submit" value="Voltar"onclick="javascript:window.history.go(-1);
-                        location.reload(true);" />
+                <input type="submit" value="Voltar"onclick="return goBack();" />
                 
                 <? if ($logado && $_grupo != null && $_grupo->temAcesso(GrupoAcesso::EVENTO, true)) { ?>
                     <input type="submit" value="Editar"onclick="return carregar('EventoController/alterarEvento/<?= $evento->getId(); ?>', null, true);" />

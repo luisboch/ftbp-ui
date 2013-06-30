@@ -1,14 +1,43 @@
-function carregar(data, param, changeUrl, __callback) {
+var siteHistory = new HistoryManager();
+
+function HistoryManager() {
+    var actions = new Array();
+
+    this.add = function(action) {
+        actions[0] = actions[1];
+        actions[1] = action;
+    }
+    this.goBack = function() {
+        return carregar(actions[0], {}, true);
+    }
+}
+/**
+ * @returns boolean
+ */
+function goBack() {
+    return siteHistory.goBack();
+}
+
+/**
+ * 
+ * @param string action
+ * @param Array param
+ * @param boolean changeUrl
+ * @param function __callback
+ * @returns boolean false always
+ */
+function carregar(action, param, changeUrl, __callback) {
     if (!param) {
         param = {};
     }
 
     if (changeUrl) {
-        window.location = '#!' + data;
+        window.location = '#!' + action;
+        siteHistory.add(action);
     }
 
     $.ajax({
-        url: URL_HOME + data + '?ajax=true',
+        url: URL_HOME + action + '?ajax=true',
         beforeSend: function() {
             $('body').css('cursor', 'wait');
         },
@@ -19,8 +48,9 @@ function carregar(data, param, changeUrl, __callback) {
         data: param,
         dataType: 'xml'
     }).fail(function(a, b) {
-        alert(a);
-        alert(b);
+        if (console && console.log) {
+            console.log("Ajax Request Failed: [" + a + ", " + b + "]");
+        }
     }).done(function(d) {
         process(d);
         if (__callback) {
@@ -32,15 +62,20 @@ function carregar(data, param, changeUrl, __callback) {
 
 }
 
+/**
+ * @param xml data xml received from server.
+ * @returns void 
+ */
+
 function process(data) {
 
     documento = $(data.documentElement).find('document').text();
 
     if (documento != '') {
-    $('#conteudo').slideUp('fast', function(){
-        	$('#conteudo').html(documento);
-		$('#conteudo').slideDown('fast');
-	});
+        $('#conteudo').slideUp('fast', function() {
+            $('#conteudo').html(documento);
+            $('#conteudo').slideDown('fast');
+        });
     }
     messages = $(data.documentElement).find('messages');
 
@@ -66,6 +101,10 @@ function process(data) {
 
 }
 
+/**
+ * Object to manage messages.
+ * @type Messages
+ */
 var Messages = {};
 
 Messages.clear = function() {
@@ -133,8 +172,8 @@ $(function() {
     })
 
     // Corrige o css das mensagens
-    $('#bloco-mensagems').css('position','absolute');
-    
+    $('#bloco-mensagems').css('position', 'absolute');
+
     $('#msg-location').mouseout(function() {
         if (!dragging) {
             $('#bloco-mensagems').draggable();
@@ -174,17 +213,16 @@ $(function() {
                 $(usr).children().each(function() {
                     var nome = $(this).find('nome').text();
                     var id = $(this).find('id').text();
-//                    alert($(this).find('com_mgs').text())
-                    var com_mgs = $(this).find('com_mgs').text()==='true'?true:false;
+                    var com_mgs = $(this).find('com_mgs').text() === 'true' ? true : false;
                     var departamento = $(this).find('departamento').text();
                     var html = '<li onclick="popup(URL_HOME+\'ChatController/u/' + id + '\', \'' + nome + '\', 300, 400)">\n' +
-                            '<span class="usuario-nome '+(com_mgs?'icon_alert':'')+' ">' + nome + '</span>\n' +
+                            '<span class="usuario-nome ' + (com_mgs ? 'icon_alert' : '') + ' ">' + nome + '</span>\n' +
                             '<span class="departamento-nome">' + departamento + '</span>\n' +
                             '</li>\n';
                     ul.append(html);
                     qtd++;
                 })
-                $('#chat .titulo span').html(qtd+'');
+                $('#chat .titulo span').html(qtd + '');
             })
         }, 5000);
     }

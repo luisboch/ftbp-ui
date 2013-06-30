@@ -42,7 +42,7 @@
         <tr>
             <td></td>
             <td>
-                <input type="button" value="Voltar" onclick="javascript:window.history.go(-1);location.reload(true);">
+                <input type="button" value="Voltar" onclick="return goBack()">
             </td>
         </tr>
     </tbody>
