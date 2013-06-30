@@ -1,3 +1,9 @@
+function log (data){
+    if(console && console.log){
+        console.log(data);
+    }
+}
+
 var siteHistory = new HistoryManager();
 
 function HistoryManager() {
@@ -8,7 +14,10 @@ function HistoryManager() {
         actions[1] = action;
     }
     this.goBack = function() {
-        return carregar(actions[0], {}, true);
+        if (actions[0] !== undefined) {
+            return carregar(actions[0], {}, true);
+        }
+        return false;
     }
 }
 /**
@@ -70,7 +79,7 @@ function carregar(action, param, changeUrl, __callback) {
 function process(data) {
 
     documento = $(data.documentElement).find('document').text();
-
+    log(documento);
     if (documento != '') {
         $('#conteudo').slideUp('fast', function() {
             $('#conteudo').html(documento);
