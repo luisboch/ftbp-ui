@@ -14,12 +14,13 @@
         <link rel="stylesheet" type="text/css" href="<?= URL_HOME ?>resources/layout/start/jquery-ui-1.10.2.custom.min.css" />
         <script type="text/javascript"  src="<?= URL_HOME ?>resources/scripts/jquery-ui-1.10.2.custom.js" ></script>
 
-        <script type="text/javascript" src="<?= URL_HOME ?>resources/scripts/core.js"></script>
-
         <script type="text/javascript" >
             var URL_HOME = '<?= URL_HOME ?>';
             var logado = <?= $logado ? 'true' : 'false' ?>;
         </script>
+        
+        <script type="text/javascript" src="<?= URL_HOME ?>resources/scripts/core.js"></script>
+
 
         <title>Gerenciador de Informações</title>
     </head>

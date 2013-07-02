@@ -8,7 +8,14 @@ var siteHistory = new HistoryManager();
 
 function HistoryManager() {
     var actions = new Array();
-
+    
+    if(logado){
+        actions[0] = 'welcome';
+        actions[1] = 'welcome';
+    } else {
+        actions[0] = '';
+        actions[1] = '';
+    }
     this.add = function(action) {
         actions[0] = actions[1];
         actions[1] = action;
