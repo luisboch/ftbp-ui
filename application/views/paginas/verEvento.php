@@ -12,9 +12,7 @@
         </tr>
         <tr>
             <td>Descrição: </td>
-            <td>
-                <textarea rows="7" cols="50" id="descricao" name="descricao" readonly="readonly" ><?= $evento->getDescricao(); ?></textarea>
-            </td>
+            <td><?= $evento->getDescricao(); ?></td>
         </tr>
         <tr>
             <td>Data</td>

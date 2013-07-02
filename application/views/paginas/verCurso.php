@@ -11,16 +11,11 @@
         </tr>
         <tr>
             <td>Descrição</td>
-            <td><textarea id="descricao" name="descricao" rows="10" cols="30" readonly="readonly">
-                    <?= $curso->getDescricao() ?>
-                </textarea>
-            </td>
+            <td><?= $curso->getDescricao() ?></td>
         </tr>
         <tr>
             <td>Corpo Docente</td>
-            <td>
-                <textarea id="corpoDocente" name="corpoDocente" rows="10" cols="30" readonly="readonly"><?= $curso->getCorpoDocente() ?>                </textarea>
-            </td>
+            <td><?= $curso->getCorpoDocente() ?></td>
         </tr>
         <tr>
             <td>Público Alvo</td>
@@ -48,7 +43,7 @@
         <tr>
             <td>Data do Vestibular:</td>
             <td>
-                <?= $curso->getDataVestibular()!=null?$curso->getDataVestibular()->format('d/m/Y'):''; ?>
+                <?= $curso->getDataVestibular() != null ? $curso->getDataVestibular()->format('d/m/Y') : ''; ?>
             </td>
         </tr>
 
@@ -92,9 +87,9 @@
         <tr>
             <td></td>
             <td>
-                <input type="submit" value="Voltar"onclick="return goBack()">
+                <input type="submit" value="Voltar" onclick="return goBack()">
                 <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::CURSO, true)) { ?>
-                    <input type="submit" value="Editar"onclick="return carregar('CursoController/alterarCurso/<?= $curso->getId(); ?>', null, true);">
+                    <input type="submit" value="Editar" onclick="return carregar('CursoController/alterarCurso/<?= $curso->getId(); ?>', null, true);">
                 <? } ?>
             </td>
         </tr>

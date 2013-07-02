@@ -59,6 +59,10 @@
             <? } ?>
 
         </ul>
+    <? } else { ?>
+        <ul class="menu"> 
+            <li><a href="<?= site_url('') ?>" onclick="return carregar('', null, true)">Home</a></li>
+        </ul>
     <? } ?>
     <div id="pesquisar">
         <form id="form-pesquisa" action="<?= site_url('PesquisaController/pesquisar') ?>" 

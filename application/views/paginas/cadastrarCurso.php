@@ -102,10 +102,10 @@
                 <td>Contatos da Secretaria</td>
                 <td><input type="type" id="contatoSecretaria" name="contatoSecretaria" value="<?= empty($curso) ? '' : $curso->getContatoSecretaria(); ?>"></td>
             </tr>
-            <tr>
+<!--            <tr>
                 <td>Créditos</td>
                 <td><input type="type" id="credito" name="credito" value="<?= empty($curso) ? '' : $curso->getCredito(); ?>"></td>
-            </tr>
+            </tr>-->
             <tr>
                 <td>Upload de Arquivos</td>
                 <td>

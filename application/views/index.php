@@ -19,7 +19,7 @@
 }
 ?>
 </div>
-
+ <? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::AVISO)) { ?>
 <div align="left" id="aviso" style="width: 200px;  padding: 10px; margin-left: 10px;
      border: 1px solid #c0c0c0; 
      float: left">
@@ -43,6 +43,8 @@
     }
     ?>
 </div>
+ <? }?>
+<? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::REQUISICAO)) { ?>
 <div align="left" id="aviso" style="width: 200px;  padding: 10px; margin-left: 10px;
      border: 1px solid #c0c0c0; 
      float: left">
@@ -65,8 +67,9 @@
         }
     }
     ?>
-</div>  
-
+</div>
+<? } ?>
+<? if ($_grupo != null && $_grupo->temAcesso(GrupoAcesso::EVENTO)) { ?>
 <div align="left" id="eventos" style="width: 240px; padding: 10px; margin-left: 10px; border: 1px solid #c0c0c0; float: left">
     <span style="text-align: left; font-weight: bold">
         Pŕoximos eventos
@@ -87,4 +90,5 @@
         }
     }
     ?>
-</div>  
+</div>
+<? } ?>  
