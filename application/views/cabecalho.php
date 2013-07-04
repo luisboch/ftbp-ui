@@ -64,4 +64,4 @@
                         </div>
                     <? } ?>
                 </div>
-                <img src="<?= URL_HOME ?>resources/imagens/logo.jpg" /></div>
+                <img src="<?= URL_HOME ?>resources/imagens/logo.png" /></div>
