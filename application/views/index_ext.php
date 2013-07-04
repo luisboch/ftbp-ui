@@ -26,7 +26,7 @@
 </div>  
 <div align="left" id="eventos" style="width: 46.5%;  padding: 10px; margin-left: 10px; border: 1px solid #c0c0c0; float: left">
     <span style="text-align: left; font-weight: bold">
-        Pŕoximos eventos
+        Próximos eventos
     </span>
     <hr>
     <? if (isset($eventos) && is_array($eventos)) { ?>
