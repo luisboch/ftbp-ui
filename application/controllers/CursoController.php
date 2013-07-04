@@ -248,7 +248,7 @@ class CursoController extends MY_Controller {
             }
 
             // Carrega os arquivos do curso
-            $arquivos = $this->carregarArquivosDaArea($n);
+            $arquivos = $this->carregarArquivosDaArea($curso);
 
             // Carrega a view.
             $this->view('paginas/cadastrarCurso.php', array('area' => $areas,
