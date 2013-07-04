@@ -10,7 +10,7 @@
       onsubmit="return carregar('RelatorioCursoController/gerarRelatorio',$(this).serialize(), true)">
 
     <table class="form-table">
-        <caption><span>Relatório de Requisições</span></caption>
+        <caption><span>Relatório de Cursos</span></caption>
         <tbody>
             <tr>
                 <td>Agrupar por:</td>
