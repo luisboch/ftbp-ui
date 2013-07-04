@@ -83,7 +83,7 @@ class RelatorioRequisicaoController extends MY_Controller {
         $this->load->library('pdf'); // Load library
         // Generate PDF with FPDF
         
-        $header = array('Nome', 'Departamento', 'Quantidade');
+        $header = array('Nome', 'Departamento', 'Qtd');
         
         $data = array();
         
