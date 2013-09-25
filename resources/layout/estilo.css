@@ -32,6 +32,7 @@
 
 #rodape{
     color: #fff;
+    clear: both;
 }
 
 #pesquisar{
@@ -241,4 +242,39 @@ a:hover {text-decoration:underline;color:#999999;}
 
 .usuario-nome{
     font-weight: bold;
+}
+/*
+#crud-menu{
+    float: left;
+    width: 140px;
+}
+
+#form-cadastro.crud-usuario{
+    width: 840px;
+    float: right;
+}
+
+#crud-menu ul{
+    padding: 5px;
+    margin: 0px;
+    list-style:none;
+    border-radius: 2px;
+    display: block;
+    background: #4682B4;
+}
+
+#crud-menu ul li{
+    text-align: left;
+}
+
+#crud-menu ul li a{
+    padding: 2px;
+    display: block;
+    color: #FFF;
+    font-weight: bold;
+}
+
+#crud-menu ul li a:hover{
+    background: #66A2D4;
+    text-decoration: none;*/
 }

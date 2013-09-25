@@ -3,7 +3,7 @@
     <? if ($logado) { ?>
         <ul class="menu"> 
             <li><a href="<?= site_url('welcome/index') ?>" onclick="return carregar('welcome/index', null, true)">Home</a></li>
-            <li><a href="#" onclick="return false;">Cadastrar</a> 
+            <li><a href="#" onclick="return false;">Administração</a> 
                 <ul> 
 
                     <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::AVISO, true)) { ?>
@@ -14,13 +14,17 @@
                     <? } ?>
                     <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::CURSO_AREA, true)) { ?>
                         <li><a href="<?= site_url('AreaController/index') ?>" onclick="return carregar('AreaController/index', null, true);">Cursos Areas</a></li> 
-
                     <? } ?>
                     <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::EVENTO, true)) { ?>
                         <li><a href="<?= site_url('EventoController/index') ?>" onclick="return carregar('EventoController/index', null, true);">Eventos</a></li>
                     <? } ?>
-                    <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::USUARIO, true)) { ?>
-                        <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index', null, true);">Funcionários</a></li>
+                    <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::USUARIO, false)) { ?>
+                        <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index', null, true);">Usuários</a>
+                            <ul>
+                                <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index', null, true);">Novo</a></li>
+                                <li><a href="<?= site_url('UsuariosController/pesquisar') ?>" onclick="return carregar('UsuariosController/index', null, true);">Pesquisar</a></li>
+                            </ul>
+                        </li>
                     <? } ?>
                     <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::REQUISICAO, true)) { ?>
                         <li><a href="<?= site_url('RequisicaoController/index') ?>" onclick="return carregar('RequisicaoController/index', null, true);">Requisições</a></li>

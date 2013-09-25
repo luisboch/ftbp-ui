@@ -20,14 +20,17 @@ body {
     /*border-right:1px solid #c0c0c0;*/
 }
 
-.menu li a{
-    font-size:1.3em;  
+.menu li a{ 
     color:#fff; 
     text-decoration:none; 
-    padding:5px 10px; 
     display:block;
+}
+
+.menu li{
     text-align: left;
-    border-radius: 3px;
+    padding:5px 10px; 
+    font-size:14px; 
+    cursor: pointer;
 }
 
 .menu li ul li a{
@@ -54,12 +57,24 @@ body {
     left: 0;
     margin: 0;
     padding: 0;
-    background-color:#000; 
-    display:none; }
+    display:none; 
+}
 
 .menu li:hover ul ul{display:none;}
 
-.menu li:hover ul, .menu li ul li:hover ul, .menu li.over ul, .menu li ul li.over ul{display:block;}
+.menu li:hover ul{display: block;}
+
+.menu li ul li:hover ul{display: block;}
+
+.menu li ul li ul{
+    border:1px solid;
+    border-color: #026890;
+    left:150px;
+}
+
+.menu li ul li ul li{
+    left: 0px;
+}
 
 .menu li ul li{
    /* border:1px solid #c0c0c0; */

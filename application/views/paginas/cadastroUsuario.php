@@ -1,7 +1,8 @@
 <?php /* @var $grupos Grupo[] */ ?>
 <?php /* @var $usuario Usuario */ ?>
 <? /* @var $_grupo Grupo */ ?>
-<form id="form-cadastro" action="<?= site_url('UsuariosController/salvar'); ?>" onsubmit="return carregar('UsuariosController/salvar', $('#form-cadastro').serialize())" method="post">
+<? // require_once 'generic_crud_menu.php';?>
+<form id="form-cadastro" class="crud-usuario" action="<?= site_url('UsuariosController/salvar'); ?>" onsubmit="return carregar('UsuariosController/salvar', $('#form-cadastro').serialize())" method="post">
     <input type="hidden" name="id" id="id" value="<?= empty($usuario) ? '' : $usuario->getId(); ?>" />
     <table class="form-table">
 
