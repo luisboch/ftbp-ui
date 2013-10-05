@@ -1,4 +1,4 @@
-<? /* @var $_grupo Grupo */ ?>
+<? /* @var $_grupo Grupo */ /* @var $curso Curso */ /* @var $usuarios Usuario[] */ ?>
 
 <form id="form-cadastro" action="<?= site_url('CursoController/salvar'); ?>" 
       method="post" enctype="multipart/form-data">
@@ -35,7 +35,17 @@
             </tr>
             <tr>
                 <td>Coordenador</td>
-                <td><input id="coordenador" name="coordenador" type="text" value="<?= empty($curso) ? '' : $curso->getCoordenador(); ?>"></td>
+                <? $cood_id = empty($curso) || $curso->getCoordenador() == NULL ? '' : $curso->getCoordenador()->getId(); ?>
+                <td>
+                    <select id="coordenador_id" name="coordenador_id">
+                        <option value=""></option>
+                        <?
+                        foreach ($usuarios as $u) {
+                            ?><option value="<?= $u->getId(); ?>" <?= $u->getId() === $cood_id ? 'selected="selected"' : ''; ?>><?= $u->getNome(); ?></option><?
+                        }
+                        ?>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>Descrição</td>
@@ -94,18 +104,20 @@
                     </select>
                 </td>
             </tr>
+            <? $ctt_id = empty($curso) || $curso->getCoordenador() == NULL ? '' : $curso->getCoordenador()->getId(); ?>
             <tr>
-                <td>E-mail de Coordenador </td>
-                <td><input type="type" id="email" name="email" value="<?= empty($curso) ? '' : $curso->getEmail(); ?>"></td>
+                <td>Contato da Secretaria</td>
+                <td>
+                    <select id="contato_id" name="contato_id">
+                        <option value=""></option>
+                        <?
+                        foreach ($usuarios as $u) {
+                            ?><option value="<?= $u->getId(); ?>" <?= $u->getId() === $ctt_id ? 'selected="selected"' : ''; ?>><?= $u->getNome(); ?></option><?
+                        }
+                        ?>
+                    </select>
+                </td>
             </tr>
-            <tr>
-                <td>Contatos da Secretaria</td>
-                <td><input type="type" id="contatoSecretaria" name="contatoSecretaria" value="<?= empty($curso) ? '' : $curso->getContatoSecretaria(); ?>"></td>
-            </tr>
-<!--            <tr>
-                <td>Créditos</td>
-                <td><input type="type" id="credito" name="credito" value="<?= empty($curso) ? '' : $curso->getCredito(); ?>"></td>
-            </tr>-->
             <tr>
                 <td>Upload de Arquivos</td>
                 <td>

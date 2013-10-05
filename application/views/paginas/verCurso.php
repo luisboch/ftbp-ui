@@ -1,3 +1,4 @@
+<? /* @var $_grupo Grupo */ /* @var $curso Curso */ /* @var $usuarios Usuario[] */ ?>
 <table class="form-table">
     <caption>Curso</caption>
     <tbody>
@@ -7,7 +8,11 @@
         </tr>
         <tr>
             <td>Coordenador</td>
-            <td><?= $curso->getCoordenador() ?></td>
+            <td><?= $curso->getCoordenador() == NULL ? '' : $curso->getCoordenador()->getNome(); ?></td>
+        </tr>
+        <tr>
+            <td>E-mail de Coordenador </td>
+            <td><?= $curso->getCoordenador() == NULL ? '' : $curso->getCoordenador()->getEmail(); ?></td>
         </tr>
         <tr>
             <td>Descrição</td>
@@ -61,12 +66,8 @@
             </td>
         </tr>
         <tr>
-            <td>E-mail de Coordenador </td>
-            <td><?= $curso->getEmail() ?></td>
-        </tr>
-        <tr>
             <td>Contatos da Secretaria</td>
-            <td><?= $curso->getContatoSecretaria() ?></td>
+            <td><?= $curso->getContato() == NULL ? '' : $curso->getContato()->getNome(); ?></td>
         </tr>
         <? if ($curso->getArquivos() != '' && is_array($curso->getArquivos()) && count($curso->getArquivos()) > 0) {
             ?>

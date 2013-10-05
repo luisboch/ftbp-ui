@@ -2,6 +2,7 @@
 
 require_once 'ftbp-src/servicos/impl/ServicoCurso.php';
 require_once 'ftbp-src/servicos/impl/ServicoArea.php';
+require_once 'ftbp-src/servicos/impl/ServicoUsuario.php';
 require_once 'ftbp-src/entidades/basico/AreaCurso.php';
 
 /**
@@ -24,6 +25,11 @@ class CursoController extends MY_Controller {
     private $servicoArea;
 
     /**
+     * @var ServicoUsuario
+     */
+    private $servicoUsuario;
+
+    /**
      *
      * @var ServicoUsuario 
      */
@@ -31,12 +37,21 @@ class CursoController extends MY_Controller {
         parent::__construct();
         $this->servico = new ServicoCurso();
         $this->servicoArea = new ServicoArea();
+        $this->servicoUsuario = new ServicoUsuario();
+    }
+
+    /**
+     * 
+     * @return Usuario[]
+     */
+    private function carregarUsuarios() {
+        return $this->servicoUsuario->carregarTodosOsUsuarios();
     }
 
     public function index() {
         $this->checarAcesso(GrupoAcesso::CURSO, true);
         $areaCurso = $this->servicoArea->carregarArea();
-        $this->view('paginas/cadastrarCurso.php', array('area' => $areaCurso, 'arquivos' => array()));
+        $this->view('paginas/cadastrarCurso.php', array('area' => $areaCurso, 'arquivos' => array(), 'usuarios' => $this->carregarUsuarios()));
     }
 
     public function salvar() {
@@ -84,8 +99,23 @@ class CursoController extends MY_Controller {
                 $n->setAreaCurso($area);
             }
 
-            $n->setContatoSecretaria($_POST['contatoSecretaria']);
-            $n->setCoordenador($_POST['coordenador']);
+            $contato_id = $_POST['contato_id'];
+            if ($contato_id != '') {
+                $contato = $this->servicoUsuario->getById($contato_id);
+                $n->setContato($contato);
+            } else {
+                $n->setContato(NULL);
+            }
+
+            $coordenador_id = $_POST['coordenador_id'];
+
+            if ($coordenador_id != '') {
+                $coordenador = $this->servicoUsuario->getById($coordenador_id);
+                $n->setCoordenador($coordenador);
+            } else {
+                $n->setCoordenador(NULL);
+            }
+
             $n->setCorpoDocente($_POST["corpoDocente"]);
 
             $dt = DateTime::createFromFormat('d/m/Y', $_POST["dataVestibular"]);
@@ -97,7 +127,7 @@ class CursoController extends MY_Controller {
             $n->setDescricao($_POST['descricao']);
 
             // Trata o valor (retirando a vírgula)
-            if ($_POST['valor'] != '') {
+            if ($_POST['duracao'] != '') {
                 $duracao = str_replace(',', '.', $_POST['duracao']);
                 $n->setDuracao($duracao);
             }
@@ -112,8 +142,6 @@ class CursoController extends MY_Controller {
             }
 
             $n->setVideoApresentacao($_POST['videoApresentacao']);
-            $n->setEmail($_POST['email']);
-            $n->setCredito($_POST['credito']);
 
             // Verifica se há arquivo para upload
             if (isset($_FILES['arquivo']) && isset($_FILES['arquivo']['name']) &&
@@ -144,7 +172,7 @@ class CursoController extends MY_Controller {
             // Carrega os arquivos do curso
             $arquivos = $this->carregarArquivosDaArea($n);
 
-            $this->view('paginas/cadastrarCurso.php', array('curso' => $n, 'area' => $areaCurso, 'arquivos' => $arquivos));
+            $this->view('paginas/cadastrarCurso.php', array('curso' => $n, 'area' => $areaCurso, 'arquivos' => $arquivos, 'usuarios' => $this->carregarUsuarios()));
         } catch (ValidacaoExecao $e) {
 
             // Exibe os erros encontrados
@@ -159,7 +187,7 @@ class CursoController extends MY_Controller {
 
             // Encaminha para a view de edição
             $this->view('paginas/cadastrarCurso.php', array('curso' => $n,
-                'arquivos' => $arquivos, 'area' => $areaCurso));
+                'arquivos' => $arquivos, 'area' => $areaCurso, 'usuarios' => $this->carregarUsuarios()));
         }
     }
 
@@ -194,7 +222,9 @@ class CursoController extends MY_Controller {
             $arquivos = $this->carregarArquivosDaArea($cr);
 
             // Encaminha para a view de edição
-            $this->view('paginas/cadastrarCurso.php', array('area' => $areaCurso, 'curso' => $cr, 'arquivos' => $arquivos));
+            $this->view('paginas/cadastrarCurso.php', array('area' => $areaCurso,
+                'curso' => $cr, 'arquivos' => $arquivos,
+                'usuarios' => $this->carregarUsuarios()));
         } catch (NoResultException $ex) {
             $this->error("Curso não encontrado");
             $this->index();
@@ -252,10 +282,10 @@ class CursoController extends MY_Controller {
 
             // Carrega a view.
             $this->view('paginas/cadastrarCurso.php', array('area' => $areas,
-                'curso' => $curso, 'arquivos' => $arquivos));
+                'curso' => $curso, 'arquivos' => $arquivos, 'usuarios' => $this->carregarUsuarios()));
         } catch (Exception $ex) {
             $this->error("Ops, encontramos um problema ao excluir o arquivo");
-            $this->view('paginas/cadastrarCurso.php', array('area' => $areas, 'curso' => $curso));
+            $this->view('paginas/cadastrarCurso.php', array('area' => $areas, 'curso' => $curso, 'usuarios' => $this->carregarUsuarios()));
         }
     }
 
