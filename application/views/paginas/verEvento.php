@@ -1,4 +1,4 @@
-
+<? /* @var $evento Evento */ ?>
 <input type="hidden" name="id" id="id" value="<?= empty($evento) ? '' : $evento->getId(); ?>" /> 
 <table border="0" class="form-table">
 
@@ -29,7 +29,7 @@
         <tr>
             <td>Contato</td>
             <td>
-                <?= $evento->getContato(); ?>
+                <?= $evento->getContato() == null?'':$evento->getContato()->getNome(); ?>
             </td>
         </tr>
         <tr>

@@ -104,7 +104,7 @@
                     </select>
                 </td>
             </tr>
-            <? $ctt_id = empty($curso) || $curso->getCoordenador() == NULL ? '' : $curso->getCoordenador()->getId(); ?>
+            <? $ctt_id = empty($curso) || $curso->getContato() == NULL ? '' : $curso->getContato()->getId(); ?>
             <tr>
                 <td>Contato da Secretaria</td>
                 <td>

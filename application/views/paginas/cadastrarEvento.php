@@ -1,4 +1,5 @@
 <? /* @var $_grupo Grupo */ ?>
+<? /* @var $evento Evento */ ?>
 <script type="text/javascript">
     $(function() {
         $('#data').datepicker({dateFormat: "dd/mm/yy"});
@@ -40,8 +41,16 @@
             </tr>
             <tr>
                 <td>Contato</td>
+                <? $ctt_id = empty($evento) || $evento->getContato() == NULL ? '' : $evento->getContato()->getId(); ?>
                 <td>
-                    <input type="text" id="contato" name="contato" value="<?= empty($evento) ? '' : $evento->getContato(); ?>"/>
+                    <select id="contato_id" name="contato_id">
+                        <option value=""></option>
+                        <?
+                        foreach ($usuarios as $u) {
+                            ?><option value="<?= $u->getId(); ?>" <?= $u->getId() === $ctt_id ? 'selected="selected"' : ''; ?>><?= $u->getNome(); ?></option><?
+                        }
+                        ?>
+                    </select>
                 </td>
             </tr>
             <tr>

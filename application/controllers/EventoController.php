@@ -2,6 +2,7 @@
 
 require_once 'ftbp-src/servicos/impl/ServicoEvento.php';
 require_once 'ftbp-src/entidades/basico/Evento.php';
+require_once 'ftbp-src/servicos/impl/ServicoUsuario.php';
 
 /**
  * Description of EventoController
@@ -15,16 +16,31 @@ class EventoController extends MY_Controller {
      * @var ServicoEvento
      */
     private $servico;
+    
+    /**
+     * @var ServicoUsuario
+     */
+    private $servicoUsuario;
 
     function __construct() {
         parent::__construct();
         $this->servico = new ServicoEvento();
+        $this->servicoUsuario = new ServicoUsuario();
         
     }
 
+    /**
+     * 
+     * @return Usuario[]
+     */
+    private function carregarUsuarios() {
+        return $this->servicoUsuario->carregarTodosOsUsuarios();
+    }
+    
     public function index() {
         $this->checarAcesso(GrupoAcesso::EVENTO, true);
-        $this->view('paginas/cadastrarEvento.php');
+        
+        $this->view('paginas/cadastrarEvento.php', array('usuarios' => $this->carregarUsuarios()));
     }
 
     public function salvar() {
@@ -59,7 +75,13 @@ class EventoController extends MY_Controller {
             $n->setDataEvento($dt);
 			
             $n->setLocal($_POST['local']);
-            $n->setContato($_POST['contato']);
+            
+            if($_POST['contato_id']!= ''){
+                $contato = $this->servicoUsuario->getById($_POST['contato_id']);
+                $n->setContato($contato);
+            } else {
+                $n->setContato(NULL);
+            }
 
             // Chama o salvar, (atualiza ou insere)
             if ($id == '') {
@@ -71,7 +93,7 @@ class EventoController extends MY_Controller {
             // direciona para a view correta, e adiciona uma mensagem de feed back.
             $this->info("Evento " . ($id == '' ? 'cadastrado' : 'atualizado') . " com sucesso");
 
-            $this->view('paginas/cadastrarEvento.php', array('evento' => $n));
+            $this->view('paginas/cadastrarEvento.php', array('evento' => $n, 'usuarios' => $this->carregarUsuarios()));
 
             } catch (ValidacaoExecao $e) {
 
@@ -79,7 +101,7 @@ class EventoController extends MY_Controller {
                 $this->warn($v->getMensagem(), $v->getCampo());
             }
 
-            $this->view('paginas/cadastrarEvento.php', array('evento' => $n));
+            $this->view('paginas/cadastrarEvento.php', array('evento' => $n, 'usuarios' => $this->carregarUsuarios()));
         }
     }
     
@@ -91,7 +113,7 @@ class EventoController extends MY_Controller {
         
         $ev = $this->servico->getById($id);
         
-        $this->view('paginas/verEvento.php', array('evento' => $ev));
+        $this->view('paginas/verEvento.php', array('evento' => $ev, 'usuarios' => $this->carregarUsuarios()));
     }
 
     public function verMais(){
@@ -110,7 +132,7 @@ class EventoController extends MY_Controller {
         
         $cr = $this->servico->getById($id);
         
-        $this->view('paginas/cadastrarEvento.php', array('evento' => $cr));
+        $this->view('paginas/cadastrarEvento.php', array('evento' => $cr, 'usuarios' => $this->carregarUsuarios()));
         
     }
 }
