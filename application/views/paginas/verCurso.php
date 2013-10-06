@@ -69,13 +69,13 @@
             <td>Contatos da Secretaria</td>
             <td><?= $curso->getContato() == NULL ? '' : $curso->getContato()->getNome(); ?></td>
         </tr>
-        <? if ($curso->getArquivos() != '' && is_array($curso->getArquivos()) && count($curso->getArquivos()) > 0) {
+        <? if ($arquivos != '' && is_array($arquivos) && count($arquivos) > 0) {
             ?>
             <tr>
                 <td>Arquivos disponíveis:</td>
                 <td>
                     <?
-                    foreach ($curso->getArquivos() as $arq) {
+                    foreach ($arquivos as $arq) {
                         ?><div style="margin: 5px;"><?= $arq->getDescricao(); ?>
                             <span style="color: #666666"> por <?= $arq->getUsuario()->getNome() ?>
                                 em <?= $arq->getDataUpload()->format('d/m/y H:m'); ?></span><strong> <a href="<?= URL_HOME . $arq->getCaminho(); ?>" target="_new">baixar</a></strong>

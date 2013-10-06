@@ -45,13 +45,15 @@ class Ver extends MY_Controller {
             
             /* @var $cr Curso */
             
+            $arquivos = $this->carregarArquivosDaArea($cr);
+            
             if($this->session->getUsuario() == null){
                 $cr->setAcessos($cr->getAcessos()+1);
                 $this->servicoCurso->atualizar($cr, true, false);
             }
             
             // Redireciona para a página de visualização.
-            $this->view('paginas/verCurso.php', array('curso' => $cr));
+            $this->view('paginas/verCurso.php', array('curso' => $cr, 'arquivos' => $arquivos));
         } catch (NoResultException $ex) {
 
             $this->error("Curso não encontrado");

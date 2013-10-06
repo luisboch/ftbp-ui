@@ -276,6 +276,41 @@ class MY_Controller extends CI_Controller {
         $this->view('acesso_negado.php');
         die;
     }
+    
+    /**
+     * 
+     * @param Curso $curso
+     * @return CursoArquivo[] Lista de arquivos disponíveis para a area.
+     */
+    protected function carregarArquivosDaArea(Curso $curso) {
+
+        // Declara a variavel de retorno
+        $arquivos = array();
+
+        // Veririfica se o curso possui arquivos.
+        if ($curso->getArquivos() !== null && is_array($curso->getArquivos())) {
+
+            // Recupera o setor do usuário logado.
+            $setor = $this->session->getUsuario()->getDepartamento();
+
+            // Verifica o usuário tem um setor
+            if ($setor != null) {
+
+                // Percorre a lista de setores 
+                foreach ($curso->getArquivos() as $arc) {
+
+                    // Verifica qual pertence ao setor do usuário
+                    if ($arc->getSetor()->getId() === $setor->getId()) {
+
+                        // Adiciona à lista de retorno.
+                        $arquivos[] = $arc;
+                    }
+                }
+            }
+        }
+
+        return $arquivos;
+    }
 
 }
 

@@ -198,7 +198,10 @@ class CursoController extends MY_Controller {
 
         try {
             $cr = $this->servico->getById($id);
-            $this->view('paginas/verCurso.php', array('curso' => $cr));
+            
+            $arquivos = $this->carregarArquivosDaArea($cr);
+            
+            $this->view('paginas/verCurso.php', array('curso' => $cr, 'arquivos' => $arquivos));
         } catch (NoResultException $ex) {
             $this->error("Curso não encontrado");
             $this->index();
@@ -289,41 +292,4 @@ class CursoController extends MY_Controller {
         }
     }
 
-    /**
-     * 
-     * @param Curso $curso
-     * @return CursoArquivo[] Lista de arquivos disponíveis para a area.
-     */
-    function carregarArquivosDaArea(Curso $curso) {
-
-        // Declara a variavel de retorno
-        $arquivos = array();
-
-        // Veririfica se o curso possui arquivos.
-        if ($curso->getArquivos() !== null && is_array($curso->getArquivos())) {
-
-            // Recupera o setor do usuário logado.
-            $setor = $this->session->getUsuario()->getDepartamento();
-
-            // Verifica o usuário tem um setor
-            if ($setor != null) {
-
-                // Percorre a lista de setores 
-                foreach ($curso->getArquivos() as $arc) {
-
-                    // Verifica qual pertence ao setor do usuário
-                    if ($arc->getSetor()->getId() === $setor->getId()) {
-
-                        // Adiciona à lista de retorno.
-                        $arquivos[] = $arc;
-                    }
-                }
-            }
-        }
-
-        return $arquivos;
-    }
-
-}
-
-?>
+} ?>
