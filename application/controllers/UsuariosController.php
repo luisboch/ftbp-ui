@@ -91,8 +91,6 @@ class UsuariosController extends MY_Controller {
             $usuario->setEmail($_POST['email']);
             $usuario->setSenha($_POST['senha']);
             $usuario->setNome($_POST['nome']);
-            $usuario->setTipoUsuario(
-                    TipoUsuario::valueOf($_POST['tipo_usuario']));
 
             if ($_POST['departamento'] != '') {
                 $usuario->setDepartamento(

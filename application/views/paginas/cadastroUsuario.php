@@ -9,15 +9,6 @@
         <caption><span>Cadastro de Usuários</span></caption>
         <tbody>
             <tr>
-                <td>Tipo:</td>
-                <td>
-                    <select name="tipo_usuario" id="tipo_usuario">
-                        <option <?= !empty($usuario) && $usuario->getTipoUsuario() == 3 ? 'selected="selected"' : ''; ?>value="3">Funcionário</option>
-                        <option <?= !empty($usuario) && $usuario->getTipoUsuario() == 4 ? 'selected="selected"' : ''; ?>value="4">Professor</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
                 <td>Departamento:</td>
                 <td>
                     <select name="departamento" id="departamento" title="Obrigatório se o tipo do usuário for Funcionário">

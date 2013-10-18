@@ -17,3 +17,9 @@ alter table evento add column contato_id integer;
 alter table evento add constraint fk_evt_contato foreign key (contato_id)
 	references usuarios(id);
 
+alter table requisicoes_iteracoes rename to requisicoes_interacoes;
+
+alter table requisicoes_interacoes
+  add constraint pk_interacao primary key(requisicao_id , usuario_id , data_criacao );
+
+alter table usuarios drop column tipo_usuario;

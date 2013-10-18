@@ -20,10 +20,10 @@
                     <? } ?>
                     <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::USUARIO, false)) { ?>
                         <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index', null, true);">Usuários</a>
-                            <ul>
+<!--                            <ul>
                                 <li><a href="<?= site_url('UsuariosController/index') ?>" onclick="return carregar('UsuariosController/index', null, true);">Novo</a></li>
                                 <li><a href="<?= site_url('UsuariosController/pesquisar') ?>" onclick="return carregar('UsuariosController/index', null, true);">Pesquisar</a></li>
-                            </ul>
+                            </ul>-->
                         </li>
                     <? } ?>
                     <? if ($session->getUsuario()->getGrupo()->temAcesso(GrupoAcesso::REQUISICAO, true)) { ?>
