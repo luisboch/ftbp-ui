@@ -291,6 +291,10 @@ class MY_Controller extends CI_Controller {
         if ($curso->getArquivos() !== null && is_array($curso->getArquivos())) {
 
             // Recupera o setor do usuário logado.
+            if($this->session->getUsuario() == null){
+                return $arquivos;
+            }
+            
             $setor = $this->session->getUsuario()->getDepartamento();
 
             // Verifica o usuário tem um setor
